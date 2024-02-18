@@ -1,0 +1,22 @@
+<h1>Create character</h1>
+
+<%= form_with model: @character, url: character_path do |form| %>
+  <% if form.object.errors.any? %>
+    <% form.object.errors.full_messages.each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  <% end %>
+
+  <div>
+    <%= form.select :character_type, [['Dark Knight', 1], ['Dark Wizard', 2]] %>
+  </div>
+
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.submit "Create" %>
+  </div>
+<% end %>
