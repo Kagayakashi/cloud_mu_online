@@ -1,17 +1,13 @@
 <h1>Create character</h1>
 
 <%= form_with model: @character, url: character_path do |form| %>
-  <div>
-    <%= debug form.object %>
-  </div>
   <% if form.object && form.object.errors.any? %>
     <% form.object.errors.full_messages.each do |message| %>
       <div><%= message %></div>
     <% end %>
   <% end %>
-
   <div>
-    <%= form.select :character_type, [['Dark Wizard', 1], ['Dark Knight', 2], ['Light Elf', 3]] %>
+    <%= form.select :profession, [['Dark Wizard', 'dark_wizard'], ['Dark Knight', 'dark_knight'], ['Light Elf', 'elf']] %>
   </div>
 
   <div>

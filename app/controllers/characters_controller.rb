@@ -1,5 +1,18 @@
 class CharactersController < ApplicationController
   def index
+    # TODO
+  end
+
+  def show
+    # TODO
+  end
+
+  def edit
+    # TODO
+  end
+
+  def update
+    # TODO
   end
 
   def new
@@ -7,25 +20,14 @@ class CharactersController < ApplicationController
   end
 
   def create
-    service = CharacterCreationService.new(
-      name: character_params[:name],
-      type: character_params[:character_type]
-    )
+    @character = current_user.characters.build(character_params)
 
-    character_type = service.call
-
-    if character_type && character_type.valid?
-      character = current_user.characters.build(characterable: character_type)
-
-      if character.save
-        flash[:success] = "Character created successfully!"
-        redirect_to character
-      else
-        flash.now[:error] = "Character could not be saved."
-        render :new, status: :unprocessable_entity
-      end
+    if @character.save
+      flash[:success] = "Character created successfully!"
+      redirect_to @character
     else
-      flash.now[:error] = "Invalid character type."
+      Rails.logger.error("\nCharacter could not be saved. Database errors: #{@character.errors.full_messages.join(", ")}\n")
+      flash.now[:alert] = "Character could not be saved."
       render :new, status: :unprocessable_entity
     end
   end
@@ -33,6 +35,6 @@ class CharactersController < ApplicationController
   private
 
   def character_params
-    params.require(:character).permit(:name, :character_type)
+    params.require(:character).permit(:name, :profession)
   end
 end

@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
-  has_many :characters, as: :characterable
+  has_many :characters
 
   validates :email, :username, presence: true
   normalizes :email, with: ->(email) {email.strip.downcase}

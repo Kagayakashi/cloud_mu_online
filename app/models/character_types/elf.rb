@@ -1,4 +1,4 @@
 module CharacterTypes
-  class DarkKnight
+  class Elf
   end
 end

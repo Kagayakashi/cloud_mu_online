@@ -13,6 +13,7 @@
 ActiveRecord::Schema[7.1].define(version: 2024_02_18_193438) do
   create_table "characters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
+    t.string "profession", null: false
     t.integer "level", null: false
     t.integer "experience", null: false
     t.integer "points", null: false
@@ -26,11 +27,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_18_193438) do
     t.integer "energy", null: false
     t.boolean "active", null: false
     t.bigint "user_id", null: false
-    t.string "characterable_type", null: false
-    t.bigint "characterable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["characterable_type", "characterable_id"], name: "index_characters_on_characterable"
     t.index ["user_id"], name: "index_characters_on_user_id"
   end
 
