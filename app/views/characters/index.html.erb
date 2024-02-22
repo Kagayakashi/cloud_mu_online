@@ -1,0 +1,14 @@
+<article>
+  <header>
+    <h1>My characters</h1>
+    <p>You can create new character or choose character to play with.</p>
+  </header>
+
+  <% @characters.each do |character| %>
+    <section>
+      <h2><%= character.name %></h2>
+      <p><%= character.level %></p>
+      <%= link_to "Information", character_path(character) %>
+    </section>
+  <% end %>
+</article>

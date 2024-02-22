@@ -1,0 +1,51 @@
+<article>
+  <section>
+    <h2>Character info</h2>
+
+    <dl>
+      <dt>Name</dt>
+      <dd><%= @character.name %></dd>
+      <dt>Guild</dt>
+      <dd>No guild</dd>
+      <dt>Class</dt>
+      <dd><%= @character.profession %></dd>
+      <dt>Level</dt>
+      <dd><%= @character.level %></dd>
+      <dt>Experience</dt>
+      <dd><%= @character.experience %>%</dd>
+      <dt>Points</dt>
+      <dd><%= @character.points %></dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Character Stats</h2>
+
+    <dl>
+      <dt>Strength</dt>
+      <dd><%= @character.strength %></dd>
+      <dt>Agility</dt>
+      <dd><%= @character.agility %></dd>
+      <dt>Vitality</dt>
+      <dd><%= @character.vitality %></dd>
+      <dt>Energy</dt>
+      <dd><%= @character.energy %></dd>
+    </dl>
+    
+    <section>
+      <h3>Substats</h3>
+      <dl>
+        <dt>Attack rate</dt>
+        <dd>68</dd>
+        <dt>Attack power</dt>
+        <dd>3 - 6</dd>
+        <dt>Wizard power</dt>
+        <dd>1 - 9</dd>
+        <dt>Defense</dt>
+        <dd>25</dd>
+        <dt>Defense rate</dt>
+        <dd>41</dd>
+      </dl>
+    </section>
+  </section>
+</article>

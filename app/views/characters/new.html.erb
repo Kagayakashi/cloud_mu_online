@@ -1,21 +1,25 @@
-<h1>Create character</h1>
+<article>
+  <h1>Create character</h1>
 
-<%= form_with model: @character, url: character_path do |form| %>
-  <% if form.object && form.object.errors.any? %>
-    <% form.object.errors.full_messages.each do |message| %>
-      <div><%= message %></div>
+  <%= form_with model: @character, url: character_path do |form| %>
+    <% if form.object && form.object.errors.any? %>
+      <% form.object.errors.full_messages.each do |message| %>
+        <p><%= message %></p>
+      <% end %>
     <% end %>
+
+    <div>
+      <%= form.label :profession %>
+      <%= form.select :profession, [['Dark Wizard', 'dark_wizard'], ['Dark Knight', 'dark_knight'], ['Light Elf', 'elf']] %>
+    </div>
+
+    <div>
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div>
+      <%= form.submit "Create" %>
+    </div>
   <% end %>
-  <div>
-    <%= form.select :profession, [['Dark Wizard', 'dark_wizard'], ['Dark Knight', 'dark_knight'], ['Light Elf', 'elf']] %>
-  </div>
-
-  <div>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.submit "Create" %>
-  </div>
-<% end %>
+</article>

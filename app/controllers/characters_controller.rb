@@ -1,10 +1,16 @@
 class CharactersController < ApplicationController
+  before_action :authenticate_user!
+
   def index
-    # TODO
+    @characters = current_user.characters
   end
 
   def show
-    # TODO
+    begin
+      @character = current_user.characters.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to :index, alert: "Character not found."
+    end
   end
 
   def edit
@@ -20,13 +26,11 @@ class CharactersController < ApplicationController
   end
 
   def create
-    @character = current_user.characters.build(character_params)
+    @character = current_user.characters.build(create_character_params)
 
     if @character.save
-      flash[:success] = "Character created successfully!"
-      redirect_to @character
+      redirect_to characters_path, notice: "Character created successfully!"
     else
-      Rails.logger.error("\nCharacter could not be saved. Database errors: #{@character.errors.full_messages.join(", ")}\n")
       flash.now[:alert] = "Character could not be saved."
       render :new, status: :unprocessable_entity
     end
@@ -34,7 +38,7 @@ class CharactersController < ApplicationController
 
   private
 
-  def character_params
+  def create_character_params
     params.require(:character).permit(:name, :profession)
   end
 end
