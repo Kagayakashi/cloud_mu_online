@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_18_193438) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_25_195519) do
   create_table "characters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "profession", null: false
@@ -38,7 +38,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_18_193438) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "active_character_id"
+    t.index ["active_character_id"], name: "index_users_on_active_character_id"
   end
 
   add_foreign_key "characters", "users"
+  add_foreign_key "users", "characters", column: "active_character_id"
 end
