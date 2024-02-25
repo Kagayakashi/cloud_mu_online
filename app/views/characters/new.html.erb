@@ -1,7 +1,7 @@
 <article>
   <h1>Create character</h1>
 
-  <%= form_with model: @character, url: character_path do |form| %>
+  <%= form_with model: @character, url: characters_path do |form| %>
     <% if form.object && form.object.errors.any? %>
       <% form.object.errors.full_messages.each do |message| %>
         <p><%= message %></p>

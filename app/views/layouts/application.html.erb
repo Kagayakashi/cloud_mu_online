@@ -20,19 +20,22 @@
       <nav>
         <ul>
         <% if user_signed_in? %>
-          <li>
-            <%= link_to "Edit Password", edit_password_path %>
-          </li>
-          <li>
-            <%= button_to "Log Out", session_path, method: :delete %>
-          </li>
-        <% else %>
-          <li>
-            <%= link_to "Sign Up", new_registration_path %>
-          </li>
-          <li>
-            <%= link_to "Log In", new_session_path %>
-          </li>
+        <li>
+          <%= link_to "Characters", characters_path %>
+        </li>
+        <li>
+          <%= link_to "Edit Password", edit_password_path %>
+        </li>
+        <li>
+          <%= button_to "Log Out", session_path, method: :delete %>
+        </li>
+      <% else %>
+        <li>
+          <%= link_to "Sign Up", new_registration_path %>
+        </li>
+        <li>
+          <%= link_to "Log In", new_session_path %>
+        </li>
         <% end %>
         </ul>
       </nav>

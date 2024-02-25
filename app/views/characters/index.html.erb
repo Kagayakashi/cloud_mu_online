@@ -2,8 +2,8 @@
   <header>
     <h1>My characters</h1>
     <p>You can create new character or choose character to play with.</p>
+    <%= link_to "New character", new_character_path %>
   </header>
-
   <% @characters.each do |character| %>
     <section>
       <h2><%= character.name %></h2>
