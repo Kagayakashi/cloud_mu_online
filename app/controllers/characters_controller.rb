@@ -1,4 +1,6 @@
 class CharactersController < ApplicationController
+  require_relative '../models/character' # Add the missing import statement
+
   before_action :authenticate_user!
 
   def index
@@ -33,6 +35,20 @@ class CharactersController < ApplicationController
     else
       flash.now[:alert] = "Character could not be saved."
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def activate
+    begin
+      character = current_user.characters.find(params[:id])
+      current_user.active_character = character
+      if current_user.save
+        redirect_to characters_path, notice: "Character #{ character.name } has been activated."
+      else
+        redirect_to :back, alert: "Character could not be activated."
+      end
+    rescue ActiveRecord::RecordNotFound
+      redirect_to :back, alert: "Cannot activate character that is not found."
     end
   end
 

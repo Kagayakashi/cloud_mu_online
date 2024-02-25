@@ -2,7 +2,7 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :characters, dependent: :destroy
-  has_one :active_character, class_name: 'Character', foreign_key: 'active_character_id', dependent: :destroy
+  belongs_to :active_character, class_name: 'Character', foreign_key: 'active_character_id', dependent: :destroy
 
   validates :email, :username, presence: true
   validates :email, :username, uniqueness: true

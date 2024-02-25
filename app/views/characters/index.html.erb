@@ -1,17 +1,28 @@
-<article>
+<article id="characters" class="characters">
   <header>
     <h1>My characters</h1>
     <p>You can create new character or choose character to play with.</p>
     <%= link_to "New character", new_character_path %>
   </header>
+
   <% @characters.each do |character| %>
-    <section>
+    <section class="character <%= "active" if current_user.active_character == character %>">
+      <% if current_user.active_character == character %>
+        <p class="active">Active</p>
+      <% end %>
+
       <%= link_to character_path(character) do %>
         <h2><%= character.name %></h2>
-        <p>No guild</p>
-        <p>
-          <%= character.profession %> <strong>[<%= character.level %>]</strong>
-        </p>
+      <% end %>
+
+      <p>No guild</p>
+
+      <p>
+        <%= character.profession %> <strong>[<%= character.level %>]</strong>
+      </p>
+      
+      <% if current_user.active_character != character %>
+        <%= button_to "Activate", activate_character_path(character), method: :post %>
       <% end %>
     </section>
   <% end %>

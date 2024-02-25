@@ -12,5 +12,7 @@ Rails.application.routes.draw do
   resource :registration
   resource :password_reset
   resource :password
-  resources :characters
+  resources :characters do
+    post "activate", on: :member
+  end
 end
