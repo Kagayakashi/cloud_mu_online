@@ -62,6 +62,9 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  # Ruby development tool server
+  gem "ruby-lsp", require: false
 end
 
 group :test do
