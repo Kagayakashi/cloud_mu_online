@@ -6,9 +6,13 @@
   </header>
   <% @characters.each do |character| %>
     <section>
-      <h2><%= character.name %></h2>
-      <p><%= character.level %></p>
-      <%= link_to "Information", character_path(character) %>
+      <%= link_to character_path(character) do %>
+        <h2><%= character.name %></h2>
+        <p>No guild</p>
+        <p>
+          <%= character.profession %> <strong>[<%= character.level %>]</strong>
+        </p>
+      <% end %>
     </section>
   <% end %>
 </article>
