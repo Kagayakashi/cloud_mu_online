@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "main#index"
 
+  resources :settings, only: [:index]
   resource :session
   resource :registration
   resource :password_reset
