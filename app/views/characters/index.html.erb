@@ -10,7 +10,7 @@
       <%= link_to character_path(character) do %>
         <h2>
           <%= character.name %>
-          <% if character = active_character %>
+          <% if character == active_character %>
             <sup>*</sup>
           <% end %>
         </h2>
