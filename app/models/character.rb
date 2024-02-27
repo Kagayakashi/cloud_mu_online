@@ -1,7 +1,8 @@
 class Character < ApplicationRecord
   belongs_to :user
+  belongs_to :map
 
-  before_save :set_default_values, if: :new_record?
+  before_validation :set_default_values, if: :new_record?
 
   validates :name, presence: true, uniqueness: true
 
@@ -20,6 +21,7 @@ class Character < ApplicationRecord
 
     self.max_mana = character_type.calculate_mana(self)
     self.current_mana ||= self.max_mana
+    self.map = Map.first # Lorencia
   end
 
   def character_type
