@@ -29,7 +29,7 @@ class CharactersController < ApplicationController
 
   def create
     @character = current_user.characters.build(create_character_params)
-
+    logger.debug(@character)
     if @character.save
       redirect_to characters_path, notice: "Character created successfully!"
     else
