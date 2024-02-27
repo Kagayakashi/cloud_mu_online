@@ -1,0 +1,14 @@
+<article>
+  <header>
+    <h1><%= active_character.map.name %></h1>
+    <p>You can teleport to any place to hunt.</p>
+  </header>
+
+  <% @spots.each do |spots| %>
+    <section>
+      <h2>
+        <%= spots.name %>
+      </h2>
+    </section>
+  <% end %>
+</article>

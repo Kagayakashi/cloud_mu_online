@@ -18,6 +18,10 @@ class ApplicationController < ActionController::Base
 
   helper_method :active_character
 
+  def active_character_map
+    active_character.map
+  end
+
   def authenticate_user_from_session
     User.find_by(id: session[:user_id])
   end

@@ -1,7 +1,5 @@
 class MapsController < ApplicationController
-  def index
-  end
-
   def show
+    @spots = active_character.map.spots
   end
 end
