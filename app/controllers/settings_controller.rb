@@ -1,5 +1,6 @@
 class SettingsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
-    before_action :authenticate_user!
   end
 end
