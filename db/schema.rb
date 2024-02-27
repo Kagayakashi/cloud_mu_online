@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_25_195519) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_27_195549) do
   create_table "characters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "profession", null: false
@@ -29,7 +29,25 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_25_195519) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "map_id", null: false
+    t.index ["map_id"], name: "index_characters_on_map_id"
     t.index ["user_id"], name: "index_characters_on_user_id"
+  end
+
+  create_table "maps", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.integer "min_level"
+    t.integer "teleport_cost"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "spots", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.bigint "map_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["map_id"], name: "index_spots_on_map_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -42,6 +60,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_25_195519) do
     t.index ["active_character_id"], name: "index_users_on_active_character_id"
   end
 
+  add_foreign_key "characters", "maps"
   add_foreign_key "characters", "users"
+  add_foreign_key "spots", "maps"
   add_foreign_key "users", "characters", column: "active_character_id"
 end

@@ -16,4 +16,5 @@ Rails.application.routes.draw do
   resources :characters do
     post "activate", on: :member
   end
+  resources :maps, only: [:index, :new, :create]
 end
