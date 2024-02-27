@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_27_195549) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_27_201905) do
   create_table "characters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "profession", null: false
@@ -30,7 +30,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_27_195549) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "map_id", null: false
+    t.bigint "spot_id", null: false
     t.index ["map_id"], name: "index_characters_on_map_id"
+    t.index ["spot_id"], name: "index_characters_on_spot_id"
     t.index ["user_id"], name: "index_characters_on_user_id"
   end
 
@@ -61,6 +63,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_27_195549) do
   end
 
   add_foreign_key "characters", "maps"
+  add_foreign_key "characters", "spots"
   add_foreign_key "characters", "users"
   add_foreign_key "spots", "maps"
   add_foreign_key "users", "characters", column: "active_character_id"
