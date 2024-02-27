@@ -1,0 +1,75 @@
+<article>
+  <h1>Character</h1>
+  <section>
+    <%= image_tag('dark_wizard.jpg', alt: 'Dark Wizard character icon', width: 256) %>
+    <h2><%= @character.name %></h2>
+    <p><%= @character.profession %></p>
+    <p>No guild</p>
+
+    <dl>
+      <dt>Health</dt>
+      <dd><%= @character.current_health %></dd>
+      <dt>Mana</dt>
+      <dd><%= @character.current_mana %></dd>
+      <dt>Experience</dt>
+      <dd><%= (@character.experience / (100^@character.level) * 100).floor %>%</dd>
+      <dt>Level</dt>
+      <dd><%= @character.level %></dd>
+      <dt>Points</dt>
+      <dd><%= @character.points %></dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Character Stats</h2>
+
+    <dl>
+      <dt>Strength</dt>
+      <dd><%= @character.strength %></dd>
+      <dt>Agility</dt>
+      <dd><%= @character.agility %></dd>
+      <dt>Vitality</dt>
+      <dd><%= @character.vitality %></dd>
+      <dt>Energy</dt>
+      <dd><%= @character.energy %></dd>
+    </dl>
+    
+    <section>
+      <h3>Substats</h3>
+
+      <dl>
+        <dt>Attack rate</dt>
+        <dd><%= CharacterTypes::DarkWizard.calculate_attack_rate(@character) %></dd>
+        
+        <dt>Attack power</dt>
+        <dd>
+          <%= CharacterTypes::DarkWizard.calculate_min_attack(@character) %>
+          &mdash;
+          <%= CharacterTypes::DarkWizard.calculate_max_attack(@character) %>
+        </dd>
+
+        <dt>Wizard power</dt>
+        <dd>
+          <%= CharacterTypes::DarkWizard.calculate_min_wizard(@character) %>
+          &mdash;
+          <%= CharacterTypes::DarkWizard.calculate_max_wizard(@character) %>
+        </dd>
+
+        <dt>Defense</dt>
+        <dd><%= CharacterTypes::DarkWizard.calculate_defense(@character) %></dd>
+
+        <dt>Defense rate</dt>
+        <dd><%= CharacterTypes::DarkWizard.calculate_defense_rate(@character) %></dd>
+
+        <dt>Max health</dt>
+        <dd><%= CharacterTypes::DarkWizard.calculate_health(@character) %></dd>
+
+        <dt>Max mana</dt>
+        <dd><%= CharacterTypes::DarkWizard.calculate_mana(@character) %></dd>
+
+        <dt>Mana regen</dt>
+        <dd><%= CharacterTypes::DarkWizard.calculate_mana_regen(@character) %></dd>
+      </dl>
+    </section>
+  </section>
+</article>

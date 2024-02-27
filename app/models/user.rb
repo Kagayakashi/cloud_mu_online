@@ -1,7 +1,13 @@
 class User < ApplicationRecord
   has_secure_password
 
+  has_many :characters, dependent: :destroy
+  belongs_to :active_character, class_name: 'Character', foreign_key: 'active_character_id', dependent: :destroy
+
   validates :email, :username, presence: true
+  validates :email, :username, uniqueness: true
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+
   normalizes :email, with: ->(email) {email.strip.downcase}
   normalizes :username, with: ->(username) {username.strip.capitalize}
 
