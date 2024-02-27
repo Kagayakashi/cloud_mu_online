@@ -6,13 +6,14 @@
   </header>
 
   <% @characters.each do |character| %>
-    <section class="character <%= "active" if current_user.active_character == character %>">
-      <% if current_user.active_character == character %>
-        <p class="active">Active</p>
-      <% end %>
-
+    <section>
       <%= link_to character_path(character) do %>
-        <h2><%= character.name %></h2>
+        <h2>
+          <%= character.name %>
+          <% if character = active_character %>
+            <sup>*</sup>
+          <% end %>
+        </h2>
       <% end %>
 
       <p>No guild</p>
@@ -21,7 +22,7 @@
         <%= character.profession %> <strong>[<%= character.level %>]</strong>
       </p>
       
-      <% if current_user.active_character != character %>
+      <% if character != active_character %>
         <%= button_to "Activate", activate_character_path(character), method: :post %>
       <% end %>
     </section>
