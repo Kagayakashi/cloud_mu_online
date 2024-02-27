@@ -18,5 +18,8 @@ Rails.application.routes.draw do
   end
   resource :map, only: [:show]
   resource :spot, only: [:show]
+  resources :spots, only: [:activate] do
+    post "activate", on: :member
+  end
   resource :teleport, only: [:new, :create]
 end

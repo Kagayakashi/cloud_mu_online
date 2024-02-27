@@ -1,4 +1,6 @@
 class TeleportsController < ApplicationController
+  before_action :authenticate_user!
+
   def new
     @maps = Map.all
   end

@@ -1,6 +1,4 @@
 class CharactersController < ApplicationController
-  require_relative '../models/character' # Add the missing import statement
-
   before_action :authenticate_user!
 
   def index

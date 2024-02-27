@@ -4,11 +4,13 @@
     <p>You can teleport to any place to hunt.</p>
   </header>
 
-  <% @spots.each do |spots| %>
+  <% @spots.each do |spot| %>
     <section>
       <h2>
-        <%= spots.name %>
+        <%= spot.name %>
       </h2>
+
+      <%= button_to "Go to", activate_spot_path(spot), method: :post %>
     </section>
   <% end %>
 </article>
