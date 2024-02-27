@@ -12,6 +12,12 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
+  def active_character
+    current_user.active_character
+  end
+
+  helper_method :active_character
+
   def authenticate_user_from_session
     User.find_by(id: session[:user_id])
   end
