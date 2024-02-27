@@ -1,6 +1,7 @@
 class Character < ApplicationRecord
   belongs_to :user
   belongs_to :map
+  belongs_to :spot
 
   before_validation :set_default_values, if: :new_record?
 
@@ -21,7 +22,8 @@ class Character < ApplicationRecord
 
     self.max_mana = character_type.calculate_mana(self)
     self.current_mana ||= self.max_mana
-    self.map = Map.first # Lorencia
+    self.map_id = Map.first.id # Lorencia
+    self.spot_id = Spot.first.id # Lorencia City
   end
 
   def character_type
