@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_27_201905) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_28_204325) do
   create_table "characters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "profession", null: false
@@ -44,6 +44,32 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_27_201905) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "monsters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.integer "level"
+    t.integer "health"
+    t.integer "min_attack"
+    t.integer "max_attack"
+    t.integer "attack_rate"
+    t.integer "defense_rate"
+    t.integer "defense"
+    t.integer "spawn_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "spot_monsters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "health", null: false
+    t.bigint "monster_id", null: false
+    t.bigint "spot_id", null: false
+    t.bigint "target_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["monster_id"], name: "index_spot_monsters_on_monster_id"
+    t.index ["spot_id"], name: "index_spot_monsters_on_spot_id"
+    t.index ["target_id"], name: "index_spot_monsters_on_target_id"
+  end
+
   create_table "spots", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.bigint "map_id", null: false
@@ -65,6 +91,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_27_201905) do
   add_foreign_key "characters", "maps"
   add_foreign_key "characters", "spots"
   add_foreign_key "characters", "users"
+  add_foreign_key "spot_monsters", "characters", column: "target_id"
+  add_foreign_key "spot_monsters", "monsters"
+  add_foreign_key "spot_monsters", "spots"
   add_foreign_key "spots", "maps"
   add_foreign_key "users", "characters", column: "active_character_id"
 end

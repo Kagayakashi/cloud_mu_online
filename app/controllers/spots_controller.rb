@@ -1,7 +1,9 @@
 class SpotsController < ApplicationController
   before_action :authenticate_user!
+  before_action :active_character!
 
   def show
+    @spot_monsters = active_character.spot.spot_monsters
   end
 
   def activate

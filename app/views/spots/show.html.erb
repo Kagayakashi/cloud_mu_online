@@ -1,6 +1,20 @@
 <article>
   <header>
     <h1><%= active_character.spot.name %></h1>
-    <p>Where are you going to go?</p>
+    <p>What are you going to do?</p>
   </header>
+
+  <% @spot_monsters.each do |spot_monster| %>
+    <section>
+      <h2>
+        <%= spot_monster.monster.name %>
+      </h2>
+      <p><%= spot_monster.health %></p>
+
+      <div>
+        <%= button_to "Attack", receive_attack_damage_spot_monster_path(spot_monster), method: :post %>
+        <%= button_to "Cast spell", receive_spell_damage_spot_monster_path(spot_monster), method: :post %>
+      </div>
+    </section>
+  <% end %>
 </article>

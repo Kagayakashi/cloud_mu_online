@@ -7,4 +7,8 @@ class CreateSpots < ActiveRecord::Migration[7.1]
       t.timestamps
     end
   end
+
+  def self.down
+    remove_reference :spots, :map
+  end
 end

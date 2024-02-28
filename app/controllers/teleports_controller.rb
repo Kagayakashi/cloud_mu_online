@@ -1,5 +1,6 @@
 class TeleportsController < ApplicationController
   before_action :authenticate_user!
+  before_action :active_character!
 
   def new
     @maps = Map.all
