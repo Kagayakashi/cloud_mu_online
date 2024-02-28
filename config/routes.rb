@@ -22,4 +22,8 @@ Rails.application.routes.draw do
     post "activate", on: :member
   end
   resource :teleport, only: [:new, :create]
+  resources :spot_monsters, only: [:receive_spell_damage, :receive_attack_damage] do
+    post "receive_spell_damage", on: :member
+    post "receive_attack_damage", on: :member
+  end
 end
