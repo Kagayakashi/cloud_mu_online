@@ -57,6 +57,12 @@ CREATE USER 'dbadmin'@'localhost' IDENTIFIED BY 'dbpassword';
 GRANT ALL PRIVILEGES ON *.* TO 'dbadmin'@'localhost';
 ```
 
+Configure ENV variables for sidekiq admin panel and restart shell
+```
+export SIDEKIQ_USERNAME="admin"
+export SIDEKIQ_PASSWORD="admin"
+```
+
 Install project
 ```shell
 git clone https://github.com/Kagayakashi/cloud_mu_online.git
