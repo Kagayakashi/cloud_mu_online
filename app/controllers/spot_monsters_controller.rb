@@ -38,9 +38,15 @@ class SpotMonstersController < ApplicationController
         logger.debug("#{ spot_monster.monster.name } left #{ spot_monster.health } health")
 
         if spot_monster.health <= 0
-          spot_monster.destroy
-          logger.debug("#{ spot_monster.monster.name } is dead")
-          return redirect_to spot_path, notice: "You killed #{ spot_monster.monster.name }."
+          if spot_monster.destroy
+            logger.debug("#{ spot_monster.monster.name } is dead")
+            SpawnMonsterJob.perform_at(
+              Time.now+spot_monster.monster.spawn_time,
+              spot_monster.monster.id,
+              spot_monster.spot.id
+            )
+            return redirect_to spot_path, notice: "You killed #{ spot_monster.monster.name }."
+          end
         end
 
         spot_monster.save
