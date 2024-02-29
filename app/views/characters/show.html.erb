@@ -12,7 +12,7 @@
       <dt>Mana</dt>
       <dd><%= @character.current_mana %></dd>
       <dt>Experience</dt>
-      <dd><%= (@character.experience / (100^@character.level) * 100).floor %>%</dd>
+      <dd><%= (@character.experience.to_f / @character.max_experience * 100).floor %>%</dd>
       <dt>Level</dt>
       <dd><%= @character.level %></dd>
       <dt>Points</dt>

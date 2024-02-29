@@ -15,10 +15,13 @@ class Character < ApplicationRecord
     experience
   end
 
+  def max_experience
+    (self.level * self.level) * (self.level + 9) * 2
+  end
+
   private
 
   def add_level
-    max_experience = (self.level * self.level) * (self.level + 9) * 2
     if self.experience >= max_experience
       self.experience = 0
       self.level += 1
