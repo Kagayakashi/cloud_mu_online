@@ -19,7 +19,14 @@ System update and install needed instruments:
 ```shell
 sudo dnf update
 sudo dnf config-manager --enable ol9_codeready_builder
-sudo dnf install git make gcc curl nano @ruby:3.1 ruby-devel libyaml-devel
+sudo dnf install git make gcc curl nano ruby ruby-devel libyaml-devel
+```
+
+Install redis
+```shell
+sudo dnf install redis
+sudo systemctl start redis
+sudp systemctl enable redis
 ```
 
 If used with WSL2, need to enable `systemd`:
@@ -55,19 +62,31 @@ Install project
 git clone https://github.com/Kagayakashi/cloud_mu_online.git
 cd cloud_mu_online/
 bundle config set --local path 'vendor/bundle'
-bin/bundle install
+bundle install
 ```
 
-* Database creation
+* Create project database
 
 ```shell
 bin/rails db:create
 ```
 
-* Database initialization
+* Install database migrations
 
 ```shell
 bin/rails db:migrate
+```
+
+* Insert initial data into database
+
+```shell
+bin/rails db:seed
+```
+
+* How to run the application
+
+```shell
+bin/rails s
 ```
 
 * How to run the test suite
@@ -77,7 +96,9 @@ bin/rails test
 ```
 
 * Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
+Start background job runner Sidekiq
+```shell
+bundle exec sidekiq
+```
 
 * ...
