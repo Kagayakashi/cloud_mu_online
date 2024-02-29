@@ -31,4 +31,9 @@ spider = Monster.create!(
   spawn_time: 60,
 )
 
+# Spawn spiders
+SpotMonster.create!(monster: spider, spot: lorencia_spider_spot)
+SpotMonster.create!(monster: spider, spot: lorencia_spider_spot)
+SpotMonster.create!(monster: spider, spot: lorencia_spider_spot)
+SpotMonster.create!(monster: spider, spot: lorencia_spider_spot)
 SpotMonster.create!(monster: spider, spot: lorencia_spider_spot)
