@@ -24,6 +24,15 @@
         <% if user_signed_in? %>
           <% if active_character %>
             <li>
+              <%= link_to "Hunting", spot_path %>
+            </li>
+            <li>
+              <%= link_to "Map", map_path %>
+            </li>
+            <li>
+              <%= link_to "Teleport", new_teleport_path %>
+            </li>
+            <li>
               <%= link_to "Character", character_path(active_character) %>
             </li>
           <% end %>

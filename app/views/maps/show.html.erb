@@ -1,0 +1,16 @@
+<article>
+  <header>
+    <h1><%= active_character.map.name %></h1>
+    <p>Where are you going to go?</p>
+  </header>
+
+  <% @spots.each do |spot| %>
+    <section>
+      <h2>
+        <%= spot.name %>
+      </h2>
+
+      <%= button_to "Go to", activate_spot_path(spot), method: :post %>
+    </section>
+  <% end %>
+</article>

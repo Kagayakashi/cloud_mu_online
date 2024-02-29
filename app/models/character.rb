@@ -1,11 +1,33 @@
 class Character < ApplicationRecord
   belongs_to :user
+  belongs_to :map
+  belongs_to :spot
 
-  before_save :set_default_values, if: :new_record?
+  before_validation :set_default_values, if: :new_record?
 
   validates :name, presence: true, uniqueness: true
 
+  def add_experience_from_monster!(monster)
+    experience = (monster.level.to_f / self.level * monster.experience).floor
+    self.experience += experience
+    add_level
+    self.save
+    experience
+  end
+
+  def max_experience
+    (self.level * self.level) * (self.level + 9) * 2
+  end
+
   private
+
+  def add_level
+    if self.experience >= max_experience
+      self.experience = 0
+      self.level += 1
+      self.points += 5
+    end
+  end
 
   def set_default_values
     self.level = 1
@@ -20,6 +42,8 @@ class Character < ApplicationRecord
 
     self.max_mana = character_type.calculate_mana(self)
     self.current_mana ||= self.max_mana
+    self.map_id = Map.first.id # Lorencia
+    self.spot_id = Spot.first.id # Lorencia City
   end
 
   def character_type

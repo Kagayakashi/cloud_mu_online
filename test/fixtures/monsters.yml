@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  level: 1
+  map: one
+  health: 1
+  min_attack: 1
+  max_attack: 1
+  attack_rate: 1
+  defense_rate: 1
+  defense: 1
+  spawn_time: 1
+
+two:
+  name: MyString
+  level: 1
+  map: two
+  health: 1
+  min_attack: 1
+  max_attack: 1
+  attack_rate: 1
+  defense_rate: 1
+  defense: 1
+  spawn_time: 1

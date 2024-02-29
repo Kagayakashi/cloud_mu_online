@@ -15,9 +15,14 @@ class CreateCharacters < ActiveRecord::Migration[7.1]
       t.integer :vitality, null: false
       t.integer :energy, null: false
       t.boolean :active, null: false
+
       t.references :user, foreign_key: true, null: false
 
       t.timestamps
     end
+  end
+
+  def self.down
+    remove_reference :characters, :user
   end
 end
