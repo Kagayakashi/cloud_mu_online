@@ -203,6 +203,8 @@ GEM
     rake (13.1.0)
     rdoc (6.6.2)
       psych (>= 4.0.0)
+    redis-client (0.20.0)
+      connection_pool
     regexp_parser (2.9.0)
     reline (0.4.2)
       io-console (~> 0.5)
@@ -218,6 +220,11 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sidekiq (7.2.2)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.19.0)
     sorbet-runtime (0.5.11267)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
@@ -278,6 +285,7 @@ DEPENDENCIES
   ruby-lsp
   rubyzip (~> 2.3.0)
   selenium-webdriver
+  sidekiq
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails
