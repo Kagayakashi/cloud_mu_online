@@ -45,7 +45,9 @@ class SpotMonstersController < ApplicationController
               spot_monster.monster.id,
               spot_monster.spot.id
             )
-            return redirect_to spot_path, notice: "You killed #{ spot_monster.monster.name }."
+            experience = active_character.add_experience_from_monster!(spot_monster.monster)
+            return redirect_to spot_path,
+              notice: "You killed #{ spot_monster.monster.name } and received #{experience} experience."
           end
         end
 

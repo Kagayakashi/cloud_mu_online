@@ -28,6 +28,7 @@ spider = Monster.create!(
   attack_rate: 8,
   defense: 1,
   defense_rate: 1,
+  experience: 100,
   spawn_time: 60,
 )
 

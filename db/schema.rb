@@ -37,23 +37,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_28_204325) do
   end
 
   create_table "maps", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name"
-    t.integer "min_level"
-    t.integer "teleport_cost"
+    t.string "name", null: false
+    t.integer "min_level", null: false
+    t.integer "teleport_cost", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "monsters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name"
-    t.integer "level"
-    t.integer "health"
-    t.integer "min_attack"
-    t.integer "max_attack"
-    t.integer "attack_rate"
-    t.integer "defense_rate"
-    t.integer "defense"
-    t.integer "spawn_time"
+    t.string "name", null: false
+    t.integer "level", null: false
+    t.integer "health", null: false
+    t.integer "min_attack", null: false
+    t.integer "max_attack", null: false
+    t.integer "attack_rate", null: false
+    t.integer "defense_rate", null: false
+    t.integer "defense", null: false
+    t.integer "experience", null: false
+    t.integer "spawn_time", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -71,7 +72,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_28_204325) do
   end
 
   create_table "spots", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.bigint "map_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -79,9 +80,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_28_204325) do
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "username"
-    t.string "email"
-    t.string "password_digest"
+    t.string "username", null: false
+    t.string "email", null: false
+    t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "active_character_id"

@@ -7,7 +7,24 @@ class Character < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
+  def add_experience_from_monster!(monster)
+    experience = (monster.level.to_f / self.level * monster.experience).floor
+    self.experience += experience
+    add_level
+    self.save
+    experience
+  end
+
   private
+
+  def add_level
+    max_experience = (self.level * self.level) * (self.level + 9) * 2
+    if self.experience >= max_experience
+      self.experience = 0
+      self.level += 1
+      self.points += 5
+    end
+  end
 
   def set_default_values
     self.level = 1
