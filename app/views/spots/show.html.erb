@@ -13,7 +13,10 @@
 
       <div>
         <%= button_to "Attack", receive_attack_damage_spot_monster_path(spot_monster), method: :post %>
-        <%= button_to "Cast spell", receive_spell_damage_spot_monster_path(spot_monster), method: :post %>
+        <%
+          # ToDo
+          # button_to "Cast spell", receive_spell_damage_spot_monster_path(spot_monster), method: :post
+        %>
       </div>
     </section>
   <% end %>
