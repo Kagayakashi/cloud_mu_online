@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resource :password
   resources :characters do
     post "activate", on: :member
+    resource :add_stat, shallow: true, only: [:new, :create]
   end
   resource :map, only: [:show]
   resource :spot, only: [:show]

@@ -1,5 +1,10 @@
 <article>
   <h1>Character</h1>
+
+  <section>
+    <%= link_to "Add stats", new_character_add_stat_path(@character) %>
+  </section>
+
   <section>
     <%= image_tag('dark_wizard.jpg', alt: 'Dark Wizard character icon', width: 256) %>
     <h2><%= @character.name %></h2>
