@@ -11,10 +11,21 @@
       </h2>
       <p><%= spot_monster.health %></p>
 
-      <div>
-        <%= button_to "Attack", receive_attack_damage_spot_monster_path(spot_monster), method: :post %>
+      <div
+        data-controller="attack-delay"
+        data-attack-delay-delay-value="<%= active_character.attack_delay_left.to_s %>"
+      >
+        <p data-attack-delay-target="timer" style="display:none;">
+          <span data-attack-delay-target="time">
+            <%= active_character.attack_delay_left %>
+          </span> seconds
+        <p>
+
+        <%= button_to "Attack", receive_attack_damage_spot_monster_path(spot_monster),
+              disabled: true,
+              data: { turbo_method: :post, attack_delay_target: "attack" } %>
         <%
-          # ToDo
+          # Todo
           # button_to "Cast spell", receive_spell_damage_spot_monster_path(spot_monster), method: :post
         %>
       </div>
