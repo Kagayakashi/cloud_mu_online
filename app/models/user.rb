@@ -15,6 +15,10 @@ class User < ApplicationRecord
   normalizes :email, with: ->(email) {email.strip.downcase}
   normalizes :username, with: ->(username) {username.strip.capitalize}
 
+  validates :username, length: { minimum: 4, maximum: 20 }
+  validates :password, length: { minimum: 4, maximum: 20 }
+  validates :email, length: { maximum: 50 }
+
   generates_token_for :password_reset, expires_in: 15.minutes do
     password_salt&.last(10)
   end
