@@ -45,7 +45,7 @@ module CharacterTypes
     end
 
     def self.calculate_mana_regen(character)
-      (calculate_mana(character) / 27.5).floor
+      1 + (calculate_mana(character) / 27.5).floor
     end
   end
 end

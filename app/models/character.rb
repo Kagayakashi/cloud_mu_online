@@ -6,6 +6,7 @@ class Character < ApplicationRecord
   before_validation :set_default_values, if: :new_record?
 
   validates :name, presence: true, uniqueness: true
+  validates :name, length: { minimum: 4, maximum: 20 }
 
   def add_experience_from_monster!(monster)
     experience = (monster.level.to_f / self.level * monster.experience).floor
