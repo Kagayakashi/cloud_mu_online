@@ -30,6 +30,7 @@ class SpotMonstersController < ApplicationController
       end
 
       spot_monster.health -= damage
+      active_character.set_attack_delay
 
       if spot_monster.health <= 0
         spot_monster.destroy

@@ -57,10 +57,11 @@ CREATE USER 'dbadmin'@'localhost' IDENTIFIED BY 'dbpassword';
 GRANT ALL PRIVILEGES ON *.* TO 'dbadmin'@'localhost';
 ```
 
-Configure ENV variables for sidekiq admin panel and restart shell
+Configure ENV variables needed for: sidekiq, redis. Restart shell
 ```
 export SIDEKIQ_USERNAME="admin"
 export SIDEKIQ_PASSWORD="admin"
+export REDIS_PORT="6379"
 ```
 
 Install project
