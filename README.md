@@ -9,7 +9,7 @@ This project is designed to be compatible with standard Oracle Linux 9.3 package
 
 While Oracle Linux is the recommended environment, you have the flexibility to use any Linux distribution according to your preferences.
 
-* Ruby version `ruby 3.1.2p20`
+* Ruby version `ruby 3.2.2`
 
 * Bundle version `bundle-2.3.7`
 
