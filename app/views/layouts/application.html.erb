@@ -11,15 +11,58 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
+    <% if user_signed_in? %>
     <header>
-      <nav>
+      <div class="player-info">
+        <p class="player-status">
+          <span class="icon player-icon"></span>
+          <%= active_character.name %>
+        </p>
+
+        <p class="player-status">
+          <span class="icon health-icon"></span>
+          100
+          <span class="icon mana-icon"></span>
+          100
+        </p>
+
+        <p class="player-status">
+          <span class="icon gold-coin-icon"></span>
+          228
+        </p>
+      </div>
+      <% end %>
+    </header>
+
+    <main>
+      <% if notice or alert %>
+        <article>
+          <p><%= notice %></p>
+          <p><%= alert %></p>
+        </article>
+      <% end %>
+
+      <%= yield %>
+
+      <article class="">
+        <div class="hr"></div>
+        <div class="hr"></div>
+        <ul class="main-menu player-menu">
+          <li class="main-menu-item dev">Character</li>
+          <li class="main-menu-item dev">Guild</li>
+          <li class="main-menu-item dev">Main page</li>
+        </ul>
+        <div class="hr"></div>
+        <div class="hr"></div>
+      <article>
+
+      <details>
+        <summary>Menu (old)</summary>
         <ul>
         <% if user_signed_in? %>
           <% if active_character %>
@@ -51,18 +94,7 @@
           </li>
         <% end %>
         </ul>
-      </nav>
-    </header>
-
-    <main>
-      <% if notice or alert %>
-        <article>
-          <p><%= notice %></p>
-          <p><%= alert %></p>
-        </article>
-      <% end %>
-
-      <%= yield %>
+      </details>
     </main>
 
     <footer>

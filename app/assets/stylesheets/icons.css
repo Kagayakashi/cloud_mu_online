@@ -1,0 +1,22 @@
+.icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-color: transparent;
+}
+
+.player-icon {
+  background-image: url('icons/player.png');
+}
+
+.health-icon {
+  background-image: url('icons/health.png');
+}
+
+.mana-icon {
+  background-image: url('icons/mana.png');
+}
+
+.gold-coin-icon {
+  background-image: url('icons/gold_coin.png');
+}
