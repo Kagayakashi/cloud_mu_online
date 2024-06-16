@@ -5,8 +5,9 @@
   background-color: transparent;
 }
 
-.player-icon {
-  background-image: url('icons/player.png');
+.dark-wizard-icon {
+  background-image: url('16x16_dark_wizard.png');
+  background-size: 16px 16px;
 }
 
 .health-icon {

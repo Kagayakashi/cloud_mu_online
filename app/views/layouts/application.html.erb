@@ -16,89 +16,57 @@
   </head>
 
   <body>
-    <% if user_signed_in? %>
-    <header>
-      <div class="player-info">
-        <p class="player-status">
-          <span class="icon player-icon"></span>
-          <%= active_character.name %>
-        </p>
+    <article class="root">
+      <% if user_signed_in? %>
+      <header>
+        <div class="player-info">
+          <p class="player-status">
+            <span class="icon dark-wizard-icon"></span>
+            <%= active_character.name %>
+          </p>
 
-        <p class="player-status">
-          <span class="icon health-icon"></span>
-          100
-          <span class="icon mana-icon"></span>
-          100
-        </p>
+          <p class="player-status">
+            <span class="icon health-icon"></span>
+            100
+            <span class="icon mana-icon"></span>
+            100
+          </p>
 
-        <p class="player-status">
-          <span class="icon gold-coin-icon"></span>
-          228
-        </p>
-      </div>
-      <% end %>
-    </header>
-
-    <main>
-      <% if notice or alert %>
-        <article>
-          <p><%= notice %></p>
-          <p><%= alert %></p>
-        </article>
-      <% end %>
-
-      <%= yield %>
-
-      <article class="">
-        <div class="hr"></div>
-        <div class="hr"></div>
-        <ul class="main-menu player-menu">
-          <li class="main-menu-item dev">Character</li>
-          <li class="main-menu-item dev">Guild</li>
-          <li class="main-menu-item dev">Main page</li>
-        </ul>
-        <div class="hr"></div>
-        <div class="hr"></div>
-      <article>
-
-      <details>
-        <summary>Menu (old)</summary>
-        <ul>
-        <% if user_signed_in? %>
-          <% if active_character %>
-            <li>
-              <%= link_to "Hunting", spot_path %>
-            </li>
-            <li>
-              <%= link_to "Map", map_path %>
-            </li>
-            <li>
-              <%= link_to "Teleport", new_teleport_path %>
-            </li>
-            <li>
-              <%= link_to "Character", character_path(active_character) %>
-            </li>
-          <% end %>
-          <li>
-            <%= link_to "Settings", settings_path %>
-          </li>
-          <li>
-            <%= link_to "Log Out", session_path, data: { "turbo-method": :delete } %>
-          </li>
-        <% else %>
-          <li>
-            <%= link_to "Sign Up", new_registration_path %>
-          </li>
-          <li>
-            <%= link_to "Log In", new_session_path %>
-          </li>
+          <p class="player-status">
+            <span class="icon gold-coin-icon"></span>
+            228
+          </p>
+        </div>
         <% end %>
-        </ul>
-      </details>
-    </main>
+      </header>
 
-    <footer>
-      <small>&copy; 2024 Vyacheslav Odinokov. All rights reserved.</small>
-    </footer>
+      <main>
+        <% if notice or alert %>
+          <article>
+            <p><%= notice %></p>
+            <p><%= alert %></p>
+          </article>
+        <% end %>
+
+        <%= yield %>
+
+        <% if user_signed_in? %>
+          <section class="">
+            <div class="hr"></div>
+            <div class="hr"></div>
+            <ul class="main-menu player-menu">
+              <li class="main-menu-item"><%= link_to "Character", character_path(active_character) %></li>
+              <li class="main-menu-item"><%= link_to "Main page", root_path %></li>
+            </ul>
+            <div class="hr"></div>
+            <div class="hr"></div>
+          <section>
+        <% end %>
+      </main>
+
+      <footer>
+        <small>&copy; 2024 Vyacheslav Odinokov. All rights reserved.</small>
+      </footer>
+    </article>
   </body>
 </html>

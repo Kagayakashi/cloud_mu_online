@@ -1,12 +1,19 @@
 body {
+  background-color: #1c1c1c;
+}
+
+.root {
   background-color: #252525;
   color: #dedede;
   font-size: 14px;
   text-shadow: #000 0 -1px 1px;
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
 }
 
 a {
-  color: #dedede;
+  color: #f4d06e;
 }
 
 header {
@@ -37,6 +44,7 @@ p {
 
 .main-image {
   width: 100%;
+  max-width: 480px;
   margin: 8px 0px 8px 0px;
 }
 

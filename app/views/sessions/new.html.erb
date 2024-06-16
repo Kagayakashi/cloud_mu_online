@@ -1,14 +1,18 @@
 <h1>Log In</h1>
 
+<article>
+<pre>admin@example.com : admin</pre>
+</article>
+
 <%= form_with model: @user, url: session_path do |form| %>
   <div>
     <%= form.label :email %>
-    <%= form.email_field :email %>
+    <%= form.email_field :email, value: "admin@example.com" %>
   </div>
 
   <div>
     <%= form.label :password %>
-    <%= form.password_field :password %>
+    <%= form.password_field :password, value: "admin" %>
   </div>
 
   <div>
