@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+dk:
+  name: Dark Knight
+  max_level: 150
+
+dw:
+  name: Dark Wizard
+  max_level: 150
+  
+elf:
+  name: Fairy Elf
+  max_level: 150
