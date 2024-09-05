@@ -7,11 +7,12 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-SpotMonster.delete_all
-Monster.delete_all
-Spot.delete_all
-Map.delete_all
 
+User.create! :username => "Admin", :email => "admin@example.com", :password => "admin", :password_confirmation => "admin"
+
+Profession.create! :name => "Dark Knight", :code => "dk", :level => 0
+Profession.create! :name => "Dark Wizard", :code => "dw", :level => 0
+Profession.create! :name => "Fairy Elf", :code => "elf", :level => 0
 
 lorencia = Map.create! :name => "Lorencia", :min_level => 1, :teleport_cost => 0
 

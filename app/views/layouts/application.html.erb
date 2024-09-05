@@ -18,27 +18,29 @@
   <body>
     <article class="root">
       <% if user_signed_in? %>
-      <header>
-        <div class="player-info">
-          <p class="player-status">
-            <span class="icon dark-wizard-icon"></span>
-            <%= active_character.name %>
-          </p>
+        <header>
+          <% if active_character %>
+            <div class="player-info">
+              <p class="player-status">
+                <span class="icon dark-wizard-icon"></span>
+                <%= active_character.name %>
+              </p>
 
-          <p class="player-status">
-            <span class="icon health-icon"></span>
-            100
-            <span class="icon mana-icon"></span>
-            100
-          </p>
+              <p class="player-status">
+                <span class="icon health-icon"></span>
+                100
+                <span class="icon mana-icon"></span>
+                100
+              </p>
 
-          <p class="player-status">
-            <span class="icon gold-coin-icon"></span>
-            228
-          </p>
-        </div>
-        <% end %>
-      </header>
+              <p class="player-status">
+                <span class="icon gold-coin-icon"></span>
+                228
+              </p>
+            </div>
+          <% end %>
+        </header>
+      <% end %>
 
       <main>
         <% if notice or alert %>
@@ -54,10 +56,12 @@
           <section class="">
             <div class="hr"></div>
             <div class="hr"></div>
-            <ul class="main-menu player-menu">
-              <li class="main-menu-item"><%= link_to "Character", character_path(active_character) %></li>
-              <li class="main-menu-item"><%= link_to "Main page", root_path %></li>
-            </ul>
+            <% if active_character %>
+              <ul class="main-menu player-menu">
+                <li class="main-menu-item"><%= link_to "Character", character_path(active_character) %></li>
+                <li class="main-menu-item"><%= link_to "Main page", root_path %></li>
+              </ul>
+            <% end %>
             <div class="hr"></div>
             <div class="hr"></div>
           <section>

@@ -1,5 +1,6 @@
 class Character < ApplicationRecord
   belongs_to :user
+  belongs_to :profession
   belongs_to :map
   belongs_to :spot
 
@@ -49,10 +50,9 @@ class Character < ApplicationRecord
   end
 
   def set_default_values
-    self.level = 1
+    self.level = 0
     self.experience = 0
     self.points = 0
-    self.active = false
 
     character_type.set_default_stats!(self)
 
@@ -66,9 +66,9 @@ class Character < ApplicationRecord
   end
 
   def character_type
-    case self.profession.to_sym
-    when :dark_wizard then CharacterTypes::DarkWizard
-    when :dark_knight then CharacterTypes::DarkKnight
+    case self.profession.code.to_sym
+    when :dw then CharacterTypes::DarkWizard
+    when :dk then CharacterTypes::DarkKnight
     when :elf then CharacterTypes::Elf
     else
       nil

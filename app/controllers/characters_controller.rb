@@ -26,7 +26,7 @@ class CharactersController < ApplicationController
   end
 
   def create
-    @character = current_user.characters.build(create_character_params)
+    @character = current_user.characters.build(character_params_with_profession)
     logger.debug(@character)
     if @character.save
       redirect_to characters_path, notice: "Character created successfully!"
@@ -43,14 +43,28 @@ class CharactersController < ApplicationController
       if current_user.save
         redirect_to characters_path, notice: "Character #{ character.name } has been activated."
       else
-        redirect_to :back, alert: "Character could not be activated."
+        redirect_to characters_path, alert: "Failed to change active character to #{ character.name }."
       end
     rescue ActiveRecord::RecordNotFound
-      redirect_to :back, alert: "Cannot activate character that is not found."
+      redirect_to characters_path, alert: "Cannot activate character that is not found."
     end
   end
 
   private
+  def character_params_with_profession
+    params_with_profession = create_character_params
+    profession = Profession.find_by(code: params_with_profession[:profession])
+  
+    unless profession
+      flash.now[:alert] = "Failed to create character without profession."
+      render :new, status: :unprocessable_entity
+      return
+    end
+  
+    params_with_profession[:profession] = profession
+    params_with_profession
+  end
+
 
   def create_character_params
     params.require(:character).permit(:name, :profession)
