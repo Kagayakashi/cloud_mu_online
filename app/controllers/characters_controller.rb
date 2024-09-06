@@ -26,8 +26,9 @@ class CharactersController < ApplicationController
   end
 
   def create
-    @character = current_user.characters.build(character_params_with_profession)
-    logger.debug(@character)
+    @character = Character.new(character_params_with_profession)
+    @character.set_default_values
+    @character.user = current_user
     if @character.save
       redirect_to characters_path, notice: "Character created successfully!"
     else
