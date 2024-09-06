@@ -16,10 +16,8 @@
         </h2>
       <% end %>
 
-      <p>No guild</p>
-
       <p>
-        <%= character.profession %> <strong>[<%= character.level %>]</strong>
+        <%= character.profession.name %> <strong>[<%= character.level %>]</strong>
       </p>
       
       <% if character != active_character %>

@@ -40,8 +40,8 @@ class CharactersController < ApplicationController
   def activate
     begin
       character = current_user.characters.find(params[:id])
-      current_user.active_character = character
-      if current_user.save
+      current_user.build_active_character(character: character)
+      if current_user.save!
         redirect_to characters_path, notice: "Character #{ character.name } has been activated."
       else
         redirect_to characters_path, alert: "Failed to change active character to #{ character.name }."
