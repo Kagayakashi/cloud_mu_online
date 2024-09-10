@@ -44,14 +44,14 @@ class CharactersController < ApplicationController
       return redirect_to characters_path, alert: "Character not found."
     end
   
-    replace_active_character
+    replace_active_character(character)
   rescue ActiveRecord::RecordInvalid
     redirect_to characters_path, alert: "Failed to activate character #{character.name}."
   end
 
   private
 
-  def replace_active_character
+  def replace_active_character(character)
     ActiveRecord::Base.transaction do
       player&.destroy
       player = current_user.build_player(character: character)
