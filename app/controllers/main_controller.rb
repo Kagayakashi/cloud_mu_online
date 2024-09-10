@@ -1,6 +1,6 @@
 class MainController < ApplicationController
   before_action :authenticate_user!
-  before_action :active_character!
+  before_action :activate_character!
 
   def index
   end

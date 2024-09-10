@@ -1,6 +1,6 @@
 <article>
   <header>
-    <h1><%= active_character.spot.name %></h1>
+    <h1><%= player.spot.name %></h1>
     <p>What are you going to do?</p>
   </header>
 
@@ -13,11 +13,11 @@
 
       <div
         data-controller="attack-delay"
-        data-attack-delay-delay-value="<%= active_character.attack_delay_left.to_s %>"
+        data-attack-delay-delay-value="<%= player.attack_delay_left.to_s %>"
       >
         <p data-attack-delay-target="timer" style="display:none;">
           <span data-attack-delay-target="time">
-            <%= active_character.attack_delay_left %>
+            <%= player.attack_delay_left %>
           </span> seconds
         <p>
 

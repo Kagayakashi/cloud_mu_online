@@ -1,8 +1,8 @@
 class MapsController < ApplicationController
   before_action :authenticate_user!
-  before_action :active_character!
+  before_action :activate_character!
 
   def show
-    @spots = active_character.map.spots
+    @spots = player.map.spots
   end
 end

@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   private
 
-  def active_character!
-    redirect_to characters_path, alert: "You must have active character to do that." unless active_character
+  def activate_character!
+    redirect_to characters_path, alert: "You must have active character to do that." unless player
   end
 
   def authenticate_user!
@@ -15,15 +15,11 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
-  def active_character
-    current_user.active_character
+  def player
+    current_user.player
   end
 
-  helper_method :active_character
-
-  def active_character_map
-    active_character.map
-  end
+  helper_method :player
 
   def authenticate_user_from_session
     User.find_by(id: session[:user_id])

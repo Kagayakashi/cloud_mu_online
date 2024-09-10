@@ -12,7 +12,7 @@ class SpotMonstersController < ApplicationController
         return redirect_to spot_path, alert: "Monster is dead. Failed to apply attack."
       end
 
-      player_attack_rate = CharacterTypes::DarkWizard.calculate_attack_rate(active_character)
+      player_attack_rate = CharacterTypes::DarkWizard.calculate_attack_rate(player)
 
       hit_chance = calculate_hit_chance(
         attack_rate: player_attack_rate,
@@ -30,12 +30,12 @@ class SpotMonstersController < ApplicationController
       end
 
       spot_monster.health -= damage
-      active_character.set_attack_delay
+      player.set_attack_delay
 
       if spot_monster.health <= 0
         spot_monster.destroy
         spawn_monster_later(spot_monster)
-        experience = active_character.add_experience_from_monster!(spot_monster.monster)
+        experience = player.add_experience_from_monster!(spot_monster.monster)
         return redirect_to spot_path, notice: "#{ spot_monster.monster.name } dead. Reward is #{experience} experience."
       else
         spot_monster.save
@@ -63,8 +63,8 @@ class SpotMonstersController < ApplicationController
   end
 
   def calculate_damage(monster_defense)
-    player_min_attack = CharacterTypes::DarkWizard.calculate_min_attack(active_character)
-    player_max_attack = CharacterTypes::DarkWizard.calculate_max_attack(active_character)
+    player_min_attack = CharacterTypes::DarkWizard.calculate_min_attack(player)
+    player_max_attack = CharacterTypes::DarkWizard.calculate_max_attack(player)
 
     damage = rand(player_min_attack..player_max_attack)
     damage -= monster_defense

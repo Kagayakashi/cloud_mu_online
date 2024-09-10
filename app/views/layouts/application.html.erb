@@ -19,11 +19,11 @@
     <article class="root">
       <% if user_signed_in? %>
         <header>
-          <% if active_character %>
+          <% if player %>
             <div class="player-info">
               <p class="player-status">
                 <span class="icon dark-wizard-icon"></span>
-                <%= active_character.name %>
+                <%= player.character.name %>
               </p>
 
               <p class="player-status">
@@ -56,9 +56,9 @@
           <section class="">
             <div class="hr"></div>
             <div class="hr"></div>
-            <% if active_character %>
+            <% if player %>
               <ul class="main-menu player-menu">
-                <li class="main-menu-item"><%= link_to "Character", character_path(active_character) %></li>
+                <li class="main-menu-item"><%= link_to "Character", character_path(player.character) %></li>
                 <li class="main-menu-item"><%= link_to "Main page", root_path %></li>
               </ul>
             <% end %>

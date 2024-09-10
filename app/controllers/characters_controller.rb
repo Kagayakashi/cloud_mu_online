@@ -38,20 +38,32 @@ class CharactersController < ApplicationController
   end
 
   def activate
-    begin
-      character = current_user.characters.find(params[:id])
-      current_user.build_active_character(character: character)
-      if current_user.save!
-        redirect_to characters_path, notice: "Character #{ character.name } has been activated."
-      else
-        redirect_to characters_path, alert: "Failed to change active character to #{ character.name }."
-      end
-    rescue ActiveRecord::RecordNotFound
-      redirect_to characters_path, alert: "Cannot activate character that is not found."
+    character = current_user.characters.find_by(id: params[:id])
+    
+    if character.nil?
+      return redirect_to characters_path, alert: "Character not found."
     end
+  
+    replace_active_character
+  rescue ActiveRecord::RecordInvalid
+    redirect_to characters_path, alert: "Failed to activate character #{character.name}."
   end
 
   private
+
+  def replace_active_character
+    ActiveRecord::Base.transaction do
+      player&.destroy
+      player = current_user.build_player(character: character)
+      if player.save
+        redirect_to characters_path, notice: "Character #{character.name} has been activated."
+      else
+        raise ActiveRecord::Rollback
+      end
+    end
+  end
+
+
   def character_params_with_profession
     params_with_profession = create_character_params
     profession = Profession.find_by(code: params_with_profession[:profession])

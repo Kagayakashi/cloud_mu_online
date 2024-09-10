@@ -16,17 +16,17 @@ class AddStatsController < ApplicationController
       return render :new, status: :unprocessable_entity
     end
 
-    unless amount <= active_character.points
-      flash.now[:alert] = "Amount must be greater than 0 and less than #{ active_character.points }."
+    unless amount <= player.points
+      flash.now[:alert] = "Amount must be greater than 0 and less than #{ player.points }."
       return render :new, status: :unprocessable_entity
     end
 
 
-    points_left = active_character.points - amount
-    stats_new = active_character[stat] + amount
+    points_left = player.points - amount
+    stats_new = player[stat] + amount
 
-    active_character.update(points: points_left, stat => stats_new)
+    player.update(points: points_left, stat => stats_new)
 
-    redirect_to character_path(active_character), notice: "Added #{ amount } to #{ stat.to_s.capitalize }."
+    redirect_to character_path(player), notice: "Added #{ amount } to #{ stat.to_s.capitalize }."
   end
 end

@@ -11,15 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.2].define(version: 2024_09_05_121501) do
-  create_table "active_characters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "character_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["character_id"], name: "index_active_characters_on_character_id"
-    t.index ["user_id"], name: "unique_users", unique: true
-  end
-
   create_table "characters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.integer "level", null: false
@@ -66,6 +57,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_05_121501) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "players", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "character_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_players_on_character_id"
+    t.index ["user_id"], name: "unique_users", unique: true
+  end
+
   create_table "professions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "code"
@@ -102,11 +102,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_05_121501) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "active_characters", "characters"
-  add_foreign_key "active_characters", "users"
   add_foreign_key "characters", "maps"
   add_foreign_key "characters", "professions"
   add_foreign_key "characters", "users"
+  add_foreign_key "players", "characters"
+  add_foreign_key "players", "users"
   add_foreign_key "spot_monsters", "characters", column: "target_id"
   add_foreign_key "spot_monsters", "monsters"
   add_foreign_key "spot_monsters", "spots"

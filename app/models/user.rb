@@ -2,8 +2,7 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :characters, dependent: :destroy
-  has_one :active_character, dependent: :destroy
-  has_one :current_character, through: :active_character, source: :character
+  has_one :player, dependent: :destroy
 
   validates :username, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
