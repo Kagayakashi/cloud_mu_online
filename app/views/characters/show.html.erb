@@ -4,13 +4,12 @@
   <%= image_tag "469x469_dark_wizard.png", alt: "Dark Wizard portret" %>
 
   <section>
-    <%= link_to "Add stats", new_character_add_stat_path(@character) %>
+    <% link_to "Add stats", new_character_add_stat_path(@character) %>
   </section>
 
   <section>
     <h2><%= @character.name %></h2>
-    <p><%= @character.profession %></p>
-    <p>No guild</p>
+    <p><%= @character.profession.name %></p>
 
     <dl>
       <dt>Health</dt>

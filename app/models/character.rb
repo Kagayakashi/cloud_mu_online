@@ -43,7 +43,7 @@ class Character < ApplicationRecord
   end
 
   def set_default_values
-    self.level = 0
+    self.level = 1
     self.experience = 0
     self.points = 0
 

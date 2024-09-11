@@ -9,7 +9,7 @@ class CharactersController < ApplicationController
     begin
       @character = current_user.characters.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      redirect_to :index, alert: "Character not found."
+      redirect_to characters_path, alert: "Character not found."
     end
   end
 
@@ -39,11 +39,11 @@ class CharactersController < ApplicationController
 
   def activate
     character = current_user.characters.find_by(id: params[:id])
-    
+
     if character.nil?
       return redirect_to characters_path, alert: "Character not found."
     end
-  
+
     replace_active_character(character)
   rescue ActiveRecord::RecordInvalid
     redirect_to characters_path, alert: "Failed to activate character #{character.name}."
@@ -67,13 +67,13 @@ class CharactersController < ApplicationController
   def character_params_with_profession
     params_with_profession = create_character_params
     profession = Profession.find_by(code: params_with_profession[:profession])
-  
+
     unless profession
       flash.now[:alert] = "Failed to create character without profession."
       render :new, status: :unprocessable_entity
       return
     end
-  
+
     params_with_profession[:profession] = profession
     params_with_profession
   end

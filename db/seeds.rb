@@ -9,12 +9,18 @@
 #   end
 
 User.create! :username => "Admin", :email => "admin@example.com", :password => "admin", :password_confirmation => "admin"
+puts "Created user with administrator rights"
 
-Profession.create! :name => "Dark Knight", :code => "dk", :level => 0
-Profession.create! :name => "Dark Wizard", :code => "dw", :level => 0
-Profession.create! :name => "Fairy Elf", :code => "elf", :level => 0
+
+Profession.create! :name => "Dark Knight", :code => "dk", :level => 1
+puts "Created profession Dark Knight"
+Profession.create! :name => "Dark Wizard", :code => "dw", :level => 1
+puts "Created profession Dark Wizard"
+Profession.create! :name => "Fairy Elf", :code => "elf", :level => 1
+puts "Created profession Fairy Elf"
 
 lorencia = Map.create! :name => "Lorencia", :min_level => 1, :teleport_cost => 0
+puts "Created map Lorencia"
 
 Spot.create! :name => "Lorencia City", :map => lorencia
 
@@ -33,9 +39,13 @@ spider = Monster.create!(
   spawn_time: 60,
 )
 
+puts "Created monster type Spider"
+
 # Spawn spiders
 SpotMonster.create!(monster: spider, spot: lorencia_spider_spot)
 SpotMonster.create!(monster: spider, spot: lorencia_spider_spot)
 SpotMonster.create!(monster: spider, spot: lorencia_spider_spot)
 SpotMonster.create!(monster: spider, spot: lorencia_spider_spot)
 SpotMonster.create!(monster: spider, spot: lorencia_spider_spot)
+
+puts "Spawned 5 spiders"
