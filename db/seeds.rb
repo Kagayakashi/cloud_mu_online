@@ -8,10 +8,11 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+# Users
 User.create! :username => "Admin", :email => "admin@example.com", :password => "admin", :password_confirmation => "admin"
 puts "Created user with administrator rights"
 
-
+# Classes for characters
 Profession.create! :name => "Dark Knight", :code => "dk", :level => 1
 puts "Created profession Dark Knight"
 Profession.create! :name => "Dark Wizard", :code => "dw", :level => 1
@@ -19,8 +20,34 @@ puts "Created profession Dark Wizard"
 Profession.create! :name => "Fairy Elf", :code => "elf", :level => 1
 puts "Created profession Fairy Elf"
 
-lorencia = Map.create! :name => "Lorencia", :min_level => 1, :teleport_cost => 0
-puts "Created map Lorencia"
+# Maps
+map_lorencia = Map.create! :name => "Lorencia city", :min_level => 1, :can_teleport => true, :teleport_cost => 1000, :teleport_min_level => 10
+puts "Created Lorencia city"
+
+map_spiders = Map.create! :name => "Lorencia spiders", :min_level => 1, :came_from => map_lorencia
+puts "Created Lorencia spiders spot"
+
+map_budge_dragons = Map.create! :name => "Lorencia budge dragons", :min_level => 1, :came_from => map_spiders
+puts "Created Lorencia budge dragons spot"
+
+map_bull_fighters = Map.create! :name => "Lorencia bull fighters", :min_level => 1, :came_from => map_lorencia
+puts "Created Lorencia bull fighters spot"
+
+map_hounds = Map.create! :name => "Lorencia hounds", :min_level => 1, :came_from => map_lorencia
+puts "Created Lorencia hounds spot"
+
+map_elite_bull_fighters = Map.create! :name => "Lorencia elite bull fighters", :min_level => 1, :came_from => map_hounds
+puts "Created Lorencia elite bull fighters spot"
+
+map_lichs = Map.create! :name => "Lorencia lichs", :min_level => 1, :came_from => map_lorencia
+puts "Created Lorencia lichs spot"
+
+map_giants = Map.create! :name => "Lorencia giants", :min_level => 1, :came_from => map_lorencia
+puts "Created Lorencia giants spot"
+
+map_skeletons = Map.create! :name => "Lorencia skeletons", :min_level => 1, :came_from => map_lichs
+puts "Created Lorencia skeletons spot"
+
 
 Spot.create! :name => "Lorencia City", :map => lorencia
 

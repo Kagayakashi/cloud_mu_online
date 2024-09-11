@@ -36,10 +36,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_05_121501) do
 
   create_table "maps", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "min_level", null: false
-    t.integer "teleport_cost", null: false
+    t.integer "min_level", default: 0, null: false
+    t.boolean "can_teleport", default: false, null: false
+    t.integer "teleport_cost", default: 0, null: false
+    t.integer "teleport_min_level", default: 0, null: false
+    t.bigint "came_from_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["came_from_id"], name: "index_maps_on_came_from_id"
   end
 
   create_table "monsters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -105,6 +109,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_05_121501) do
   add_foreign_key "characters", "maps"
   add_foreign_key "characters", "professions"
   add_foreign_key "characters", "users"
+  add_foreign_key "maps", "maps", column: "came_from_id"
   add_foreign_key "players", "characters"
   add_foreign_key "players", "users"
   add_foreign_key "spot_monsters", "characters", column: "target_id"
