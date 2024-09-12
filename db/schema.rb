@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_05_121501) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_12_174936) do
   create_table "characters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.integer "level", null: false
@@ -34,16 +34,24 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_05_121501) do
     t.index ["user_id"], name: "index_characters_on_user_id"
   end
 
+  create_table "map_connections", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "map_id", null: false
+    t.bigint "connected_map_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["connected_map_id"], name: "index_map_connections_on_connected_map_id"
+    t.index ["map_id", "connected_map_id"], name: "index_map_connections_on_map_id_and_connected_map_id", unique: true
+    t.index ["map_id"], name: "index_map_connections_on_map_id"
+  end
+
   create_table "maps", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.integer "min_level", default: 0, null: false
     t.boolean "can_teleport", default: false, null: false
     t.integer "teleport_cost", default: 0, null: false
     t.integer "teleport_min_level", default: 0, null: false
-    t.bigint "came_from_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["came_from_id"], name: "index_maps_on_came_from_id"
   end
 
   create_table "monsters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -109,7 +117,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_05_121501) do
   add_foreign_key "characters", "maps"
   add_foreign_key "characters", "professions"
   add_foreign_key "characters", "users"
-  add_foreign_key "maps", "maps", column: "came_from_id"
+  add_foreign_key "map_connections", "maps"
+  add_foreign_key "map_connections", "maps", column: "connected_map_id"
   add_foreign_key "players", "characters"
   add_foreign_key "players", "users"
   add_foreign_key "spot_monsters", "characters", column: "target_id"

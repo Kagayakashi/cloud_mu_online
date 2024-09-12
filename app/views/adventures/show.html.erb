@@ -1,11 +1,11 @@
 <section>
-  <h3>You can go to:</h3>
+  <h3><%= @map.name %></h3>
+  <p>You can go to:</p>
   <ul>
-    <li class="dev">
-      <%= link_to "Noria", "#" %>
-    </li>
-    <li class="dev">
-      <%= link_to "Devias", "#" %>
-    </li>
+    <% @paths.each do |path| %>
+      <li>
+        <%= button_to path.name, url_for(controller: :adventures, action: :travel, id: path.id), :method => :post %>
+      </li>
+    <% end %>
   </ul>
 </section>

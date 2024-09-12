@@ -7,8 +7,6 @@ class CreateMaps < ActiveRecord::Migration[7.1]
       t.integer :teleport_cost, default: 0, null: false
       t.integer :teleport_min_level, default: 0, null: false
 
-      t.references :came_from, foreign_key: { to_table: :maps }
-
       t.timestamps
     end
 

@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def player
-    current_user.player
+    current_user.player&.character
   end
 
   helper_method :player

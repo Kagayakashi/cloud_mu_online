@@ -12,11 +12,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "main#index"
-  resource :session
-  resource :registration
+  resource :session, only: [:new, :create, :destroy]
+  resource :registration, only: [:new, :create]
   resource :password_reset
-  resource :password
-  resource :settings
+  resource :password, only: [:edit, :update]
+  resource :settings, only: [:show]
   resources :characters do
     post "activate", on: :member
     resource :add_stat, shallow: true, only: [:new, :create]
@@ -26,7 +26,9 @@ Rails.application.routes.draw do
   resource :teleport, only: [:new, :create]
 
   # Adventure (walk without teleport)
-  resource :adventure
+  resource :adventure, only: [:show, :travel] do
+    post "travel", on: :member
+  end
 
   resource :map, only: [:show]
   resource :spot, only: [:show]
