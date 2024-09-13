@@ -12,6 +12,8 @@ class CreateMonsterTypes < ActiveRecord::Migration[7.1]
       t.integer :experience, null: false
       t.integer :spawn_time, null: false
 
+      t.references :map, foreign_key: true, null: false
+
       t.timestamps
     end
   end

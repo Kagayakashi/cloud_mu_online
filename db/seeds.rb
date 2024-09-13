@@ -17,6 +17,8 @@ User.destroy_all
 MapConnection.destroy_all
 Map.destroy_all
 
+puts "Database records cleared"
+
 
 # Users
 User.create! :username => "Admin", :email => "admin@example.com", :password => "admin", :password_confirmation => "admin"
@@ -97,15 +99,11 @@ spider = MonsterType.create!(
   defense_rate: 1,
   experience: 100,
   spawn_time: 60,
+  map: map_spiders,
 )
 
 puts "Created monster type Spider"
 
-# Spawn spiders
-Monster.create!(monster_type: spider, map: map_spiders)
-Monster.create!(monster_type: spider, map: map_spiders)
-Monster.create!(monster_type: spider, map: map_spiders)
-Monster.create!(monster_type: spider, map: map_spiders)
-Monster.create!(monster_type: spider, map: map_spiders)
+5.times { spider.monsters.create }
 
 puts "Spawned 5 spiders"

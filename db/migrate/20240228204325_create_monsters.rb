@@ -4,7 +4,6 @@ class CreateMonsters < ActiveRecord::Migration[7.1]
       t.integer :health, null: false
 
       t.references :monster_type, null: false, foreign_key: true
-      t.references :map, null: false, foreign_key: true
       t.references :target, foreign_key: { to_table: :characters }
 
       t.timestamps

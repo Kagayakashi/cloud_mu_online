@@ -4,6 +4,7 @@ class AdventuresController < ApplicationController
 
   def show
     @map = player.map
+    @monsters = @map.monsters
     @paths = @map.connected_maps
   end
 

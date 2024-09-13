@@ -12,8 +12,20 @@ body {
   position: relative;
 }
 
-a {
+a, button {
   color: #f4d06e;
+  font-size: 14px;
+  font-family: Times New Roman;
+  display: inline-block;
+  height: auto;
+  border: unset;
+  background-color: unset;
+  text-decoration: unset;
+  text-align: center;
+  border: unset;
+  cursor: pointer;
+  margin: 0px;
+  padding: 0px;
 }
 
 header {
@@ -21,9 +33,15 @@ header {
   padding: 2px 8px 2px 8px;
 }
 
+h1 {
+  color: #836e1c;
+  font-size: 18px;
+  padding: 1px 8px;
+}
+
 p {
   margin: 0px;
-  padding 0px;
+  padding: 0px 6px;
 }
 
 .hr {
@@ -48,21 +66,30 @@ p {
   margin: 8px 0px 8px 0px;
 }
 
-.main-menu {
+.menu {
   margin: 0px;
   padding: 0px;
   list-style-type: none;
 }
 
-.main-menu-item {
+.menu-item {
   color: #f4d06e;
   border-bottom: 1px dotted #5c5853;
   height: 30px;
   line-height: 30px;
+  padding: 0px 6px;
 }
 
-.main-menu-item:last-child {
+.menu-item:last-child {
   border: 0;
+}
+
+.menu-header {
+  color: #818181;
+  border-bottom: 1px dotted #5c5853;
+  height: 20px;
+  line-height: 20px;
+  padding: 0px 6px;
 }
 
 .dev::after {

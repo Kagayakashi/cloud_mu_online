@@ -65,18 +65,18 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_12_174936) do
     t.integer "defense", null: false
     t.integer "experience", null: false
     t.integer "spawn_time", null: false
+    t.bigint "map_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["map_id"], name: "index_monster_types_on_map_id"
   end
 
   create_table "monsters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "health", null: false
     t.bigint "monster_type_id", null: false
-    t.bigint "map_id", null: false
     t.bigint "target_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["map_id"], name: "index_monsters_on_map_id"
     t.index ["monster_type_id"], name: "index_monsters_on_monster_type_id"
     t.index ["target_id"], name: "index_monsters_on_target_id"
   end
@@ -111,8 +111,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_12_174936) do
   add_foreign_key "characters", "users"
   add_foreign_key "map_connections", "maps"
   add_foreign_key "map_connections", "maps", column: "connected_map_id"
+  add_foreign_key "monster_types", "maps"
   add_foreign_key "monsters", "characters", column: "target_id"
-  add_foreign_key "monsters", "maps"
   add_foreign_key "monsters", "monster_types"
   add_foreign_key "players", "characters"
   add_foreign_key "players", "users"

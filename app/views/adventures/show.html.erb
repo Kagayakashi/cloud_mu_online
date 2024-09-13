@@ -1,11 +1,31 @@
 <section>
-  <h3><%= @map.name %></h3>
-  <p>You can go to:</p>
-  <ul>
-    <% @paths.each do |path| %>
-      <li>
-        <%= button_to path.name, url_for(controller: :adventures, action: :travel, id: path.id), :method => :post %>
-      </li>
-    <% end %>
-  </ul>
+  <h1><%= @map.name %></h1>
+
+  <% if @monsters.present? %>
+    <div class="hr"></div>
+    <div class="hr"></div>
+
+    <ul class="menu">
+      <li class="menu-item menu-header">Monsters:</li>
+      <% @monsters.each do |monster| %>
+        <li class="menu-item">
+          <%= monster.monster_type.name %>[<%= monster.monster_type.level %>]
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <% if @paths.present? %>
+    <div class="hr"></div>
+    <div class="hr"></div>
+
+    <ul class="menu">
+      <li class="menu-item menu-header">Travel to:</li>
+      <% @paths.each do |path| %>
+        <li class="menu-item">
+          <%= button_to path.name, url_for(controller: :adventures, action: :travel, id: path.id), :method => :post %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 </section>
