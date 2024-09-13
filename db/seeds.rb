@@ -8,9 +8,8 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-SpotMonster.destroy_all
 Monster.destroy_all
-Spot.destroy_all
+MonsterType.destroy_all
 Player.destroy_all
 Character.destroy_all
 Profession.destroy_all
@@ -87,11 +86,7 @@ MapConnection.create(map: map_skeletons, connected_map: map_lichs)
 
 puts "Maps connected"
 
-Spot.create! :name => "Lorencia City", :map => map_lorencia
-
-lorencia_spider_spot = Spot.create! :name => "Beginner Adventurer's Camp", :map => map_lorencia
-
-spider = Monster.create!(
+spider = MonsterType.create!(
   name: "Spider",
   level: 2,
   health: 40,
@@ -107,10 +102,10 @@ spider = Monster.create!(
 puts "Created monster type Spider"
 
 # Spawn spiders
-SpotMonster.create!(monster: spider, spot: lorencia_spider_spot)
-SpotMonster.create!(monster: spider, spot: lorencia_spider_spot)
-SpotMonster.create!(monster: spider, spot: lorencia_spider_spot)
-SpotMonster.create!(monster: spider, spot: lorencia_spider_spot)
-SpotMonster.create!(monster: spider, spot: lorencia_spider_spot)
+Monster.create!(monster_type: spider, map: map_spiders)
+Monster.create!(monster_type: spider, map: map_spiders)
+Monster.create!(monster_type: spider, map: map_spiders)
+Monster.create!(monster_type: spider, map: map_spiders)
+Monster.create!(monster_type: spider, map: map_spiders)
 
 puts "Spawned 5 spiders"

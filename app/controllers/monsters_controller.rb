@@ -1,7 +1,7 @@
-class SpotMonstersController < ApplicationController
+class MonstersController < ApplicationController
   # ToDo
   def receive_spell_damage
-    spot_monster = SpotMonster.find(params[:id])
+    @spot_monster = SpotMonster.find(params[:id])
   end
 
   def receive_attack_damage

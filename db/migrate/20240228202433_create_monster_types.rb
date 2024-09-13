@@ -1,6 +1,6 @@
-class CreateMonsters < ActiveRecord::Migration[7.1]
+class CreateMonsterTypes < ActiveRecord::Migration[7.1]
   def change
-    create_table :monsters do |t|
+    create_table :monster_types do |t|
       t.string :name, null: false
       t.integer :level, null: false
       t.integer :health, null: false
