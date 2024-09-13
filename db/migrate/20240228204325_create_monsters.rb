@@ -10,10 +10,4 @@ class CreateMonsters < ActiveRecord::Migration[7.1]
       t.timestamps
     end
   end
-
-  def self.down
-    remove_reference :spot_monsters, :monster
-    remove_reference :spot_monsters, :spot
-    remove_reference :spot_monsters, :target
-  end
 end

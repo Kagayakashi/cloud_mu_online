@@ -19,8 +19,4 @@ class CreateCharacters < ActiveRecord::Migration[7.1]
       t.timestamps
     end
   end
-
-  def self.down
-    remove_reference :characters, :user
-  end
 end
