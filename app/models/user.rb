@@ -19,6 +19,10 @@ class User < ApplicationRecord
     password_salt&.last(10)
   end
 
+  def update_last_login_time
+    update(last_login_at: Time.current)
+  end
+
   # Todo
   # generates_token_for :email_confirmation, expires_in: 24.hours do
   #   email

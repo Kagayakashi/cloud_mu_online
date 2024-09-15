@@ -102,6 +102,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_12_174936) do
     t.string "username", null: false
     t.string "email", null: false
     t.string "password_digest", null: false
+    t.datetime "last_login_at"
+    t.boolean "is_guest", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
