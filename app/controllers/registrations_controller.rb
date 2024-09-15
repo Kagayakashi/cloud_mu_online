@@ -1,12 +1,16 @@
 class RegistrationsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :activate_character!
+
   def new
     @user = User.new
   end
 
   def create
-    @user = User.new(registration_params)
+    @user = current_user
+    @user.assign_attributes(registration_params)
+    @user.is_guest = false
     if @user.save
-      login @user
       redirect_to root_path
     else
       render :new, status: :unprocessable_entity

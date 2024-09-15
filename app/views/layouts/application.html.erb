@@ -24,9 +24,11 @@
           <% end %>
         </header>
 
-        <% if current_user.is_guest %>
+        <% if current_user&.is_guest %>
           <article class="complete-register">
-            <p>Register your account and get rewards</p>
+            <%= link_to new_registration_path, title: "Complete registration" do %>
+              <p>Register your account and get rewards</p>
+            <% end %>
           </article>
         <% end %>
         
