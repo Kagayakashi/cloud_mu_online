@@ -26,6 +26,8 @@
           <%= button_to path.name, url_for(controller: :adventures, action: :travel, id: path.id), :method => :post %>
         </li>
       <% end %>
+      <li class="menu-item menu-header">Or:</li>
+      <li class="menu-item"><%= link_to "Teleport", new_teleport_path %></li>
     </ul>
   <% end %>
 </section>

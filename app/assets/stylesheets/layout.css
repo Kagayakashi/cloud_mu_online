@@ -64,12 +64,27 @@ p {
   border-top: 2px solid #3e3d36;
 }
 
-.player-info {
+.complete-register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 2px;
+}
+
+.complete-register p {
+  text-decoration: underline;
+}
+
+.player-status {
+  background-color: #545944;
+}
+
+.player-status .player-info {
   display: flex;
   gap: 1rem;
 }
 
-.player-status {
+.player-status p {
   height: 20px;
   line-height: 20px;
   display: flex;

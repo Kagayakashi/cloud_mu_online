@@ -17,37 +17,43 @@
 
   <body>
     <article class="root">
-      <% if user_signed_in? %>
-        <header>
-          <% if player %>
-            <div class="player-info">
-              <p class="player-status">
-                <span class="icon dark-wizard-icon"></span>
-                <%= player.name %>
-              </p>
-
-              <p class="player-status">
-                <span class="icon health-icon"></span>
-                100
-                <span class="icon mana-icon"></span>
-                100
-              </p>
-
-              <p class="player-status">
-                <span class="icon gold-coin-icon"></span>
-                228
-              </p>
-            </div>
-          <% end %>
-        </header>
-      <% end %>
-
       <main>
         <header>
           <%= link_to root_path, title: "To main page", class: "w-full" do %>
             <h1>Cloud MU Online</h1>
           <% end %>
         </header>
+
+        <% if current_user.is_guest %>
+          <article class="complete-register">
+            <p>Register your account and get rewards</p>
+          </article>
+        <% end %>
+        
+        <% if user_signed_in? %>
+          <section class="player-status">
+            <% if player %>
+              <div class="player-info">
+                <p>
+                  <span class="icon dark-wizard-icon"></span>
+                  <%= player.name %>
+                </p>
+
+                <p>
+                  <span class="icon health-icon"></span>
+                  100
+                  <span class="icon mana-icon"></span>
+                  100
+                </p>
+
+                <p>
+                  <span class="icon gold-coin-icon"></span>
+                  228
+                </p>
+              </div>
+            <% end %>
+          </section>
+        <% end %>
 
         <% if notice or alert %>
           <article class="notification">
@@ -68,7 +74,7 @@
             <div class="hr"></div>
             <% if player %>
               <ul class="menu player-menu">
-                <li class="menu-item"><%= link_to "Teleport", new_teleport_path %></li>
+                <li class="menu-item"><%= link_to "Adventure", adventure_path %></li>
                 <li class="menu-item dev"><%= link_to "Character", character_path(player) %></li>
                 <li class="menu-item"><%= link_to "Settings", settings_path %></li>
                 <li class="menu-item"><%= button_to "Logout", session_path, method: :delete %></li>
