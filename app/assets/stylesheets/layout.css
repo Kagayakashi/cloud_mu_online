@@ -81,7 +81,7 @@ p {
 
 .player-status .player-info {
   display: flex;
-  gap: 1rem;
+  gap: 2px;
 }
 
 .player-status p {
