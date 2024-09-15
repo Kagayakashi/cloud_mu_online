@@ -160,6 +160,12 @@ p {
   margin: 4px;
 }
 
+button:disabled {
+  background-color: #898989;
+  color: #343434;
+  cursor: default;
+}
+
 .notification {
   display: flex;
   flex-direction: column;
