@@ -26,7 +26,7 @@ class User < ApplicationRecord
   end
 
   def update_last_login_time
-    update(last_login_at: Time.current)
+    update_column(:last_login_at, Time.current)
   end
 
   # Todo
