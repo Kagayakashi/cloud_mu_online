@@ -94,6 +94,7 @@ class MonstersController < ApplicationController
   end
 
   def deal_attack_damage
+    #todo
     calculate_monster_attack_speed.times do
       damage = damage = rand(@monster.monster_type.min_attack..@monster.monster_type.max_attack)
       damage -= active_character.defense
