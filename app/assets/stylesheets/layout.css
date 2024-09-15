@@ -135,7 +135,7 @@ p {
   max-width: 480px;
 }
 
-.start-game {
+.action-block {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -143,14 +143,14 @@ p {
   gap: 4px;
 }
 
-.start-text-block {
+.action-descriptions {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.start-game .start {
+.action-button {
   background-color: #f4d06e;
   color: #252525;
   border: 1px solid #b76e6e;
