@@ -21,7 +21,7 @@ puts "Database records cleared"
 
 
 # Users
-User.create! :username => "Admin", :email => "admin@example.com", :password => "admin", :password_confirmation => "admin"
+User.create! :username => "Admin", :email => "admin@example.com", :password => "admin", :password_confirmation => "admin", is_guest: false
 puts "Created user with administrator rights"
 
 # Classes for characters
