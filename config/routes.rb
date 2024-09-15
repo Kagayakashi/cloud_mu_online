@@ -11,7 +11,9 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  root "main#index"
+  root "starts#show"
+
+  resource :start, only: [:show, :new, :create]
   resource :session, only: [:new, :create, :destroy]
   resource :registration, only: [:new, :create]
   resource :password_reset

@@ -43,10 +43,20 @@
       <% end %>
 
       <main>
+        <header>
+          <%= link_to root_path, title: "To main page", class: "w-full" do %>
+            <h1>Cloud MU Online</h1>
+          <% end %>
+        </header>
+
         <% if notice or alert %>
-          <article>
-            <p><%= notice %></p>
-            <p><%= alert %></p>
+          <article class="notification">
+            <% if notice %>
+              <p><%= notice %></p>
+            <% end %>
+            <% if alert %>
+              <p><%= alert %></p>
+            <% end %>
           </article>
         <% end %>
 
@@ -58,9 +68,10 @@
             <div class="hr"></div>
             <% if player %>
               <ul class="menu player-menu">
-                <li class="menu-item"><%= link_to "Main", root_path %></li>
+                <li class="menu-item"><%= link_to "Teleport", new_teleport_path %></li>
                 <li class="menu-item dev"><%= link_to "Character", character_path(player) %></li>
                 <li class="menu-item"><%= link_to "Settings", settings_path %></li>
+                <li class="menu-item"><%= button_to "Logout", session_path, method: :delete %></li>
               </ul>
             <% end %>
             <div class="hr"></div>
@@ -68,7 +79,6 @@
           <section>
         <% end %>
       </main>
-
       <footer>
         <small>&copy; 2024 Vyacheslav Odinokov. All rights reserved.</small>
       </footer>
