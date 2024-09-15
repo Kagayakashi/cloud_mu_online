@@ -16,10 +16,16 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def player
-    current_user.player&.character
+    current_user.player
   end
 
   helper_method :player
+
+  def active_character
+    player&.character
+  end
+
+  helper_method :active_character
 
   def authenticate_user_from_session
     User.find_by(id: session[:user_id])

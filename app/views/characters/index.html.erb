@@ -10,7 +10,7 @@
       <%= link_to character_path(character) do %>
         <h2>
           <%= character.name %>
-          <% if character == player %>
+          <% if character == active_character %>
             <sup>*</sup>
           <% end %>
         </h2>
@@ -20,7 +20,7 @@
         <%= character.profession.name %> <strong>[<%= character.level %>]</strong>
       </p>
       
-      <% if character != player %>
+      <% if character != active_character %>
         <%= button_to "Activate", activate_character_path(character), method: :post %>
       <% end %>
     </section>

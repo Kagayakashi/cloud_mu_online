@@ -10,9 +10,9 @@ class TeleportsController < ApplicationController
   def create
     begin
       map = Map.find(params[:id])
-      if map.min_level >= player.level && map.teleport_cost <= 0
-        player.map = map
-        player.save
+      if map.min_level >= active_character.level && map.teleport_cost <= 0
+        active_character.map = map
+        active_character.save
         redirect_to map_path, notice: "Teleported to #{ map.name }."
       else
         redirect_to new_teleport_path, alert: "Your level or zen is not enough to teleport there."

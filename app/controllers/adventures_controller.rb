@@ -3,15 +3,15 @@ class AdventuresController < ApplicationController
   before_action :activate_character!
 
   def show
-    @map = player.map
+    @map = active_character.map
     @monsters = @map.monsters
     @paths = @map.connected_maps
   end
 
   def travel
     map = Map.find(params[:id])
-    player.map = map
-    if player.save
+    active_character.map = map
+    if active_character.save
       redirect_to adventure_path
     end
   end

@@ -3,6 +3,6 @@ class MapsController < ApplicationController
   before_action :activate_character!
 
   def show
-    @spots = player.map.spots
+    @spots = active_character.map.spots
   end
 end
