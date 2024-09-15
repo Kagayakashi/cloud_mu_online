@@ -1,48 +1,48 @@
 class MonstersController < ApplicationController
   # ToDo
   def receive_spell_damage
-    @spot_monster = SpotMonster.find(params[:id])
+    @monster = Monster.find(params[:id])
   end
 
   def receive_attack_damage
     begin
-      spot_monster = SpotMonster.find(params[:id])
+      monster = Monster.find(params[:id])
 
-      if spot_monster.health <= 0
-        return redirect_to spot_path, alert: "Monster is dead. Failed to apply attack."
+      if monster.health <= 0
+        return redirect_to adventure_path, alert: "Monster is dead. Failed to apply attack."
       end
 
       player_attack_rate = CharacterTypes::DarkWizard.calculate_attack_rate(active_character)
 
       hit_chance = calculate_hit_chance(
         attack_rate: player_attack_rate,
-        defense_rate: spot_monster.monster.defense_rate
+        defense_rate: monster.monster_type.defense_rate
       )
 
       unless attack_success?(hit_chance)
-        return redirect_to spot_path, notice: "You missed hit to #{ spot_monster.monster.name }."
+        return redirect_to adventure_path, notice: "You missed hit to #{ monster.monster_type.name }."
       end
 
-      damage = calculate_damage(spot_monster.monster.defense)
+      damage = calculate_damage(monster.monster_type.defense)
 
       unless damage > 0
-        return redirect_to spot_path, notice: "Your hit deals no damage to #{ spot_monster.monster.name }."
+        return redirect_to adventure_path, notice: "Your hit deals no damage to #{ monster.monster_type.name }."
       end
 
-      spot_monster.health -= damage
+      monster.health -= damage
       active_character.set_attack_delay
 
-      if spot_monster.health <= 0
-        spot_monster.destroy
-        spawn_monster_later(spot_monster)
-        experience = active_character.add_experience_from_monster!(spot_monster.monster)
-        return redirect_to spot_path, notice: "#{ spot_monster.monster.name } dead. Reward is #{experience} experience."
+      if monster.health <= 0
+        monster.destroy
+        spawn_monster_later(monster)
+        experience = active_character.add_experience_from_monster!(monster.monster_type)
+        return redirect_to adventure_path, notice: "#{ monster.monster_type.name } dead. Reward is #{experience} experience."
       else
-        spot_monster.save
-        return redirect_to spot_path, notice: "You hit #{ spot_monster.monster.name } with #{ damage } damage."
+        monster.save
+        return redirect_to adventure_path, notice: "You hit #{ monster.monster_type.name } with #{ damage } damage."
       end
     rescue ActiveRecord::RecordNotFound
-      redirect_to spot_path, alert: "Failed to attack. Monaster do not exist."
+      redirect_to adventure_path, alert: "Failed to attack. Monaster do not exist."
     end
   end
 
@@ -70,10 +70,10 @@ class MonstersController < ApplicationController
     damage -= monster_defense
   end
 
-  def spawn_monster_later(spot_monster)
-    spot_monster.destroy
-    spawn_at = Time.now + spot_monster.monster.spawn_time
-    SpawnMonsterJob.perform_at(spawn_at, spot_monster.monster.id, spot_monster.spot.id)
+  def spawn_monster_later(monster)
+    monster.destroy
+    spawn_at = Time.now + monster.monster_type.spawn_time
+    SpawnMonsterJob.perform_at(spawn_at, monster.monster_type.id, monster.monster_type.map.id)
   end
 
   # ToDo

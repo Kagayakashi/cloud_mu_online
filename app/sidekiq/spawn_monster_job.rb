@@ -1,7 +1,8 @@
 class SpawnMonsterJob
   include Sidekiq::Job
 
-  def perform(monster_id, spot_id)
-    SpotMonster.create!(monster: Monster.find(monster_id), spot: Spot.find(spot_id))
+  def perform(monster_type_id)
+    monster_type = MonsterType.find(monster_type_id)
+    monster_type.monsters.create
   end
 end

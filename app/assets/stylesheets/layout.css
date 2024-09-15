@@ -106,7 +106,7 @@ p {
 .menu-item {
   color: #f4d06e;
   border-bottom: 1px dotted #5c5853;
-  height: 30px;
+  min-height: 30px;
   line-height: 30px;
   padding: 0px 6px;
 }
@@ -167,4 +167,39 @@ p {
   align-items: center;
   gap: 4px;
   padding: 4px 2px;
+}
+
+.row-block {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.max-health {
+  width: 100px;
+  height: 20px;
+  background-color: #df5a3a;
+  border-radius: 5px;
+  position: relative;
+}
+
+.current-health {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: #0d7932;
+  border-radius: 5px;
+}
+
+.health-value {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  position: absolute;
+  color: #391515;
 }

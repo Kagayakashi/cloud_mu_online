@@ -2,14 +2,19 @@
   <h1><%= @map.name %></h1>
 
   <% if @monsters.present? %>
-    <div class="hr"></div>
-    <div class="hr"></div>
-
     <ul class="menu">
       <li class="menu-item menu-header">Monsters:</li>
       <% @monsters.each do |monster| %>
         <li class="menu-item">
-          <%= monster.monster_type.name %>[<%= monster.monster_type.level %>]
+          <div class="row-block">
+            <%= monster.monster_type.name %>[<%= monster.monster_type.level %>]
+            <div class="max-health">
+              <p class="health-value"><%= monster.health %> / <%= monster.monster_type.health %></p>
+              <div style="width: <%= monster_health_percent(monster) %>%;" class="current-health"></div>
+            </div>
+
+            <%= button_to "Attack", url_for(controller: :monsters, action: :receive_attack_damage, id: monster.id), :method => :post, class: "action-button" %>
+          <div>
         </li>
       <% end %>
     </ul>
