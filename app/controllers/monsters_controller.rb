@@ -73,7 +73,7 @@ class MonstersController < ApplicationController
   def spawn_monster_later(monster)
     monster.destroy
     spawn_at = Time.now + monster.monster_type.spawn_time
-    SpawnMonsterJob.perform_at(spawn_at, monster.monster_type.id, monster.monster_type.map.id)
+    SpawnMonsterJob.perform_at(spawn_at, monster.monster_type.id)
   end
 
   # ToDo
