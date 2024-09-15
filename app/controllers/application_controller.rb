@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
-    redirect_to new_session_path, alert: "You must be logged in to do that." unless user_signed_in?
+    redirect_to start_path unless user_signed_in?
   end
 
   def current_user
@@ -35,6 +35,7 @@ class ApplicationController < ActionController::Base
     Current.user = user
     reset_session
     session[:user_id] = user.id
+    user.update_last_login_time
   end
 
   def logout(user)
