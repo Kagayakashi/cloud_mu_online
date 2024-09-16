@@ -4,6 +4,7 @@ class AttackMonsterOnceService
   def initialize(monster:, character:)
     @monster = monster
     @monster_type = monster.monster_type
+    @character = character
 
     #@player_defense_rate = character.character_type.calculate_defense_rate(character)
     @player_attack_rate = character.character_type.calculate_attack_rate(character)
@@ -19,8 +20,6 @@ class AttackMonsterOnceService
       perform_attack
     end
 
-    @monster.save! if @damage > 0
-
     attack_result
   end
 
@@ -32,15 +31,14 @@ class AttackMonsterOnceService
     attacks
   end
 
-  def monster_attack
-    attacks = 1
-    attacks
+  def set_aggro
+    return if @monster.target
+    MonsterPerformAttackJob.perform_async(@monster.id, @character.id)
   end
 
   def spawn_monster_later(monster)
     monster.destroy
-    spawn_at = Time.now + monster.monster_type.spawn_time
-    SpawnMonsterJob.perform_at(spawn_at, monster.monster_type.id)
+    SpawnMonsterJob.perform_in(1.minutes, monster.monster_type.id)
   end
 
   def perform_attack
@@ -61,16 +59,19 @@ class AttackMonsterOnceService
 
   def attack_result
     damage_dealt = @damage
-    monster_killed = @monster.health <= 0
+    target_killed = @monster.health <= 0
 
-    if monster_killed
+    if target_killed
       @monster.destroy
       spawn_monster_later(@monster)
+    else
+      set_aggro
+      @monster.save! if @monster.changed?
     end
 
-    AttackMonsterResult.new(
+    AttackResult.new(
       damage_dealt: damage_dealt,
-      monster_killed: monster_killed,
+      target_killed: target_killed,
     )
   end
 end

@@ -14,7 +14,7 @@ class MonstersController < ApplicationController
 
     active_character.set_attack_delay
 
-    if result.monster_killed
+    if result.target_killed
       experience = active_character.add_experience_from_monster!(@monster.monster_type)
       redirect_to adventure_path, notice: "#{ @monster.monster_type.name } dead. Reward is #{experience} experience."
     else

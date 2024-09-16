@@ -1,6 +1,6 @@
 class Monster < ApplicationRecord
   belongs_to :monster_type
-  has_one :target, :class_name => :character, :foreign_key => :target_id
+  belongs_to :target, class_name: 'Character', foreign_key: :target_id, optional: true
 
   before_create :set_health
 
