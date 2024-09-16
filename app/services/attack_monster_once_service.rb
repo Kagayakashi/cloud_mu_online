@@ -19,6 +19,8 @@ class AttackMonsterOnceService
       perform_attack
     end
 
+    @monster.save! if @damage > 0
+
     attack_result
   end
 
@@ -55,8 +57,6 @@ class AttackMonsterOnceService
     @monster.health -= damage
 
     return if @monster.health <= 0
-
-    @monster.save
   end
 
   def attack_result
