@@ -1,5 +1,5 @@
 class CharacterCreatorService
-  def initialize(:user, :character_params)
+  def initialize(user:, character_params:)
     @user = user
     @character_params = character_params
   end
