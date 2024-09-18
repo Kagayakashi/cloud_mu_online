@@ -59,10 +59,10 @@ class MonsterAggroService
       @monster.update(target: nil)
       @character.current_health = 0
       @character.map = Map.first
-      BattleLogs::DamageReceivedLog.create(character: @character, description: "#{@character_type.name} killed you.")
+      InGameLogs::DamageReceivedLog.create(character: @character, description: "#{@character_type.name} killed you.")
     else
       attack_later
-      BattleLogs::DamageReceivedLog.create(character: @character, description: "#{@character_type.name} dealt #{@damage} damage to you.")
+      InGameLogs::DamageReceivedLog.create(character: @character, description: "#{@character_type.name} dealt #{@damage} damage to you.")
     end
 
     AttackResult.new(

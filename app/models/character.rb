@@ -2,6 +2,7 @@ class Character < ApplicationRecord
   belongs_to :user
   belongs_to :profession
   belongs_to :map
+  has_many :in_game_logs
 
   before_create :set_default_values
 

@@ -65,11 +65,11 @@ class AttackMonsterOnceService
       @monster.destroy
       spawn_monster_later(@monster)
       experience = @character.add_experience_from_monster!(@monster.monster_type)
-      BattleLogs::ExperienceReceivedLog.create(character: @character, description: "Your received #{experience} experience.")
+      InGameLogs::ExperienceReceivedLog.create(character: @character, description: "Your received #{experience} experience.")
     else
       set_aggro
       @monster.save! if @monster.changed?
-      BattleLogs::DamageDealtLog.create(character: @character, description: "You dealt #{@damage} damage.")
+      InGameLogs::DamageDealtLog.create(character: @character, description: "You dealt #{@damage} damage.")
     end
 
     AttackResult.new(

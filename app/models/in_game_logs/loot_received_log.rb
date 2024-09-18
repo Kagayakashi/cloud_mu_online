@@ -1,4 +1,4 @@
 module InGameLogs
-  class LootReceivedLog < BattleLog
+  class LootReceivedLog < InGameLog
   end
 end

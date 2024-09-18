@@ -34,6 +34,14 @@
     </ul>
   <% end %>
 
+  <% if @logs.present? %>
+    <ul>
+      <% @logs.each do |log| %>
+        <li><%= log.description %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
   <% if @paths.present? %>
     <div class="hr"></div>
     <div class="hr"></div>

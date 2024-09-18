@@ -1,4 +1,4 @@
 module InGameLogs
-  class ExperienceReceivedLog < BattleLog
+  class ExperienceReceivedLog < InGameLog
   end
 end

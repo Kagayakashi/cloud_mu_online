@@ -1,4 +1,4 @@
 module InGameLogs
-  class DamageReceivedLog < BattleLog
+  class DamageReceivedLog < InGameLog
   end
 end
