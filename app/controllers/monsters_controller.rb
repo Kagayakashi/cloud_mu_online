@@ -10,16 +10,11 @@ class MonstersController < ApplicationController
     end
 
     attack_service = AttackMonsterOnceService.new(monster: @monster, character: active_character)
-    result = attack_service.call
+    attack_service.call
 
     active_character.set_attack_delay
 
-    if result.target_killed
-      experience = active_character.add_experience_from_monster!(@monster.monster_type)
-      redirect_to adventure_path, notice: "#{ @monster.monster_type.name } dead. Reward is #{experience} experience."
-    else
-      redirect_to adventure_path, notice: "You deal #{result.damage_dealt} damage to spider"
-    end
+    redirect_to adventure_path
   end
 
   private
