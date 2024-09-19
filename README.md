@@ -16,12 +16,12 @@ While Oracle Linux is the recommended environment, you have the flexibility to u
 ## System configuration
 
 ### WSL
-If used with WSL2, need to configuure it (you may skip WSL section if not using it):
+If used with WSL2, need to configuure it (you may skip WSL section if not using it).
 ```shell
 sudo nano /etc/wsl.conf
 ```
 
-Write there
+Write there:
 ```bash
 [boot]
 systemd=true
@@ -30,37 +30,37 @@ generateHosts = false
 generateResolvConf = false
 ```
 
-Reset WSL from windows shell
+Reset WSL from windows shell.
 ```shell
 wsl.exe --shutdown
 ```
 
-Setup DNS
+Setup DNS.
 ```shell
 sudo nano /etc/resolv.conf
 ```
 
-Write there
+Write there:
 ```bash
 nameserver 8.8.8.8
 ```
 
 ### Update the system and download dependencies 
-Update and needed instruments:
+Update and needed instruments.
 ```shell
 sudo dnf update
 sudo dnf config-manager --enable ol9_codeready_builder
 sudo dnf install nano git curl gpg gcc make libyaml-devel
 ```
 
-Redis
+Redis.
 ```shell
 sudo dnf install redis
 sudo systemctl start redis
 sudp systemctl enable redis
 ```
 
-Install MySQL
+Install MySQL.
 ```shell
 sudo dnf install mysql-server mysql-devel
 sudo systemctl start mysqld
@@ -68,7 +68,7 @@ sudp systemctl enable mysqld
 sudo mysql_secure_installation
 ```
 
-Need to create MySQL user
+Need to create MySQL user. There is 2 ways to do it.
 ```shell
 mysql -u root -p
 ```
@@ -108,18 +108,18 @@ export REDIS_PORT="6379"
 Keep password empty if you are using socket, otherwise fill the password and keep empty socket path.
 
 ### Install ruby
-In this example we are using RVM. Install it:
+In this example we are using RVM. Install it with:
 ```shell
 \curl -sSL https://get.rvm.io | bash -s stable
 ```
 
-Install specified Ruby version:
+Install specified Ruby version.
 ```shell
 rvm install 3.3.4 --default
 ```
 
 ## Install project
-Git clone the project. Setup local bundle and install dependencies:
+Git clone the project. Setup local bundle and install dependencies.
 ```shell
 git clone https://github.com/Kagayakashi/cloud_mu_online.git
 cd cloud_mu_online/
@@ -127,19 +127,19 @@ bundle config set --local path 'vendor/bundle'
 bundle install
 ```
 
-Setup database:
+Setup database.
 ```shell
 bin/rails db:create
 bin/rails db:migrate
 bin/rails db:seed
 ```
 
-Run the application:
+Run application.
 ```shell
 bin/rails s
 ```
 
-Run sidekiq:
+Run sidekiq.
 ```shell
 bundle exec sidekiq
 ```
