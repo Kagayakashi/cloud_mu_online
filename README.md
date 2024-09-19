@@ -35,7 +35,7 @@ Reset WSL from windows shell
 wsl.exe --shutdown
 ```
 
-Setup DN
+Setup DNS
 ```shell
 sudo nano /etc/resolv.conf
 ```
