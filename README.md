@@ -105,6 +105,8 @@ export CMO_DB_SOCKET="/var/lib/mysql/mysql.sock"
 
 export REDIS_PORT="6379"
 ```
+Keep password empty if you are using socket, otherwise fill the password and keep empty socket path.
+
 ### Install ruby
 In this example we are using RVM. Install it:
 ```shell
