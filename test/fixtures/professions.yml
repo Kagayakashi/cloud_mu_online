@@ -1,9 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  level: 1
+dk:
+  name: Dark Knight
+  level: 150
 
-two:
-  name: MyString
-  level: 1
+dw:
+  name: Dark Wizard
+  level: 150
+  
+elf:
+  name: Fairy Elf
+  level: 150
