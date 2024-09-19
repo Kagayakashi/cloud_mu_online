@@ -13,23 +13,10 @@ While Oracle Linux is the recommended environment, you have the flexibility to u
 
 * Bundle version `bundle-2.5.11`
 
-* System configuration
+## System configuration
 
-System update and install needed instruments:
-```shell
-sudo dnf update
-sudo dnf config-manager --enable ol9_codeready_builder
-sudo dnf install git make gcc curl nano ruby ruby-devel libyaml-devel
-```
-
-Install redis
-```shell
-sudo dnf install redis
-sudo systemctl start redis
-sudp systemctl enable redis
-```
-
-If used with WSL2, need to enable `systemd`:
+### WSL
+If used with WSL2, need to configuure it (skip WSL section):
 ```shell
 sudo nano /etc/wsl.conf
 ```
@@ -38,11 +25,44 @@ Write there
 ```bash
 [boot]
 systemd=true
+[network]
+generateHosts = false
+generateResolvConf = false
+```
+
+Reset WSL from windows shell
+```shell
+wsl.exe --shutdown
+```
+
+Setup DN
+```shell
+sudo nano /etc/resolv.conf
+```
+
+Write there
+```bash
+nameserver 8.8.8.8
+```
+
+### Update the system and download dependencies 
+Update and needed instruments:
+```shell
+sudo dnf update
+sudo dnf config-manager --enable ol9_codeready_builder
+sudo dnf install nano git curl gpg gcc make libyaml-devel
+```
+
+Redis
+```shell
+sudo dnf install redis
+sudo systemctl start redis
+sudp systemctl enable redis
 ```
 
 Install MySQL
 ```shell
-sudo dnf install sqlite-devel mysql-server mysql-devel
+sudo dnf install mysql-server mysql-devel
 sudo systemctl start mysqld
 sudp systemctl enable mysqld
 sudo mysql_secure_installation
@@ -52,19 +72,52 @@ Need to create MySQL user
 ```shell
 mysql -u root -p
 ```
+
+* For socket authentication
 ```sql
-CREATE USER 'dbadmin'@'localhost' IDENTIFIED BY 'dbpassword';
-GRANT ALL PRIVILEGES ON *.* TO 'dbadmin'@'localhost';
+INSTALL PLUGIN auth_socket SONAME 'auth_socket.so';
+CREATE USER 'cmo'@'localhost' IDENTIFIED WITH auth_socket;
+GRANT ALL PRIVILEGES ON *.* TO 'cmo'@'localhost';
+FLUSH PRIVILEGES;
+exit
 ```
 
-Configure ENV variables needed for: sidekiq, redis. Restart shell
+* For passwword authentication
+```sql
+CREATE USER 'cmo'@'localhost' IDENTIFIED BY 'YOUR_PASSWORD_GOES_HERE';
+GRANT ALL PRIVILEGES ON *.* TO 'cmo'@'localhost';
+FLUSH PRIVILEGES;
+exit
 ```
+
+Configure ENV variables needed for sidekiq and redis.
+```shell
+nano .bashrc
+```
+Write there:
+```bash
 export SIDEKIQ_USERNAME="admin"
 export SIDEKIQ_PASSWORD="admin"
+
+export CMO_DB_USERNAME="cmo"
+export CMO_DB_PASSWORD=""
+export CMO_DB_SOCKET="/var/lib/mysql/mysql.sock"
+
 export REDIS_PORT="6379"
 ```
+### Install ruby
+In this example we are using RVM. Install it:
+```shell
+\curl -sSL https://get.rvm.io | bash -s stable
+```
 
-Install project
+Install specified Ruby version:
+```shell
+rvm install 3.3.4 --default
+```
+
+## Install project
+Git clone the project. Setup local bundle and install dependencies:
 ```shell
 git clone https://github.com/Kagayakashi/cloud_mu_online.git
 cd cloud_mu_online/
@@ -72,40 +125,20 @@ bundle config set --local path 'vendor/bundle'
 bundle install
 ```
 
-* Create project database
-
+Setup database:
 ```shell
 bin/rails db:create
-```
-
-* Install database migrations
-
-```shell
 bin/rails db:migrate
-```
-
-* Insert initial data into database
-
-```shell
 bin/rails db:seed
 ```
 
-* How to run the application
-
+Run the application:
 ```shell
 bin/rails s
 ```
 
-* How to run the test suite
-
-```
-bin/rails test
-```
-
-* Services (job queues, cache servers, search engines, etc.)
-Start background job runner Sidekiq
+Run sidekiq:
 ```shell
 bundle exec sidekiq
 ```
 
-* ...
