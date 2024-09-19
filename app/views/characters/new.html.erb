@@ -10,7 +10,7 @@
 
     <div>
       <%= form.label :profession %>
-      <%= form.select :profession, [['Dark Wizard', 'dark_wizard'], ['Dark Knight', 'dark_knight'], ['Light Elf', 'elf']] %>
+      <%= form.collection_select :profession, Profession.all, :code, :name %>
     </div>
 
     <div>

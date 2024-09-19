@@ -1,0 +1,23 @@
+.icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-color: transparent;
+}
+
+.dark-wizard-icon {
+  background-image: url('16x16_dark_wizard.png');
+  background-size: 16px 16px;
+}
+
+.health-icon {
+  background-image: url('icons/health.png');
+}
+
+.mana-icon {
+  background-image: url('icons/mana.png');
+}
+
+.gold-coin-icon {
+  background-image: url('icons/gold_coin.png');
+}

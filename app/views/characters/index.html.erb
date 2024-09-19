@@ -1,30 +1,33 @@
-<article id="characters" class="characters">
-  <header>
-    <h1>My characters</h1>
-    <p>You can create new character or choose character to play with.</p>
-    <%= link_to "New character", new_character_path %>
-  </header>
+<article>
+  <h1>My characters</h1>
 
-  <% @characters.each do |character| %>
-    <section>
-      <%= link_to character_path(character) do %>
-        <h2>
-          <%= character.name %>
-          <% if character == active_character %>
-            <sup>*</sup>
-          <% end %>
-        </h2>
-      <% end %>
+  <section class="action-block">
+    <div class="action-descriptions">
+      <p>You can create new character or choose character to play with.</p>
+    </div>
+    <%= link_to "New character", new_character_path, class: "action-button" %>
+  </section>
+  
+  <article style="padding: 0px 6px;">
+    <% @characters.each do |character| %>
+      <section>
+        <%= link_to character_path(character) do %>
+          <h2>
+            <%= character.name %>
+            <% if character == active_character %>
+              <sup>*</sup>
+            <% end %>
+          </h2>
+        <% end %>
 
-      <p>No guild</p>
-
-      <p>
-        <%= character.profession %> <strong>[<%= character.level %>]</strong>
-      </p>
-      
-      <% if character != active_character %>
-        <%= button_to "Activate", activate_character_path(character), method: :post %>
-      <% end %>
-    </section>
-  <% end %>
+        <p>
+          <%= character.profession.name %> <strong>[<%= character.level %>]</strong>
+        </p>
+        
+        <% if character != active_character %>
+          <%= button_to "Activate", activate_character_path(character), method: :post, class: "action-button" %>
+        <% end %>
+      </section>
+    <% end %>
+  </article>
 </article>

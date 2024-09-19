@@ -1,21 +1,24 @@
 <article>
-  <header>
-    <h1>World Map</h1>
-    <p>You can teleport to any place to hunt.</p>
-  </header>
+  <h1>Maps to teleport</h1>
 
-  <% @maps.each do |map| %>
-    <section>
-      <h2>
-        <%= map.name %>
-      </h2>
-      <p>
-        Level required <%= map.min_level %>
-      </p>
-      <p>
-        Cost <%= map.teleport_cost %>
-      </p>
-      <%= button_to "Teleport", url_for(controller: :teleports, action: :create, id: map.id), :method => :post%>
-    </section>
-  <% end %>
+  <table>
+    <tr>
+      <th style="text-align: left;">Map</th>
+      <th>LVL</th>
+      <th>Cost</th>
+      <th></th>
+    </tr>
+    <% @maps.each do |map| %>
+      <tr>
+        <td><%= map.name %></td>
+        <td style="text-align: center;"><%= map.min_level %></td>
+        <td style="text-align: center;<%= "color: #df5a3a;" if map.teleport_cost > 0 %>"><%= map.teleport_cost %></td>
+        <% if map.teleport_cost == 0 %>
+          <td style="text-align: center;">
+            <%= button_to 'Teleport', url_for(controller: :teleports, action: :create, id: map.id), method: :post %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
 </article>

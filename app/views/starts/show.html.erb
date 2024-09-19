@@ -1,0 +1,16 @@
+<%= image_tag("start.png", alt: "Landing welcome image", class:"start-image") %>
+
+<section class="action-block">
+  <div class="action-descriptions">
+    <p>New mmorpg fantasy game - Cloud MU Online!</p>
+    <p>Adventures, Battles, enemies and friends, all from your browser!</p>
+    <p>Level up your character your way!</p>
+  </div>
+  <%= link_to "Start new game", new_start_path, class: "action-button" %>
+</section>
+
+<div class="hr"></div>
+<ul class="menu player-menu">
+  <li class="menu-item"><%= link_to "Log in", new_session_path %></li>
+</ul>
+<div class="hr"></div>

@@ -11,24 +11,34 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  root "characters#index"
+  root "starts#show"
 
-  resources :settings, only: [:index]
-  resource :session
-  resource :registration
+  resource :start, only: [:show, :new, :create]
+  resource :session, only: [:new, :create, :destroy]
+  resource :registration, only: [:new, :create]
   resource :password_reset
-  resource :password
+  resource :password, only: [:edit, :update]
+  resource :settings, only: [:show]
   resources :characters do
     post "activate", on: :member
     resource :add_stat, shallow: true, only: [:new, :create]
   end
+
+  # Teleporting
+  resource :teleport, only: [:new, :create]
+
+  # Adventure (walk without teleport)
+  resource :adventure, only: [:show, :travel] do
+    post "travel", on: :member
+  end
+
   resource :map, only: [:show]
   resource :spot, only: [:show]
   resources :spots, only: [:activate] do
     post "activate", on: :member
   end
   resource :teleport, only: [:new, :create]
-  resources :spot_monsters, only: [:receive_spell_damage, :receive_attack_damage] do
+  resources :monsters, only: [:receive_spell_damage, :receive_attack_damage] do
     post "receive_spell_damage", on: :member
     post "receive_attack_damage", on: :member
   end

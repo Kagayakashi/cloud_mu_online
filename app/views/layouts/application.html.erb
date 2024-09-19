@@ -11,62 +11,87 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <header>
-      <nav>
-        <ul>
-        <% if user_signed_in? %>
-          <% if active_character %>
-            <li>
-              <%= link_to "Hunting", spot_path %>
-            </li>
-            <li>
-              <%= link_to "Map", map_path %>
-            </li>
-            <li>
-              <%= link_to "Teleport", new_teleport_path %>
-            </li>
-            <li>
-              <%= link_to "Character", character_path(active_character) %>
-            </li>
+    <article class="root">
+      <main>
+        <header>
+          <%= link_to root_path, title: "To main page", class: "w-full" do %>
+            <h1>Cloud MU Online</h1>
           <% end %>
-          <li>
-            <%= link_to "Settings", settings_path %>
-          </li>
-          <li>
-            <%= link_to "Log Out", session_path, data: { "turbo-method": :delete } %>
-          </li>
-        <% else %>
-          <li>
-            <%= link_to "Sign Up", new_registration_path %>
-          </li>
-          <li>
-            <%= link_to "Log In", new_session_path %>
-          </li>
+        </header>
+
+        <% if current_user&.is_guest %>
+          <article class="complete-register">
+            <%= link_to new_registration_path, title: "Complete registration" do %>
+              <p>Register your account and get rewards</p>
+            <% end %>
+          </article>
         <% end %>
-        </ul>
-      </nav>
-    </header>
+        
+        <% if user_signed_in? %>
+          <section class="player-status">
+            <% if active_character %>
+              <div class="player-info">
+                <p>
+                  <span class="icon dark-wizard-icon"></span>
+                  <%= active_character.name %>
+                </p>
 
-    <main>
-      <% if notice or alert %>
-        <article>
-          <p><%= notice %></p>
-          <p><%= alert %></p>
-        </article>
-      <% end %>
+                <p>
+                  <span class="icon health-icon"></span>
+                  <%= active_character.current_health %> / <%= active_character.max_health %>
+                </p>
+                <p>
+                  <span class="icon mana-icon"></span>
+                  <%= active_character.current_mana %> / <%= active_character.max_mana %>
+                </p>
 
-      <%= yield %>
-    </main>
+                <p>
+                  <span class="icon gold-coin-icon"></span>
+                  0
+                </p>
+              </div>
+            <% end %>
+          </section>
+        <% end %>
 
-    <footer>
-      <small>&copy; 2024 Vyacheslav Odinokov. All rights reserved.</small>
-    </footer>
+        <% if notice or alert %>
+          <article class="notification">
+            <% if notice %>
+              <p><%= notice %></p>
+            <% end %>
+            <% if alert %>
+              <p><%= alert %></p>
+            <% end %>
+          </article>
+        <% end %>
+
+        <%= yield %>
+
+        <% if user_signed_in? %>
+          <section class="">
+            <div class="hr"></div>
+            <div class="hr"></div>
+              <ul class="menu player-menu">
+                <% if active_character %>
+                  <li class="menu-item"><%= link_to "Adventure", adventure_path %></li>
+                  <li class="menu-item dev"><%= link_to "Character", character_path(active_character) %></li>
+                <% end %>
+                <li class="menu-item"><%= link_to "Settings", settings_path %></li>
+                <li class="menu-item"><%= button_to "Logout", session_path, method: :delete %></li>
+              </ul>
+            <div class="hr"></div>
+            <div class="hr"></div>
+          <section>
+        <% end %>
+      </main>
+      <footer>
+        <small>&copy; 2024 Vyacheslav Odinokov. All rights reserved.</small>
+      </footer>
+    </article>
   </body>
 </html>

@@ -1,9 +1,10 @@
 class Character < ApplicationRecord
   belongs_to :user
+  belongs_to :profession
   belongs_to :map
-  belongs_to :spot
+  has_many :in_game_logs
 
-  before_validation :set_default_values, if: :new_record?
+  before_create :set_default_values
 
   validates :name, presence: true, uniqueness: true
   validates :name, length: { minimum: 4, maximum: 20 }
@@ -34,14 +35,8 @@ class Character < ApplicationRecord
     last_time_attack < Time.now.to_f
   end
 
-  private
-
-  def last_time_attack
-    $redis.get("character:#{self.id}:last_time_attack").to_f
-  end
-
   def add_level
-    if self.experience >= max_experience
+    if experience >= max_experience
       self.experience = 0
       self.level += 1
       self.points += 5
@@ -52,23 +47,26 @@ class Character < ApplicationRecord
     self.level = 1
     self.experience = 0
     self.points = 0
-    self.active = false
 
     character_type.set_default_stats!(self)
 
     self.max_health = character_type.calculate_health(self)
-    self.current_health ||= self.max_health
+    self.current_health ||= max_health
 
     self.max_mana = character_type.calculate_mana(self)
-    self.current_mana ||= self.max_mana
-    self.map_id = Map.first.id # Lorencia
-    self.spot_id = Spot.first.id # Lorencia City
+    self.current_mana ||= max_mana
+    self.map = Map.first # Lorencia
+    #self.spot = Spot.first # Lorencia City
+  end
+
+  def last_time_attack
+    $redis.get("character:#{self.id}:last_time_attack").to_f
   end
 
   def character_type
-    case self.profession.to_sym
-    when :dark_wizard then CharacterTypes::DarkWizard
-    when :dark_knight then CharacterTypes::DarkKnight
+    case self.profession.code.to_sym
+    when :dw then CharacterTypes::DarkWizard
+    when :dk then CharacterTypes::DarkKnight
     when :elf then CharacterTypes::Elf
     else
       nil

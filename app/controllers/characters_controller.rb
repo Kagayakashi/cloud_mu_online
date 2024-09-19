@@ -9,7 +9,7 @@ class CharactersController < ApplicationController
     begin
       @character = current_user.characters.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      redirect_to :index, alert: "Character not found."
+      redirect_to characters_path, alert: "Character not found."
     end
   end
 
@@ -26,8 +26,9 @@ class CharactersController < ApplicationController
   end
 
   def create
-    @character = current_user.characters.build(create_character_params)
-    logger.debug(@character)
+    @character = Character.new(character_params_with_profession)
+    @character.set_default_values
+    @character.user = current_user
     if @character.save
       redirect_to characters_path, notice: "Character created successfully!"
     else
@@ -37,20 +38,46 @@ class CharactersController < ApplicationController
   end
 
   def activate
-    begin
-      character = current_user.characters.find(params[:id])
-      current_user.active_character = character
-      if current_user.save
-        redirect_to characters_path, notice: "Character #{ character.name } has been activated."
-      else
-        redirect_to :back, alert: "Character could not be activated."
-      end
-    rescue ActiveRecord::RecordNotFound
-      redirect_to :back, alert: "Cannot activate character that is not found."
+    character = current_user.characters.find_by(id: params[:id])
+
+    if character.nil?
+      return redirect_to characters_path, alert: "Character not found."
     end
+
+    replace_active_character(character)
+  rescue ActiveRecord::RecordInvalid
+    redirect_to characters_path, alert: "Failed to activate character #{character.name}."
   end
 
   private
+
+  def replace_active_character(character)
+    ActiveRecord::Base.transaction do
+      player&.destroy
+      player = current_user.build_player(character: character)
+      if player.save
+        redirect_to characters_path, notice: "Character #{character.name} has been activated."
+      else
+        raise ActiveRecord::Rollback
+      end
+    end
+  end
+
+
+  def character_params_with_profession
+    params_with_profession = create_character_params
+    profession = Profession.find_by(code: params_with_profession[:profession])
+
+    unless profession
+      flash.now[:alert] = "Failed to create character without profession."
+      render :new, status: :unprocessable_entity
+      return
+    end
+
+    params_with_profession[:profession] = profession
+    params_with_profession
+  end
+
 
   def create_character_params
     params.require(:character).permit(:name, :profession)

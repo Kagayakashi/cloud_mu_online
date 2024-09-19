@@ -4,6 +4,8 @@ class CreateUsers < ActiveRecord::Migration[7.1]
       t.string :username, null: false
       t.string :email, null: false
       t.string :password_digest, null: false
+      t.datetime :last_login_at
+      t.boolean :is_guest, null: false, default: true
 
       t.timestamps
     end

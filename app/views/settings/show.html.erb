@@ -1,0 +1,11 @@
+<section>
+  <p>Last login: <%= current_user.last_login_at&.strftime('%Y-%m-%d %H:%M:%S') %></p>
+  <ul>
+    <li>
+      <%= link_to "Select character", characters_path %>
+    </li>
+    <li class="dev">
+      <%= link_to "Edit Password", edit_password_path %>
+    </li>
+  </ul>
+</section>
