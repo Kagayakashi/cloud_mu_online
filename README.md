@@ -16,7 +16,7 @@ While Oracle Linux is the recommended environment, you have the flexibility to u
 ## System configuration
 
 ### WSL
-If used with WSL2, need to configuure it (skip WSL section):
+If used with WSL2, need to configuure it (you may skip WSL section if not using it):
 ```shell
 sudo nano /etc/wsl.conf
 ```
