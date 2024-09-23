@@ -6,7 +6,7 @@ class AdventuresController < ApplicationController
     @map = active_character.map
     @monsters = @map.monsters
     @paths = @map.connected_maps
-    @logs = active_character.in_game_logs.order(created_at: :desc)
+    @logs = active_character.in_game_logs.order(created_at: :desc).limit(10)
   end
 
   def travel
