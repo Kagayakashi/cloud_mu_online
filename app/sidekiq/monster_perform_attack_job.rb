@@ -7,24 +7,18 @@ class MonsterPerformAttackJob
       character = Character.lock("FOR UPDATE").find(character_id)
 
       if monster.target.nil?
+        Rails.logger.info "Monster setting his target to #{character.name}"
         monster.update(target: character)
       end
 
       if character.map != monster.monster_type.map
         Rails.logger.info "Character's map does not match the monster's map."
+        monster.update(target: nil)
         return
       end
 
       attack_service = MonsterAggroService.new(monster: monster, character: character)
-      result = attack_service.call
-
-      if result.target_killed
-        Rails.logger.info "Monster #{monster.id} killed player"
-      elsif result.damage_dealt > 0
-        Rails.logger.info "Monster #{monster.id} deal #{result.damage_dealt} damage"
-      else
-        Rails.logger.info "Monster #{monster.id} cannot pass defense"
-      end
+      attack_service.call
     end
   rescue ActiveRecord::RecordNotFound => e
     Rails.logger.error "MonsterPerformAttackJob failed: #{e.message}"

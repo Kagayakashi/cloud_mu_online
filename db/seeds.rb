@@ -8,6 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+InGameLog.destroy_all
 Monster.destroy_all
 MonsterType.destroy_all
 Player.destroy_all

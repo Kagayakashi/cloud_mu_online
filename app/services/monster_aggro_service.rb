@@ -14,7 +14,9 @@ class MonsterAggroService
   end
 
   def call
+    Rails.logger.info "Monster going to hit #{@character.name} #{monster_attacks} times"
     monster_attacks.times do
+      Rails.logger.info "Monster performing attack"
       perform_attack
     end
 
@@ -32,16 +34,23 @@ class MonsterAggroService
   end
 
   def attack_later
-    MonsterPerformAttackJob.perform_in(5.seconds, @monster.id, @character.id)
+    MonsterPerformAttackJob.perform_in(10.seconds, @monster.id, @character.id)
   end
 
   def perform_attack
+    Rails.logger.info "#{ @character.name } current health is #{ @character.current_health }"
+
     return unless @character.current_health > 0
 
     hit_chance = calculate_hit_chance(attack_rate: @monster_type.attack_rate, defense_rate: @player_defense_rate)
+
     return unless attack_success?(hit_chance)
 
+    Rails.logger.info "Monster attack is success"
+
     damage = calculate_damage(min_attack: @monster_type.min_attack, max_attack: @monster_type.max_attack, defense: @player_defense)
+
+    Rails.logger.info "Monster damage is #{ damage }"
 
     return unless damage > 0
 
@@ -52,22 +61,16 @@ class MonsterAggroService
   end
 
   def attack_result
-    damage_dealt = @damage
-    target_killed = @character.current_health <= 0
-
-    if target_killed
+    if @character.current_health <= 0
+      Rails.logger.info "Player is dead"
       @monster.update(target: nil)
-      @character.current_health = 0
-      @character.map = Map.first
-      InGameLogs::DamageReceivedLog.create(character: @character, description: "#{@character_type.name} killed you.")
+      @character.update(current_health: 0, map: Map.first)
+      InGameLogs::DamageReceivedLog.create(character: @character, description: "#{@monster_type.name} killed you.")
+      return
     else
       attack_later
-      InGameLogs::DamageReceivedLog.create(character: @character, description: "#{@character_type.name} dealt #{@damage} damage to you.")
+      Rails.logger.info "Player is not dead"
+      InGameLogs::DamageReceivedLog.create(character: @character, description: "#{@monster_type.name} dealt #{@damage} damage to you.") if @damage > 0
     end
-
-    AttackResult.new(
-      damage_dealt: damage_dealt,
-      target_killed: target_killed,
-    )
   end
 end

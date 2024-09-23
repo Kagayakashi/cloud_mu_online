@@ -58,10 +58,7 @@ class AttackMonsterOnceService
   end
 
   def attack_result
-    damage_dealt = @damage
-    target_killed = @monster.health <= 0
-
-    if target_killed
+    if @monster.health <= 0
       @monster.destroy
       spawn_monster_later(@monster)
       experience = @character.add_experience_from_monster!(@monster.monster_type)
@@ -71,10 +68,5 @@ class AttackMonsterOnceService
       @monster.save! if @monster.changed?
       InGameLogs::DamageDealtLog.create(character: @character, description: "You dealt #{@damage} damage.")
     end
-
-    AttackResult.new(
-      damage_dealt: damage_dealt,
-      target_killed: target_killed,
-    )
   end
 end
