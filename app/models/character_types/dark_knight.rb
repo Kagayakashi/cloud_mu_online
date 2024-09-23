@@ -40,6 +40,10 @@ module CharacterTypes
       35 + (character.level - 1) + character.vitality * 3
     end
 
+    def self.calculate_health_regen(character)
+      1 + (character.vitality / 20).floor + (0.015 * character.max_health).floor
+    end
+
     def self.calculate_mana(character)
       10 + (character.level - 1) / 2 + character.energy
     end
