@@ -209,3 +209,13 @@ button:disabled {
   position: absolute;
   color: #391515;
 }
+
+.log-damage-dealt {
+  color: green;
+}
+.log-damage-received {
+  color: indianred;
+}
+.log-experience-gained {
+  color: skyblue
+}

@@ -35,12 +35,19 @@
   <% end %>
 
   <% if @logs.present? %>
-    <ul>
+    <article>
       <% @logs.each do |log| %>
-        <li><%= log.description %></li>
+        <p class="log-text <%= case log
+                      when InGameLogs::DamageDealtLog then 'log-damage-dealt'
+                      when InGameLogs::DamageReceivedLog then 'log-damage-received'
+                      when InGameLogs::ExperienceGainedLog then 'log-experience-gained'
+                    end %>">
+          <%= log.description %>
+        </p>
       <% end %>
-    </ul>
+    </article>
   <% end %>
+
 
   <% if @paths.present? %>
     <div class="hr"></div>
