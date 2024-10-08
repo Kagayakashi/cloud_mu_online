@@ -139,8 +139,7 @@ Run application and open in browser `localhost:3000`:
 bin/rails s
 ```
 
-Run sidekiq.
+Run sidekiq in parallel aswell:
 ```shell
 bundle exec sidekiq
 ```
-
