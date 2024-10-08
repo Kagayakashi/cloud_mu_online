@@ -1,5 +1,9 @@
 module CharacterTypes
   class DarkWizard
+    def self.has_wizardy?
+      true
+    end
+
     def self.set_default_stats!(character)
       character.strength = 18
       character.agility = 18

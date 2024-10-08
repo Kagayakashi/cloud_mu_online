@@ -1,80 +1,144 @@
 <article>
-  <h1>Character</h1>
+  <% image_tag "469x469_dark_wizard.png", alt: "Dark Wizard portret" %>
+  
+  <h3>Character</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td colspan="2"></td>
+        <td>Name</td>
+        <td><%= @character.name %></td>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+        <td>Class</td>
+        <td><%= @character.profession.name %></td>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+        <td>Experience</td>
+        <td>
+          <%= (@character.experience.to_f / @character.max_experience * 100).floor %>%
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+        <td>Level</td>
+        <td><%= @character.level %></td>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+        <td>Points</td>
+        <td><%= @character.points %></td>
+      </tr>
+    </tbody>
+  </table>
 
-  <%= image_tag "469x469_dark_wizard.png", alt: "Dark Wizard portret" %>
-
-  <section>
-    <% link_to "Add stats", new_character_add_stat_path(@character) %>
-  </section>
-
-  <section>
-    <h2><%= @character.name %></h2>
-    <p><%= @character.profession.name %></p>
-
-    <dl>
-      <dt>Health</dt>
-      <dd><%= @character.current_health %></dd>
-      <dt>Mana</dt>
-      <dd><%= @character.current_mana %></dd>
-      <dt>Experience</dt>
-      <dd><%= (@character.experience.to_f / @character.max_experience * 100).floor %>%</dd>
-      <dt>Level</dt>
-      <dd><%= @character.level %></dd>
-      <dt>Points</dt>
-      <dd><%= @character.points %></dd>
-    </dl>
-  </section>
-
-  <section>
-    <h2>Character Stats</h2>
-
-    <dl>
-      <dt>Strength</dt>
-      <dd><%= @character.strength %></dd>
-      <dt>Agility</dt>
-      <dd><%= @character.agility %></dd>
-      <dt>Vitality</dt>
-      <dd><%= @character.vitality %></dd>
-      <dt>Energy</dt>
-      <dd><%= @character.energy %></dd>
-    </dl>
-    
-    <section>
-      <h3>Substats</h3>
-
-      <dl>
-        <dt>Attack rate</dt>
-        <dd><%= CharacterTypes::DarkWizard.calculate_attack_rate(@character) %></dd>
-        
-        <dt>Attack power</dt>
-        <dd>
-          <%= CharacterTypes::DarkWizard.calculate_min_attack(@character) %>
+  <h3>Attributes</h3>
+  <table>
+    <tbody>
+      <!-- Strength -->
+      <tr>
+        <td colspan="2"><strong>Strength</strong></td>
+        <td></td>
+        <td style="display: flex; gap: 5px">
+          <strong><%= @character.strength %></strong>
+          <% unless @character.points.zero? %>
+            <%= button_to '+', add_strength_path, method: :post %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+        <td>Attack</td>
+        <td>
+          <%= @character.character_type.calculate_min_attack(@character) %>
           &mdash;
-          <%= CharacterTypes::DarkWizard.calculate_max_attack(@character) %>
-        </dd>
+          <%= @character.character_type.calculate_max_attack(@character) %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+        <td>Attack rate</td>
+        <td><%= @character.character_type.calculate_attack_rate(@character) %></td>
+      </tr>
 
-        <dt>Wizard power</dt>
-        <dd>
-          <%= CharacterTypes::DarkWizard.calculate_min_wizard(@character) %>
+      <!-- Agility -->
+      <tr>
+        <td colspan="2"><strong>Agility</strong></td>
+        <td></td>
+        <td style="display: flex; gap: 5px">
+          <strong><%= @character.agility %></strong>
+          <% unless @character.points.zero? %>
+            <%= button_to '+', add_agility_path, method: :post %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+        <td>Defense</td>
+        <td><%= @character.character_type.calculate_defense(@character) %></td>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+        <td>Defense rate</td>
+        <td><%= @character.character_type.calculate_defense_rate(@character) %></td>
+      </tr>
+
+      <!-- Vitality -->
+      <tr>
+        <td colspan="2"><strong>Vitality</strong></td>
+        <td></td>
+        <td style="display: flex; gap: 5px">
+          <strong><%= @character.vitality %></strong>
+          <% unless @character.points.zero? %>
+            <%= button_to '+', add_vitality_path, method: :post %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+        <td>Health</td>
+        <td><%= @character.character_type.calculate_health(@character) %></td>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+        <td>Health regen</td>
+        <td><%= @character.character_type.calculate_health_regen(@character) %></td>
+      </tr>
+
+      <!-- Energy -->
+      <tr>
+        <td colspan="2"><strong>Energy</strong></td>
+        <td></td>
+        <td style="display: flex; gap: 5px">
+          <strong><%= @character.energy %></strong>
+          <% unless @character.points.zero? %>
+            <%= button_to '+', add_energy_path, method: :post %>
+          <% end %>
+        </td>
+      </tr>
+      <% if @character.character_type.has_wizardy? %>
+      <tr>
+        <td colspan="2"></td>
+        <td>Wizard power</td>
+        <td>
+          <%= @character.character_type.calculate_min_wizard(@character) %>
           &mdash;
-          <%= CharacterTypes::DarkWizard.calculate_max_wizard(@character) %>
-        </dd>
-
-        <dt>Defense</dt>
-        <dd><%= CharacterTypes::DarkWizard.calculate_defense(@character) %></dd>
-
-        <dt>Defense rate</dt>
-        <dd><%= CharacterTypes::DarkWizard.calculate_defense_rate(@character) %></dd>
-
-        <dt>Max health</dt>
-        <dd><%= CharacterTypes::DarkWizard.calculate_health(@character) %></dd>
-
-        <dt>Max mana</dt>
-        <dd><%= CharacterTypes::DarkWizard.calculate_mana(@character) %></dd>
-
-        <dt>Mana regen</dt>
-        <dd><%= CharacterTypes::DarkWizard.calculate_mana_regen(@character) %></dd>
-      </dl>
-    </section>
-  </section>
+          <%= @character.character_type.calculate_max_wizard(@character) %>
+        </td>
+      </tr>
+      <% end %>
+      <tr>
+        <td colspan="2"></td>
+        <td>Mana</td>
+        <td><%= @character.character_type.calculate_mana(@character) %></td>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+        <td>Mana regen</td>
+        <td><%= @character.character_type.calculate_mana_regen(@character) %></td>
+      </tr>
+    </tbody>
+  </table>
 </article>

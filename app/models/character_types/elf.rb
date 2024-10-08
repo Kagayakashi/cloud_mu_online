@@ -1,5 +1,9 @@
 module CharacterTypes
   class Elf
+    def self.has_wizardy?
+      false
+    end
+
     def self.set_default_stats!(character)
       character.strength = 22
       character.agility = 25

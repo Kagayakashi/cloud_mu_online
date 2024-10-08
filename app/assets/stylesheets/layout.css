@@ -219,3 +219,15 @@ button:disabled {
 .log-experience-gained {
   color: skyblue
 }
+
+table td strong {
+  font-size: 16px;
+}
+
+table td button {
+  background-color: #0f8100;
+  height: 18px;
+  width: 18px;
+  border-radius: 5px;
+  color: #41e600;
+}
