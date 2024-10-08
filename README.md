@@ -134,7 +134,7 @@ bin/rails db:migrate
 bin/rails db:seed
 ```
 
-Run application.
+Run application and open in browser `localhost:3000`:
 ```shell
 bin/rails s
 ```
