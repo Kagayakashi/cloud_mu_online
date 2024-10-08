@@ -106,5 +106,137 @@ spider = MonsterType.create!(
 puts "Created monster type Spider"
 
 5.times { spider.monsters.create }
+puts "Spawned 5 Spiders"
 
-puts "Spawned 5 spiders"
+budge_dragon = MonsterType.create!(
+  name: "Budge Dragon",
+  level: 4,
+  health: 80,
+  min_attack: 12,
+  max_attack: 17,
+  attack_rate: 18,
+  defense: 3,
+  defense_rate: 3,
+  experience: 200,
+  spawn_time: 60,
+  map: map_budge_dragons,
+)
+
+puts "Created monster type Budge Dragon"
+
+5.times { budge_dragon.monsters.create }
+puts "Spawned 5 Budge Dragons"
+
+bull_fighter = MonsterType.create!(
+  name: "Bull Fighter",
+  level: 6,
+  health: 120,
+  min_attack: 19,
+  max_attack: 26,
+  attack_rate: 28,
+  defense: 6,
+  defense_rate: 6,
+  experience: 300,
+  spawn_time: 60,
+  map: map_bull_fighters,
+)
+
+puts "Created monster type Bull Fighter"
+
+5.times { bull_fighter.monsters.create }
+puts "Spawned 5 Bull Fighters"
+
+hound = MonsterType.create!(
+  name: "Hound",
+  level: 9,
+  health: 160,
+  min_attack: 25,
+  max_attack: 35,
+  attack_rate: 35,
+  defense: 9,
+  defense_rate: 9,
+  experience: 400,
+  spawn_time: 60,
+  map: map_hounds,
+)
+
+puts "Created monster type Hound"
+
+5.times { hound.monsters.create }
+puts "Spawned 5 Hounds"
+
+elite_bull_fighter = MonsterType.create!(
+  name: "Elite Bull Fighter",
+  level: 12,
+  health: 220,
+  min_attack: 35,
+  max_attack: 44,
+  attack_rate: 50,
+  defense: 12,
+  defense_rate: 12,
+  experience: 500,
+  spawn_time: 60,
+  map: map_elite_bull_fighters,
+)
+
+puts "Created monster type Elite Bull Fighter"
+
+5.times { elite_bull_fighter.monsters.create }
+puts "Spawned 5 Elite Bull Fighters"
+
+lich = MonsterType.create!(
+  name: "Lich",
+  level: 14,
+  health: 260,
+  min_attack: 45,
+  max_attack: 52,
+  attack_rate: 62,
+  defense: 15,
+  defense_rate: 15,
+  experience: 600,
+  spawn_time: 60,
+  map: map_lichs,
+)
+
+puts "Created monster type Lich"
+
+5.times { lich.monsters.create }
+puts "Spawned 5 Lichs"
+
+giant = MonsterType.create!(
+  name: "Giant",
+  level: 17,
+  health: 400,
+  min_attack: 57,
+  max_attack: 62,
+  attack_rate: 80,
+  defense: 18,
+  defense_rate: 18,
+  experience: 700,
+  spawn_time: 60,
+  map: map_giants,
+)
+
+puts "Created monster type Giant"
+
+5.times { giant.monsters.create }
+puts "Spawned 5 Giants"
+
+skeleton = MonsterType.create!(
+  name: "Skeleton",
+  level: 19,
+  health: 525,
+  min_attack: 68,
+  max_attack: 74,
+  attack_rate: 93,
+  defense: 21,
+  defense_rate: 21,
+  experience: 800,
+  spawn_time: 60,
+  map: map_skeletons,
+)
+
+puts "Created monster type Skeleton"
+
+5.times { map_skeletons.monsters.create }
+puts "Spawned 5 Skeletons"
