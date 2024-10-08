@@ -21,11 +21,16 @@ Rails.application.routes.draw do
   resource :settings, only: [:show]
   resources :characters do
     post "activate", on: :member
-    resource :add_stat, shallow: true, only: [:new, :create]
   end
 
   # Teleporting
   resource :teleport, only: [:new, :create]
+
+  # Add stats
+  post 'add_strength', to: 'add_stats#strength'
+  post 'add_agility', to: 'add_stats#agility'
+  post 'add_vitality', to: 'add_stats#vitality'
+  post 'add_energy', to: 'add_stats#energy'
 
   # Adventure (walk without teleport)
   resource :adventure, only: [:show, :travel] do
