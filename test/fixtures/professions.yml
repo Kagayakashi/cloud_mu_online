@@ -1,13 +1,40 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+# Warrior
 dk:
+  code: dk
   name: Dark Knight
   level: 150
+  initial: true
 
+bk:
+  code: bk
+  name: Blade Knight
+  level: 350
+  initial: false
+
+# Mage
 dw:
+  code: dw
   name: Dark Wizard
   level: 150
-  
-elf:
+  initial: true
+
+sm:
+  code: sm
+  name: Soul Master
+  level: 350
+  initial: false
+
+# Elf
+fe:
+  code: fe
   name: Fairy Elf
   level: 150
+  initial: true
+
+me:
+  code: me
+  name: Muse Elf
+  level: 350
+  initial: false

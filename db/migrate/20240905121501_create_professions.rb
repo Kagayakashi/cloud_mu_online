@@ -1,9 +1,10 @@
 class CreateProfessions < ActiveRecord::Migration[7.2]
   def change
     create_table :professions do |t|
-      t.string :name
-      t.string :code
-      t.integer :level
+      t.string :name, null: false
+      t.string :code, null: false
+      t.integer :level, null: false
+      t.boolean :initial, null: false, default: false
 
       t.timestamps
     end

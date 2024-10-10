@@ -100,9 +100,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_18_142256) do
   end
 
   create_table "professions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name"
-    t.string "code"
-    t.integer "level"
+    t.string "name", null: false
+    t.string "code", null: false
+    t.integer "level", null: false
+    t.boolean "initial", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

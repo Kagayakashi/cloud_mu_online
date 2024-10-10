@@ -26,11 +26,11 @@ User.create! :username => "Admin", :email => "admin@example.com", :password => "
 puts "Created user with administrator rights"
 
 # Classes for characters
-Profession.create! :name => "Dark Knight", :code => "dk", :level => 1
+Profession.create! :name => "Dark Knight", :code => "dk", :level => 150, :initial => true
 puts "Created profession Dark Knight"
-Profession.create! :name => "Dark Wizard", :code => "dw", :level => 1
+Profession.create! :name => "Dark Wizard", :code => "dw", :level => 150, :initial => true
 puts "Created profession Dark Wizard"
-Profession.create! :name => "Fairy Elf", :code => "elf", :level => 1
+Profession.create! :name => "Fairy Elf", :code => "fe", :level => 150, :initial => true
 puts "Created profession Fairy Elf"
 
 # Maps
