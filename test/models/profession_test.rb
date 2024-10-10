@@ -25,4 +25,9 @@ class ProfessionTest < ActiveSupport::TestCase
     prof = Profession.new(name: "Grand Master", code: "gm", level: 400)
     assert prof.save
   end
+
+  test "should have default value of initial false before save" do
+    prof = Profession.new(name: "Grand Master", code: "gm", level: 400)
+    assert_equal false, prof.initial
+  end
 end
