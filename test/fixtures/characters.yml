@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+dk1:
+  name: DarkKnight1
+  profession: dk
+
+dk2:
+  name: DarkKnight2
+  profession: dk
