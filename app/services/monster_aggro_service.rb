@@ -37,6 +37,10 @@ class MonsterAggroService
     MonsterPerformAttackJob.perform_in(10.seconds, @monster.id, @character.id)
   end
 
+  def player_regeneration
+    CharacterHealthRegenJob.perform_in(30.seconds, @character.id)
+  end
+
   def perform_attack
     Rails.logger.info "#{ @character.name } current health is #{ @character.current_health }"
 
@@ -64,8 +68,9 @@ class MonsterAggroService
     if @character.current_health <= 0
       Rails.logger.info "Player is dead"
       @monster.update(target: nil)
-      @character.update(current_health: 0, map: Map.first)
+      @character.update(current_health: 1, map: Map.first)
       InGameLogs::DamageReceivedLog.create(character: @character, description: "#{@monster_type.name} killed you.")
+      player_regeneration
       return
     else
       attack_later
