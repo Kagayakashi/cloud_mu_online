@@ -2,6 +2,15 @@
 
 Cloud Mu Online (CMO) is a browser-based MMORPG inspired by the classic Mu Online. Choose from various classes, level up your hero, and become stronger as you discover valuable items. Engage in open PvP battles with other players, and capture and hold the Castle to prove your dominance in the realm!
 
+## Screenshots
+
+<img src="docs/Welcome.png" width="240">
+<img src="docs/Start.png" width="240">
+<img src="docs/Characters.png" width="240">
+<img src="docs/Combat.png" width="240">
+<img src="docs/Death.png" width="240">
+<img src="docs/Stats.png" width="240">
+
 This README provides instructions for setting up and running the application.
 
 Things you may want to cover:
