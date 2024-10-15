@@ -171,3 +171,35 @@ Run sidekiq in parallel aswell:
 ```shell
 bundle exec sidekiq
 ```
+
+## Update project
+Git pull the new version of project.
+```shell
+cd cloud_mu_online/
+git fetch --tags
+git checkout specific-version
+```
+
+Install dependencies.
+```shell
+bundle install
+```
+
+Update database. While its alpha releases. Its better to drop database and install new one.
+The application is still under development and some features may change.
+```shell
+bin/rails db:drop
+bin/rails db:create
+bin/rails db:migrate
+bin/rails db:seed
+```
+
+Run application and open in browser `localhost:3000`:
+```shell
+bin/rails s
+```
+
+Run sidekiq in parallel aswell:
+```shell
+bundle exec sidekiq
+```
