@@ -43,7 +43,10 @@ class StartsController < ApplicationController
   end
 
   def create_character
-    character_creator = CharacterCreatorService.new(@user, start_character_params)
+    character_creator = CharacterCreatorService.new(
+      user: @user,
+      character_params: start_character_params
+    )
     @character = character_creator.call
   end
 
