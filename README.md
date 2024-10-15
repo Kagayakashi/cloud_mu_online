@@ -5,6 +5,7 @@ Cloud Mu Online (CMO) is a browser-based MMORPG inspired by the classic Mu Onlin
 ## Screenshots
 
 * Welcome screen
+
 On this screen you can login into your existing account or quick start for another.
 <img src="docs/Welcome.png" width="240">
 
@@ -12,20 +13,25 @@ On this screen you can login into your existing account or quick start for anoth
 <img src="docs/Start.png" width="240">
 
 * Characters screen
+
 This is character list. Here player can create multiple characters and activate one of them to play with.
 <img src="docs/Characters.png" width="240">
 
 * Combat (Adventure screen)
+
 In this example character attacking spiders. Each attack have delay for 3 seconds. There is also combat logs.
 <img src="docs/Combat.png" width="240">
 
 * Death (Adventure screen)
+
 On death character will be teleported into main location of spot where he was. There is also combat logs.
 <img src="docs/Death.png" width="240">
 
 * Character screen
+
 This is character information and player can spent points to increase stats.
 <img src="docs/Stats.png" width="240">
+
 
 This README provides instructions for setting up and running the application.
 
