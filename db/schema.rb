@@ -24,18 +24,18 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
     t.integer "agility", null: false
     t.integer "vitality", null: false
     t.integer "energy", null: false
-    t.bigint "user_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "map_id", null: false
-    t.bigint "profession_id", null: false
+    t.integer "map_id", null: false
+    t.integer "profession_id", null: false
     t.index ["map_id"], name: "index_characters_on_map_id"
     t.index ["profession_id"], name: "index_characters_on_profession_id"
     t.index ["user_id"], name: "index_characters_on_user_id"
   end
 
   create_table "in_game_logs", force: :cascade do |t|
-    t.bigint "character_id", null: false
+    t.integer "character_id", null: false
     t.text "description"
     t.string "type"
     t.datetime "created_at", null: false
@@ -44,8 +44,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
   end
 
   create_table "map_connections", force: :cascade do |t|
-    t.bigint "map_id", null: false
-    t.bigint "connected_map_id", null: false
+    t.integer "map_id", null: false
+    t.integer "connected_map_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["connected_map_id"], name: "index_map_connections_on_connected_map_id"
@@ -74,7 +74,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
     t.integer "defense", null: false
     t.integer "experience", null: false
     t.integer "spawn_time", null: false
-    t.bigint "map_id", null: false
+    t.integer "map_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["map_id"], name: "index_monster_types_on_map_id"
@@ -82,8 +82,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
 
   create_table "monsters", force: :cascade do |t|
     t.integer "health", null: false
-    t.bigint "monster_type_id", null: false
-    t.bigint "target_id"
+    t.integer "monster_type_id", null: false
+    t.integer "target_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["monster_type_id"], name: "index_monsters_on_monster_type_id"
@@ -91,8 +91,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
   end
 
   create_table "players", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "character_id", null: false
+    t.integer "user_id", null: false
+    t.integer "character_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["character_id"], name: "index_players_on_character_id"
