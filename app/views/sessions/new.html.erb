@@ -4,7 +4,7 @@
 <pre>admin@example.com : admin</pre>
 </article>
 
-<%= form_with model: @user, url: session_path, local: true do |form| %>
+<%= form_with model: @user, url: session_path do |form| %>
   <div>
     <%= form.label :email %>
     <%= form.email_field :email, value: "admin@example.com" %>

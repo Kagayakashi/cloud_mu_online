@@ -4,17 +4,12 @@ class SessionsController < ApplicationController
   end
   
   def create
-    # Используйте `find_by` и аутентификацию отдельно
-    @user = User.find_by(email: params[:email])
-  
-    Rails.logger.debug(@user)  # Логируем пользователя для отладки
-  
-    if @user&.authenticate(params[:password])  # Проверяем существование пользователя и аутентификацию
-      login(@user)  # Предполагается, что у вас есть метод `login`
-      redirect_to root_path, notice: "You have signed in successfully."
+    user = User.find_by(email: params[:user][:email])
+    if user&.authenticate(params[:user][:password])
+      login(user)
+      redirect_to characters_path
     else
-      flash.now[:alert] = "Invalid email or password."  # Уведомление об ошибке на текущей странице
-      render :new, status: :unprocessable_entity  # Рендерим форму с ошибкой
+      redirect_to new_session_path, alert: "Invalid email or password."
     end
   end
 
