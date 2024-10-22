@@ -3,9 +3,6 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Sidekiq panel
-  mount Sidekiq::Web => '/sidekiq'
-
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
@@ -33,17 +30,15 @@ Rails.application.routes.draw do
   post 'add_energy', to: 'add_stats#energy'
 
   # Adventure (walk without teleport)
-  resource :adventure, only: [:show, :travel] do
-    post "travel", on: :member
+  resource :adventure, only: [:show] do
+    post "travel"
   end
 
   resource :map, only: [:show]
-  resource :spot, only: [:show]
-  resources :spots, only: [:activate] do
-    post "activate", on: :member
-  end
+
   resource :teleport, only: [:new, :create]
-  resources :monsters, only: [:receive_spell_damage, :receive_attack_damage] do
+
+  resources :monsters do
     post "receive_spell_damage", on: :member
     post "receive_attack_damage", on: :member
   end

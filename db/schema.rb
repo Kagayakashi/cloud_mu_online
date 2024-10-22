@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_18_142256) do
-  create_table "characters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
+  create_table "characters", force: :cascade do |t|
     t.string "name", null: false
     t.integer "level", null: false
     t.integer "experience", null: false
@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_18_142256) do
     t.index ["user_id"], name: "index_characters_on_user_id"
   end
 
-  create_table "in_game_logs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "in_game_logs", force: :cascade do |t|
     t.bigint "character_id", null: false
     t.text "description"
     t.string "type"
@@ -43,7 +43,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_18_142256) do
     t.index ["character_id"], name: "index_in_game_logs_on_character_id"
   end
 
-  create_table "map_connections", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "map_connections", force: :cascade do |t|
     t.bigint "map_id", null: false
     t.bigint "connected_map_id", null: false
     t.datetime "created_at", null: false
@@ -53,7 +53,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_18_142256) do
     t.index ["map_id"], name: "index_map_connections_on_map_id"
   end
 
-  create_table "maps", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "maps", force: :cascade do |t|
     t.string "name", null: false
     t.integer "min_level", default: 0, null: false
     t.boolean "can_teleport", default: false, null: false
@@ -63,7 +63,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_18_142256) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "monster_types", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "monster_types", force: :cascade do |t|
     t.string "name", null: false
     t.integer "level", null: false
     t.integer "health", null: false
@@ -80,7 +80,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_18_142256) do
     t.index ["map_id"], name: "index_monster_types_on_map_id"
   end
 
-  create_table "monsters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "monsters", force: :cascade do |t|
     t.integer "health", null: false
     t.bigint "monster_type_id", null: false
     t.bigint "target_id"
@@ -90,7 +90,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_18_142256) do
     t.index ["target_id"], name: "index_monsters_on_target_id"
   end
 
-  create_table "players", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "players", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "character_id", null: false
     t.datetime "created_at", null: false
@@ -99,7 +99,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_18_142256) do
     t.index ["user_id"], name: "unique_users", unique: true
   end
 
-  create_table "professions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "professions", force: :cascade do |t|
     t.string "name"
     t.string "code"
     t.integer "level"
@@ -107,7 +107,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_18_142256) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "username", null: false
     t.string "email", null: false
     t.string "password_digest", null: false
