@@ -2,7 +2,7 @@ class TeleportsController < ApplicationController
   before_action :authenticate_user!
   before_action :activate_character!
 
-  #TODO, show only available
+  # TODO, show only available
   def new
     @maps = Map.teleportable
   end

@@ -61,7 +61,7 @@ class MonsterAggroService
     @damage += damage
     @character.current_health -= damage
 
-    return if @character.current_health <= 0
+    nil if @character.current_health <= 0
   end
 
   def attack_result
@@ -71,7 +71,7 @@ class MonsterAggroService
       @character.update(current_health: 1, map: Map.first)
       InGameLogs::DamageReceivedLog.create(character: @character, description: "#{@monster_type.name} killed you.")
       player_regeneration
-      return
+      nil
     else
       attack_later
       Rails.logger.info "Player is not dead"

@@ -6,7 +6,7 @@ class AttackMonsterOnceService
     @monster_type = monster.monster_type
     @character = character
 
-    #@player_defense_rate = character.character_type.calculate_defense_rate(character)
+    # @player_defense_rate = character.character_type.calculate_defense_rate(character)
     @player_attack_rate = character.character_type.calculate_attack_rate(character)
     @player_min_attack = character.character_type.calculate_min_attack(character)
     @player_max_attack = character.character_type.calculate_max_attack(character)
@@ -54,7 +54,7 @@ class AttackMonsterOnceService
     @damage += damage
     @monster.health -= damage
 
-    return if @monster.health <= 0
+    nil if @monster.health <= 0
   end
 
   def attack_result

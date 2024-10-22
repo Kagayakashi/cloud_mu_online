@@ -12,7 +12,7 @@ class CharacterHealthRegenJob
 
       return if character.current_health == character.max_health
 
-      CharacterHealthRegenJob.perform_in(1.minutes,character_id)
+      CharacterHealthRegenJob.perform_in(1.minutes, character_id)
     rescue ActiveRecord::RecordNotFound => e
       Rails.logger.error "CharacterHealthRegenJob failed: #{e.message}"
     end

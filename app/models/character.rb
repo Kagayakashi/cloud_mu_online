@@ -56,7 +56,7 @@ class Character < ApplicationRecord
     self.max_mana = character_type.calculate_mana(self)
     self.current_mana ||= max_mana
     self.map = Map.first # Lorencia
-    #self.spot = Spot.first # Lorencia City
+    # self.spot = Spot.first # Lorencia City
   end
 
   def last_time_attack
