@@ -1,6 +1,4 @@
-class CharacterHealthRegenJob
-  include Sidekiq::Job
-
+class CharacterHealthRegenJob < ApplicationJob
   def perform(character_id)
     Monster.transaction do
       character = Character.lock("FOR UPDATE").find(character_id)
@@ -12,7 +10,7 @@ class CharacterHealthRegenJob
 
       return if character.current_health == character.max_health
 
-      CharacterHealthRegenJob.perform_in(1.minutes,character_id)
+      CharacterHealthRegenJob.set(wait: 1.minutes).perform_later(character_id)
     rescue ActiveRecord::RecordNotFound => e
       Rails.logger.error "CharacterHealthRegenJob failed: #{e.message}"
     end

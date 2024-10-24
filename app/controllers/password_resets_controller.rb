@@ -1,7 +1,8 @@
 class PasswordResetsController < ApplicationController
-  before_action :set_user_by_token, only: [:edit, :update]
+  before_action :set_user_by_token, only: [ :edit, :update ]
 
   def new
+    @user = User.new
   end
 
   def create

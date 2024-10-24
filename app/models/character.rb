@@ -22,7 +22,8 @@ class Character < ApplicationRecord
   end
 
   def set_attack_delay
-    $redis.set("character:#{self.id}:last_time_attack", Time.now.to_f.round(1) + 3.0)
+    # $redis.set("character:#{self.id}:last_time_attack", Time.now.to_f.round(1) + 3.0)
+    1
   end
 
   def attack_delay_left
@@ -56,11 +57,12 @@ class Character < ApplicationRecord
     self.max_mana = character_type.calculate_mana(self)
     self.current_mana ||= max_mana
     self.map = Map.first # Lorencia
-    #self.spot = Spot.first # Lorencia City
+    # self.spot = Spot.first # Lorencia City
   end
 
   def last_time_attack
-    $redis.get("character:#{self.id}:last_time_attack").to_f
+    # $redis.get("character:#{self.id}:last_time_attack").to_f
+    1
   end
 
   def character_type

@@ -2,7 +2,7 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 
-require_relative 'helpers/password_helper'
+require_relative "helpers/password_helper"
 
 module ActiveSupport
   class TestCase

@@ -1,6 +1,4 @@
-class MonsterPerformAttackJob
-  include Sidekiq::Job
-
+class MonsterPerformAttackJob < ApplicationJob
   def perform(monster_id, character_id)
     Monster.transaction do
       monster = Monster.lock("FOR UPDATE").find(monster_id)

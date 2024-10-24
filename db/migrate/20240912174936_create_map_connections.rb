@@ -7,6 +7,6 @@ class CreateMapConnections < ActiveRecord::Migration[7.2]
       t.timestamps
     end
 
-    add_index :map_connections, [:map_id, :connected_map_id], unique: true
+    add_index :map_connections, [ :map_id, :connected_map_id ], unique: true
   end
 end

@@ -1,7 +1,7 @@
 class StartsController < ApplicationController
   before_action :guest_only!
-  before_action :create_user, only: [:create]
-  before_action :create_character, only: [:create]
+  before_action :create_user, only: [ :create ]
+  before_action :create_character, only: [ :create ]
 
   def show
   end
