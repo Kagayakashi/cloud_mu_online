@@ -34,11 +34,11 @@ class MonsterAggroService
   end
 
   def attack_later
-    MonsterPerformAttackJob.perform_in(10.seconds, @monster.id, @character.id)
+    MonsterPerformAttackJob.set(wait: 10.seconds).perform_later(@monster.id, @character.id)
   end
 
   def player_regeneration
-    CharacterHealthRegenJob.perform_in(30.seconds, @character.id)
+    CharacterHealthRegenJob.set(wait: 30.seconds).perform_later(@character.id)
   end
 
   def perform_attack

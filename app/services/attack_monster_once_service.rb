@@ -33,12 +33,12 @@ class AttackMonsterOnceService
 
   def set_aggro
     return if @monster.target
-    MonsterPerformAttackJob.perform_async(@monster.id, @character.id)
+    MonsterPerformAttackJob.perform_later(@monster.id, @character.id)
   end
 
   def spawn_monster_later(monster)
     monster.destroy
-    SpawnMonsterJob.perform_in(1.minutes, monster.monster_type.id)
+    SpawnMonsterJob.set(wait: 1.minutes).perform_later(monster.monster_type.id)
   end
 
   def perform_attack
