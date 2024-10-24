@@ -1,6 +1,4 @@
 class CharacterHealthRegenJob
-  include Sidekiq::Job
-
   def perform(character_id)
     Monster.transaction do
       character = Character.lock("FOR UPDATE").find(character_id)
