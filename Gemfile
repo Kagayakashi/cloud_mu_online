@@ -37,6 +37,9 @@ gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
 
+# Frontend manager for solid_queue jobs
+gem "mission_control-jobs"
+
 # Reduces boot times through caching; required in config/boot.rb [https://github.com/shopify/bootsnap]
 gem "bootsnap", "~> 1.18.4", require: false
 
