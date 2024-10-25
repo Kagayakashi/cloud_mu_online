@@ -21,21 +21,6 @@ class Character < ApplicationRecord
     (self.level * self.level) * (self.level + 9) * 2
   end
 
-  def set_attack_delay
-    # $redis.set("character:#{self.id}:last_time_attack", Time.now.to_f.round(1) + 3.0)
-    1
-  end
-
-  def attack_delay_left
-    return 0 if can_attack?
-    last_time_attack - Time.now.to_f
-  end
-
-  def can_attack?
-    return true if last_time_attack.nil?
-    last_time_attack < Time.now.to_f
-  end
-
   def add_level
     if experience >= max_experience
       self.experience = 0
@@ -58,11 +43,6 @@ class Character < ApplicationRecord
     self.current_mana ||= max_mana
     self.map = Map.first # Lorencia
     # self.spot = Spot.first # Lorencia City
-  end
-
-  def last_time_attack
-    # $redis.get("character:#{self.id}:last_time_attack").to_f
-    1
   end
 
   def character_type
