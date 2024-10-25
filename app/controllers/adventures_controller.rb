@@ -2,11 +2,14 @@ class AdventuresController < ApplicationController
   before_action :authenticate_user!
   before_action :activate_character!
 
+  include AttackDelay
+
   def show
     @map = active_character.map
     @monsters = @map.monsters
     @paths = @map.connected_maps
     @logs = active_character.in_game_logs.order(created_at: :desc).limit(10)
+    @attack_delay = attack_delay_left
   end
 
   def travel

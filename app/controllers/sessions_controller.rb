@@ -1,14 +1,15 @@
 class SessionsController < ApplicationController
   def new
+    @user = User.new
   end
 
   def create
-    if user = User.authenticate_by(email: params[:email], password: params[:password])
-      login user
-      redirect_to root_path, notice: "You have signed successfully."
+    user = User.find_by(email: params[:user][:email])
+    if user&.authenticate(params[:user][:password])
+      login(user)
+      redirect_to characters_path
     else
-      flash[:alert] = "Invalid email or password."
-      render :new, status: :unprocessable_entity
+      redirect_to new_session_path, alert: "Invalid email or password."
     end
   end
 

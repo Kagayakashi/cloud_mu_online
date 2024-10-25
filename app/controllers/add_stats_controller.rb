@@ -1,18 +1,18 @@
 class AddStatsController < ApplicationController
-  before_action :are_stats_available, only: [:strength, :agility, :vitality, :energy]
+  before_action :are_stats_available, only: [ :strength, :agility, :vitality, :energy ]
 
   def strength
     increase_stat(:strength)
   end
-  
+
   def agility
     increase_stat(:agility)
   end
-  
+
   def vitality
     increase_stat(:vitality)
   end
-  
+
   def energy
     increase_stat(:energy)
   end

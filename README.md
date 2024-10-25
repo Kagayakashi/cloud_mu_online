@@ -78,62 +78,10 @@ Update and needed instruments.
 ```shell
 sudo dnf update
 sudo dnf config-manager --enable ol9_codeready_builder
-sudo dnf install nano git curl gpg gcc make libyaml-devel
+sudo dnf install nano git curl gpg gcc make libyaml-devel sqlite
 ```
 
-Redis.
-```shell
-sudo dnf install redis
-sudo systemctl start redis
-sudp systemctl enable redis
-```
-
-Install MySQL.
-```shell
-sudo dnf install mysql-server mysql-devel
-sudo systemctl start mysqld
-sudp systemctl enable mysqld
-sudo mysql_secure_installation
-```
-
-Need to create MySQL user. There is 2 ways to do it.
-```shell
-mysql -u root -p
-```
-
-* For socket authentication
-```sql
-INSTALL PLUGIN auth_socket SONAME 'auth_socket.so';
-CREATE USER 'cmo'@'localhost' IDENTIFIED WITH auth_socket;
-GRANT ALL PRIVILEGES ON *.* TO 'cmo'@'localhost';
-FLUSH PRIVILEGES;
-exit
-```
-
-* For passwword authentication
-```sql
-CREATE USER 'cmo'@'localhost' IDENTIFIED BY 'YOUR_PASSWORD_GOES_HERE';
-GRANT ALL PRIVILEGES ON *.* TO 'cmo'@'localhost';
-FLUSH PRIVILEGES;
-exit
-```
-
-Configure ENV variables needed for sidekiq and redis.
-```shell
-nano .bashrc
-```
-Write there:
-```bash
-export SIDEKIQ_USERNAME="admin"
-export SIDEKIQ_PASSWORD="admin"
-
-export CMO_DB_USERNAME="cmo"
-export CMO_DB_PASSWORD=""
-export CMO_DB_SOCKET="/var/lib/mysql/mysql.sock"
-
-export REDIS_PORT="6379"
-```
-Keep password empty if you are using socket, otherwise fill the password and keep empty socket path.
+Database is used Sqlite3.
 
 ### Install ruby
 In this example we are using RVM. Install it with:
@@ -167,12 +115,12 @@ Run application and open in browser `localhost:3000`:
 bin/rails s
 ```
 
-Run sidekiq in parallel aswell:
+Run background jobs in parallel aswell:
 ```shell
-bundle exec sidekiq
+bin/jobs
 ```
 
-## Update project
+## Update project if already installed
 Git pull the new version of project.
 ```shell
 cd cloud_mu_online/
@@ -199,7 +147,7 @@ Run application and open in browser `localhost:3000`:
 bin/rails s
 ```
 
-Run sidekiq in parallel aswell:
+Run background jobs in parallel aswell:
 ```shell
-bundle exec sidekiq
+bin/jobs
 ```

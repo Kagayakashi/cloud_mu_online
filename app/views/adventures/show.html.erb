@@ -16,7 +16,7 @@
             <div
               class="row-block"
               data-controller="attack-delay"
-              data-attack-delay-delay-value="<%= active_character.attack_delay_left.to_s %>"
+              data-attack-delay-delay-value="<%= @attack_delay.to_s %>"
             >
               <%= button_to "Attack", receive_attack_damage_monster_path(monster),
                 disabled: true,
@@ -24,7 +24,7 @@
                 class: "action-button" %>
               <p data-attack-delay-target="timer" style="display:none;">
                 <span data-attack-delay-target="time">
-                  <%= active_character.attack_delay_left %>
+                  <%= @attack_delay %>
                 </span> seconds
               <p>
             </div>

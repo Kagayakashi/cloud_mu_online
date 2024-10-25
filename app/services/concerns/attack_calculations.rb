@@ -16,6 +16,6 @@ module AttackCalculations
   def calculate_damage(min_attack:, max_attack:, defense:)
     damage = rand(min_attack..max_attack)
     damage -= defense
-    [damage, 0].max
+    [ damage, 0 ].max
   end
 end
