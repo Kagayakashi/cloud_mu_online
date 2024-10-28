@@ -1,4 +1,4 @@
-class CreateInGameLogs < ActiveRecord::Migration[7.2]
+class CreateGameLogs < ActiveRecord::Migration[7.2]
   def change
     create_table :game_logs do |t|
       t.references :character, null: false, foreign_key: true

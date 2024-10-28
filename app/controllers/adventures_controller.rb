@@ -8,7 +8,7 @@ class AdventuresController < ApplicationController
     @map = active_character.map
     @monsters = @map.monsters
     @paths = @map.connected_maps
-    @logs = active_character.in_game_logs.order(created_at: :desc).limit(10)
+    @logs = active_character.game_logs.order(created_at: :desc).limit(10)
     @attack_delay = attack_delay_left
   end
 

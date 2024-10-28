@@ -3,7 +3,7 @@ module Characters
     belongs_to :user
     belongs_to :profession
     belongs_to :map
-    has_many :game_logs
+    has_many :game_logs, class_name: 'GameLogs::GameLog'
 
     validates :name, presence: true, uniqueness: true
     validates :name, length: { minimum: 4, maximum: 20 }

@@ -38,9 +38,9 @@
     <article>
       <% @logs.each do |log| %>
         <p class="log-text <%= case log
-                      when InGameLogs::DamageDealtLog then 'log-damage-dealt'
-                      when InGameLogs::DamageReceivedLog then 'log-damage-received'
-                      when InGameLogs::ExperienceGainedLog then 'log-experience-gained'
+                      when GameLogs::DamageDealtLog then 'log-damage-dealt'
+                      when GameLogs::DamageReceivedLog then 'log-damage-received'
+                      when GameLogs::ExperienceGainedLog then 'log-experience-gained'
                     end %>">
           <%= log.description %>
         </p>
