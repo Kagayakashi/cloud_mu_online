@@ -45,12 +45,12 @@ class StartsController < ApplicationController
   def create_character
     character_creator = CharacterCreatorService.new(
       user: @user,
-      character_params: start_character_params
+      character_params: create_character_params
     )
     @character = character_creator.call
   end
 
-  def start_character_params
-    params.require(:character).permit(:profession, :name)
+  def create_character_params
+    params.require(:characters_character).permit(:name, :type)
   end
 end

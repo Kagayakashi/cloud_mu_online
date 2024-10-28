@@ -6,10 +6,9 @@ class AttackMonsterOnceService
     @monster_type = monster.monster_type
     @character = character
 
-    # @player_defense_rate = character.character_type.calculate_defense_rate(character)
-    @player_attack_rate = character.character_type.calculate_attack_rate(character)
-    @player_min_attack = character.character_type.calculate_min_attack(character)
-    @player_max_attack = character.character_type.calculate_max_attack(character)
+    @player_attack_rate = character.calculate_attack_rate
+    @player_min_attack = character.calculate_min_attack
+    @player_max_attack = character.calculate_max_attack
 
     # total damage dealt
     @damage = 0
@@ -62,11 +61,11 @@ class AttackMonsterOnceService
       @monster.destroy
       spawn_monster_later(@monster)
       experience = @character.add_experience_from_monster!(@monster.monster_type)
-      InGameLogs::ExperienceGainedLog.create(character: @character, description: "Your received #{experience} experience.")
+      GameLogs::ExperienceGainedLog.create(character: @character, description: "Your received #{experience} experience.")
     else
       set_aggro
       @monster.save! if @monster.changed?
-      InGameLogs::DamageDealtLog.create(character: @character, description: "You dealt #{@damage} damage.")
+      GameLogs::DamageDealtLog.create(character: @character, description: "You dealt #{@damage} damage.")
     end
   end
 end
