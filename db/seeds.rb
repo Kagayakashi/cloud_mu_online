@@ -30,7 +30,7 @@ Profession.create! name: "Dark Knight", code: "dk", level: 1
 puts "Created profession Dark Knight"
 Profession.create! name: "Dark Wizard", code: "dw", level: 1
 puts "Created profession Dark Wizard"
-Profession.create! name: "Fairy Elf", code: "elf", level: 1
+Profession.create! name: "Fairy Elf", code: "fe", level: 1
 puts "Created profession Fairy Elf"
 
 # Maps

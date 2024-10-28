@@ -8,13 +8,6 @@ module Characters
       false
     end
 
-    def set_default_stats!
-      strength = 22
-      agility = 25
-      vitality = 20
-      energy = 15
-    end
-
     def calculate_attack_rate
       (level * 5 + agility * 1.5 + energy / 4).floor
     end
@@ -57,6 +50,16 @@ module Characters
 
     def calculate_mana_regen
       1 + (calculate_mana / 27.5).floor
+    end
+
+    private
+
+    def set_default_stats!
+      self.profession = Profession.find_by(code: "fe")
+      self.strength = 22
+      self.agility = 25
+      self.vitality = 20
+      self.energy = 15
     end
   end
 end

@@ -13,26 +13,19 @@ class CharactersController < ApplicationController
     end
   end
 
-  def edit
-    # TODO
-  end
-
-  def update
-    # TODO
-  end
-
   def new
-    @character = Characters::Character.new
   end
 
   def create
-    @character = Characters::Character.new(create_character_params)
-    @character.set_default_values
-    @character.user = current_user
-    if @character.save
+    character_creator = CharacterCreatorService.new(user: current_user, params: create_character_params)
+    @character = character_creator.create
+    
+    Rails.logger.debug(@character)
+
+    if @character
       redirect_to characters_path, notice: "Character created successfully!"
     else
-      flash.now[:alert] = "Character could not be saved."
+      flash.now[:alert] = "Failed to create character."
       render :new, status: :unprocessable_entity
     end
   end
@@ -64,6 +57,6 @@ class CharactersController < ApplicationController
   end
 
   def create_character_params
-    params.require(:character).permit(:name, :character_type)
+    params.require(:characters_character).permit(:name, :type)
   end
 end

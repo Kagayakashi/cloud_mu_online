@@ -5,10 +5,9 @@ module Characters
     belongs_to :map
     has_many :game_logs
 
-    before_create :set_default_values
-
     validates :name, presence: true, uniqueness: true
     validates :name, length: { minimum: 4, maximum: 20 }
+    validates :type, presence: true
 
     def self.order
       raise NotImplementedError, "You must implement the method in Character subclass"
@@ -98,29 +97,18 @@ module Characters
     end
 
     def set_default_values
+      set_default_stats!
+
       self.level = 1
       self.experience = 0
       self.points = 0
 
-      character_type.set_default_stats!(self)
+      self.max_health = calculate_health
+      self.max_mana = calculate_mana
 
-      self.max_health = character_type.calculate_health(self)
       self.current_health ||= max_health
-
-      self.max_mana = character_type.calculate_mana(self)
       self.current_mana ||= max_mana
-      self.map = Map.first # Lorencia
-      # self.spot = Spot.first # Lorencia City
-    end
-
-    def character_type
-      case self.profession.code.to_sym
-      when :dw then CharacterTypes::DarkWizard
-      when :dk then CharacterTypes::DarkKnight
-      when :elf then CharacterTypes::Elf
-      else
-        nil
-      end
+      self.map = Map.first
     end
   end
 end
