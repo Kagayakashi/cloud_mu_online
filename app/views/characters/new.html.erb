@@ -9,8 +9,8 @@
     <% end %>
 
     <div>
-      <%= form.label :profession %>
-      <%= form.collection_select :profession, Profession.all, :code, :name %>
+      <%= form.label :character_type %>
+      <%= form.select :type, Characters::Character.character_types %>
     </div>
 
     <div>

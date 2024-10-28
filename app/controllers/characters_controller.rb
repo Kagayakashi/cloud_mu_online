@@ -22,11 +22,11 @@ class CharactersController < ApplicationController
   end
 
   def new
-    @character = Character.new
+    @character = Characters::Character.new
   end
 
   def create
-    @character = Character.new(character_params_with_profession)
+    @character = Characters::Character.new(create_character_params)
     @character.set_default_values
     @character.user = current_user
     if @character.save
@@ -63,23 +63,7 @@ class CharactersController < ApplicationController
     end
   end
 
-
-  def character_params_with_profession
-    params_with_profession = create_character_params
-    profession = Profession.find_by(code: params_with_profession[:profession])
-
-    unless profession
-      flash.now[:alert] = "Failed to create character without profession."
-      render :new, status: :unprocessable_entity
-      return
-    end
-
-    params_with_profession[:profession] = profession
-    params_with_profession
-  end
-
-
   def create_character_params
-    params.require(:character).permit(:name, :profession)
+    params.require(:character).permit(:name, :character_type)
   end
 end

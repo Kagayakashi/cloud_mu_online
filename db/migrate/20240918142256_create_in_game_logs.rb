@@ -1,6 +1,6 @@
 class CreateInGameLogs < ActiveRecord::Migration[7.2]
   def change
-    create_table :in_game_logs do |t|
+    create_table :game_logs do |t|
       t.references :character, null: false, foreign_key: true
       t.text :description
       t.string :type
