@@ -19,7 +19,7 @@ class CharactersController < ApplicationController
   def create
     character_creator = CharacterCreatorService.new(user: current_user, params: create_character_params)
     @character = character_creator.create
-    
+
     Rails.logger.debug(@character)
 
     if @character

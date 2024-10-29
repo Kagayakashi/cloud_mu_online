@@ -3,7 +3,7 @@ module Characters
     belongs_to :user
     belongs_to :profession
     belongs_to :map
-    has_many :game_logs, class_name: 'GameLogs::GameLog'
+    has_many :game_logs, class_name: "GameLogs::GameLog"
 
     validates :name, presence: true, uniqueness: true
     validates :name, length: { minimum: 4, maximum: 20 }
@@ -18,7 +18,7 @@ module Characters
         class_name = subclass.name.demodulize
         formatted_name = class_name.gsub(/([a-z])([A-Z])/, '\1 \2').titleize
         formatted_name = class_name.titleize if formatted_name.blank?
-        [formatted_name, subclass.name]
+        [ formatted_name, subclass.name ]
       end.sort_by do |_, subclass_name|
         subclass_name.constantize.order
       end

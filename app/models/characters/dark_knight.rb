@@ -3,7 +3,7 @@ module Characters
     def self.order
       1
     end
-    
+
     def has_wizardy?
       false
     end

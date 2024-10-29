@@ -11,7 +11,7 @@ class CharacterCreatorService
       subclass_instance = character.type.constantize.new(@params.except(:type))
       subclass_instance.user = @user
       subclass_instance.set_default_values
-      return subclass_instance.save ? subclass_instance : nil
+      subclass_instance.save ? subclass_instance : nil
     end
   end
 
