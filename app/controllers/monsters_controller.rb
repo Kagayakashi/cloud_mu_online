@@ -11,6 +11,10 @@ class MonstersController < ApplicationController
       return redirect_to adventure_path, alert: "You cannot attack so fast."
     end
 
+    if active_character.activity.zero?
+      return redirect_to adventure_path, alert: "You need to rest."
+    end
+
     attack_service = AttackMonsterOnceService.new(monster: @monster, character: active_character)
     attack_service.call
 

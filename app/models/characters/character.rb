@@ -78,6 +78,8 @@ module Characters
 
     def add_experience_from_monster!(monster)
       experience = (monster.level.to_f / self.level * monster.experience).floor
+      gold = experience
+      self.gold += gold
       self.experience += experience
       add_level
       self.save
@@ -93,7 +95,22 @@ module Characters
         self.experience = 0
         self.level += 1
         self.points += 5
+
+        self.max_health = calculate_health
+        self.max_mana = calculate_mana
+
+        self.current_health = max_health
+        self.current_mana = max_mana
       end
+    end
+
+    def can_restore?
+      # Todo switch into 1 hour
+      last_restore_at < 1.minutes.ago
+    end
+
+    def restore
+      self.update(last_restore_at: Time.current, activity: 100)
     end
 
     def set_default_values
@@ -102,6 +119,9 @@ module Characters
       self.level = 1
       self.experience = 0
       self.points = 0
+      self.activity = 100
+      self.gold = 0
+      self.last_restore_at = Time.current
 
       self.max_health = calculate_health
       self.max_mana = calculate_mana

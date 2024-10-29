@@ -49,10 +49,14 @@
                   <span class="icon mana-icon"></span>
                   <%= active_character.current_mana %> / <%= active_character.max_mana %>
                 </p>
+                <p>
+                  <span class="icon activity-icon"></span>
+                  <%= active_character.activity %>
+                </p>
 
                 <p>
                   <span class="icon gold-coin-icon"></span>
-                  0
+                  <%= active_character.gold %>
                 </p>
               </div>
             <% end %>

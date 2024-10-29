@@ -12,6 +12,7 @@ class AttackMonsterOnceService
 
     # total damage dealt
     @damage = 0
+    @activity = 0
   end
 
   def call
@@ -50,6 +51,8 @@ class AttackMonsterOnceService
 
     return unless damage > 0
 
+    @activity += 1
+
     @damage += damage
     @monster.health -= damage
 
@@ -67,5 +70,8 @@ class AttackMonsterOnceService
       @monster.save! if @monster.changed?
       GameLogs::DamageDealtLog.create(character: @character, description: "You dealt #{@damage} damage.")
     end
+
+    @character.activity -= @activity
+    @character.save!
   end
 end

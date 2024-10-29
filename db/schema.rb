@@ -25,6 +25,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
     t.integer "agility", null: false
     t.integer "vitality", null: false
     t.integer "energy", null: false
+    t.integer "gold", null: false
+    t.integer "activity", null: false
+    t.datetime "last_restore_at", null: false
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

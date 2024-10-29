@@ -18,6 +18,10 @@
   background-image: url('icons/mana.png');
 }
 
+.activity-icon {
+  background-image: url('icons/activity.png');
+}
+
 .gold-coin-icon {
   background-image: url('icons/gold_coin.png');
 }

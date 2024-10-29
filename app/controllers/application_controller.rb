@@ -1,5 +1,13 @@
 class ApplicationController < ActionController::Base
+  before_action :restore_activity, if: :active_character
+
   private
+
+  def restore_activity
+    if active_character.can_restore?
+      active_character.restore
+    end
+  end
 
   def activate_character!
     redirect_to characters_path, alert: "You must have active character to do that." unless player
@@ -16,7 +24,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def player
-    current_user.player
+    current_user&.player
   end
 
   helper_method :player
