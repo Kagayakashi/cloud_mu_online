@@ -2,7 +2,7 @@ class MonsterPerformAttackJob < ApplicationJob
   def perform(monster_id, character_id)
     Monster.transaction do
       monster = Monster.lock("FOR UPDATE").find(monster_id)
-      character = Character.lock("FOR UPDATE").find(character_id)
+      character = Characters::Character.lock("FOR UPDATE").find(character_id)
 
       if monster.target.nil?
         Rails.logger.info "Monster setting his target to #{character.name}"

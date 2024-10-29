@@ -6,8 +6,8 @@ class MonsterAggroService
     @monster_type = monster.monster_type
     @character = character
 
-    @player_defense_rate = @character.character_type.calculate_defense_rate(@character)
-    @player_defense = @character.character_type.calculate_defense(@character)
+    @player_defense_rate = @character.calculate_defense_rate
+    @player_defense = @character.calculate_defense
 
     # total damage dealt
     @damage = 0
