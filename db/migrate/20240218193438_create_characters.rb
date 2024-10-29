@@ -19,6 +19,8 @@ class CreateCharacters < ActiveRecord::Migration[7.1]
       t.integer :activity, null: false
       t.datetime :last_restore_at, null: false
 
+      t.datetime :last_regeneration_at, null: false
+
       t.references :user, foreign_key: true, null: false
 
       t.timestamps

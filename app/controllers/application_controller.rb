@@ -1,12 +1,15 @@
 class ApplicationController < ActionController::Base
   before_action :restore_activity, if: :active_character
+  before_action :regenerate, if: :active_character
 
   private
 
+  def regenerate
+    active_character.regenerate
+  end
+
   def restore_activity
-    if active_character.can_restore?
-      active_character.restore
-    end
+    active_character.restore
   end
 
   def activate_character!
