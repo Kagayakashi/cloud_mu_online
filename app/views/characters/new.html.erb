@@ -1,7 +1,7 @@
 <article>
   <h1>Create character</h1>
 
-  <%= form_with model: @character, url: characters_path do |form| %>
+  <%= form_with model: Characters::Character.new, url: characters_path do |form| %>
     <% if form.object && form.object.errors.any? %>
       <% form.object.errors.full_messages.each do |message| %>
         <p><%= message %></p>
@@ -9,8 +9,8 @@
     <% end %>
 
     <div>
-      <%= form.label :profession %>
-      <%= form.collection_select :profession, Profession.all, :code, :name %>
+      <%= form.label :type %>
+      <%= form.select :type, Characters::Character.character_types %>
     </div>
 
     <div>

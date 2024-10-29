@@ -105,9 +105,7 @@ bundle install
 
 Setup database.
 ```shell
-bin/rails db:create
-bin/rails db:migrate
-bin/rails db:seed
+bin/rails db:prepare
 ```
 
 Run application and open in browser `localhost:3000`:
@@ -137,9 +135,7 @@ Update database. While its alpha releases. Its better to drop database and insta
 The application is still under development and some features may change.
 ```shell
 bin/rails db:drop
-bin/rails db:create
-bin/rails db:migrate
-bin/rails db:seed
+bin/rails db:prepare
 ```
 
 Run application and open in browser `localhost:3000`:

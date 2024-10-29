@@ -1,25 +1,23 @@
 class CharacterCreatorService
-  def initialize(user:, character_params:)
+  def initialize(user:, params:)
     @user = user
-    @character_params = character_params
+    @params = params
   end
 
-  def call
-    return false unless get_profession
-    return false unless create_character
-    @character.set_default_values
-    @character
+  def create
+    character = @user.characters.build(character_params)
+
+    if character.type.present?
+      subclass_instance = character.type.constantize.new(@params.except(:type))
+      subclass_instance.user = @user
+      subclass_instance.set_default_values
+      subclass_instance.save ? subclass_instance : nil
+    end
   end
 
   private
 
-  def get_profession
-    profession = Profession.find_by(code: @character_params[:profession])
-    return false unless profession
-    @character_params[:profession] = profession
-  end
-
-  def create_character
-    @character = @user.characters.build(@character_params)
+  def character_params
+    @params.permit(:name, :type)
   end
 end

@@ -6,8 +6,8 @@ class MonsterAggroService
     @monster_type = monster.monster_type
     @character = character
 
-    @player_defense_rate = @character.character_type.calculate_defense_rate(@character)
-    @player_defense = @character.character_type.calculate_defense(@character)
+    @player_defense_rate = @character.calculate_defense_rate
+    @player_defense = @character.calculate_defense
 
     # total damage dealt
     @damage = 0
@@ -69,13 +69,13 @@ class MonsterAggroService
       Rails.logger.info "Player is dead"
       @monster.update(target: nil)
       @character.update(current_health: 1, map: Map.first)
-      InGameLogs::DamageReceivedLog.create(character: @character, description: "#{@monster_type.name} killed you.")
+      GameLogs::DamageReceivedLog.create(character: @character, description: "#{@monster_type.name} killed you.")
       player_regeneration
       nil
     else
       attack_later
       Rails.logger.info "Player is not dead"
-      InGameLogs::DamageReceivedLog.create(character: @character, description: "#{@monster_type.name} dealt #{@damage} damage to you.") if @damage > 0
+      GameLogs::DamageReceivedLog.create(character: @character, description: "#{@monster_type.name} dealt #{@damage} damage to you.") if @damage > 0
     end
   end
 end

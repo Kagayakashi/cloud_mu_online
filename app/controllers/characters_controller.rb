@@ -13,26 +13,19 @@ class CharactersController < ApplicationController
     end
   end
 
-  def edit
-    # TODO
-  end
-
-  def update
-    # TODO
-  end
-
   def new
-    @character = Character.new
   end
 
   def create
-    @character = Character.new(character_params_with_profession)
-    @character.set_default_values
-    @character.user = current_user
-    if @character.save
+    character_creator = CharacterCreatorService.new(user: current_user, params: create_character_params)
+    @character = character_creator.create
+
+    Rails.logger.debug(@character)
+
+    if @character
       redirect_to characters_path, notice: "Character created successfully!"
     else
-      flash.now[:alert] = "Character could not be saved."
+      flash.now[:alert] = "Failed to create character."
       render :new, status: :unprocessable_entity
     end
   end
@@ -63,23 +56,7 @@ class CharactersController < ApplicationController
     end
   end
 
-
-  def character_params_with_profession
-    params_with_profession = create_character_params
-    profession = Profession.find_by(code: params_with_profession[:profession])
-
-    unless profession
-      flash.now[:alert] = "Failed to create character without profession."
-      render :new, status: :unprocessable_entity
-      return
-    end
-
-    params_with_profession[:profession] = profession
-    params_with_profession
-  end
-
-
   def create_character_params
-    params.require(:character).permit(:name, :profession)
+    params.require(:characters_character).permit(:name, :type)
   end
 end

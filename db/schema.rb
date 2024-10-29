@@ -13,6 +13,7 @@
 ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
   create_table "characters", force: :cascade do |t|
     t.string "name", null: false
+    t.string "type", null: false
     t.integer "level", null: false
     t.integer "experience", null: false
     t.integer "points", null: false
@@ -31,16 +32,17 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
     t.integer "profession_id", null: false
     t.index ["map_id"], name: "index_characters_on_map_id"
     t.index ["profession_id"], name: "index_characters_on_profession_id"
+    t.index ["type"], name: "index_characters_on_type"
     t.index ["user_id"], name: "index_characters_on_user_id"
   end
 
-  create_table "in_game_logs", force: :cascade do |t|
+  create_table "game_logs", force: :cascade do |t|
     t.integer "character_id", null: false
     t.text "description"
     t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["character_id"], name: "index_in_game_logs_on_character_id"
+    t.index ["character_id"], name: "index_game_logs_on_character_id"
   end
 
   create_table "map_connections", force: :cascade do |t|
@@ -120,7 +122,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
   add_foreign_key "characters", "maps"
   add_foreign_key "characters", "professions"
   add_foreign_key "characters", "users"
-  add_foreign_key "in_game_logs", "characters"
+  add_foreign_key "game_logs", "characters"
   add_foreign_key "map_connections", "maps"
   add_foreign_key "map_connections", "maps", column: "connected_map_id"
   add_foreign_key "monster_types", "maps"

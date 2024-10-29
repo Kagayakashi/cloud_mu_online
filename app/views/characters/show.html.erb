@@ -52,15 +52,15 @@
         <td colspan="2"></td>
         <td>Attack</td>
         <td>
-          <%= @character.character_type.calculate_min_attack(@character) %>
+          <%= @character.calculate_min_attack %>
           &mdash;
-          <%= @character.character_type.calculate_max_attack(@character) %>
+          <%= @character.calculate_max_attack %>
         </td>
       </tr>
       <tr>
         <td colspan="2"></td>
         <td>Attack rate</td>
-        <td><%= @character.character_type.calculate_attack_rate(@character) %></td>
+        <td><%= @character.calculate_attack_rate %></td>
       </tr>
 
       <!-- Agility -->
@@ -77,12 +77,12 @@
       <tr>
         <td colspan="2"></td>
         <td>Defense</td>
-        <td><%= @character.character_type.calculate_defense(@character) %></td>
+        <td><%= @character.calculate_defense %></td>
       </tr>
       <tr>
         <td colspan="2"></td>
         <td>Defense rate</td>
-        <td><%= @character.character_type.calculate_defense_rate(@character) %></td>
+        <td><%= @character.calculate_defense_rate %></td>
       </tr>
 
       <!-- Vitality -->
@@ -99,12 +99,12 @@
       <tr>
         <td colspan="2"></td>
         <td>Health</td>
-        <td><%= @character.character_type.calculate_health(@character) %></td>
+        <td><%= @character.calculate_health %></td>
       </tr>
       <tr>
         <td colspan="2"></td>
         <td>Health regen</td>
-        <td><%= @character.character_type.calculate_health_regen(@character) %></td>
+        <td><%= @character.calculate_health_regen %></td>
       </tr>
 
       <!-- Energy -->
@@ -118,26 +118,26 @@
           <% end %>
         </td>
       </tr>
-      <% if @character.character_type.has_wizardy? %>
+      <% if @character.has_wizardy? %>
       <tr>
         <td colspan="2"></td>
         <td>Wizard power</td>
         <td>
-          <%= @character.character_type.calculate_min_wizard(@character) %>
+          <%= @character.calculate_min_wizard %>
           &mdash;
-          <%= @character.character_type.calculate_max_wizard(@character) %>
+          <%= @character.calculate_max_wizard %>
         </td>
       </tr>
       <% end %>
       <tr>
         <td colspan="2"></td>
         <td>Mana</td>
-        <td><%= @character.character_type.calculate_mana(@character) %></td>
+        <td><%= @character.calculate_mana %></td>
       </tr>
       <tr>
         <td colspan="2"></td>
         <td>Mana regen</td>
-        <td><%= @character.character_type.calculate_mana_regen(@character) %></td>
+        <td><%= @character.calculate_mana_regen %></td>
       </tr>
     </tbody>
   </table>
