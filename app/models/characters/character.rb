@@ -10,8 +10,6 @@ module Characters
     validates :name, presence: true, uniqueness: true
     validates :name, length: { minimum: 4, maximum: 20 }
     validates :type, presence: true
-    
-    validate :validate_character_type
 
     def self.order
       raise NotImplementedError, "You must implement the method in Character subclass"
@@ -164,12 +162,6 @@ module Characters
     def can_regenerate?
       (current_health < max_health || current_mana < max_mana) &&
       (last_regeneration_at.nil? || last_regeneration_at < 1.minute.ago)
-    end
-
-    def validate_character_type
-      unless Characters::Character.subclasses.map(&:name).include?(type)
-        errors.add(:type, "#{type} is not a valid character type")
-      end
     end
   end
 end

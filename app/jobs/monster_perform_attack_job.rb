@@ -5,12 +5,10 @@ class MonsterPerformAttackJob < ApplicationJob
       character = Characters::Character.lock("FOR UPDATE").find(character_id)
 
       if monster.target.nil?
-        Rails.logger.info "Monster setting his target to #{character.name}"
         monster.update(target: character)
       end
 
       if character.map != monster.monster_type.map
-        Rails.logger.info "Character's map does not match the monster's map."
         monster.update(target: nil)
         return
       end
