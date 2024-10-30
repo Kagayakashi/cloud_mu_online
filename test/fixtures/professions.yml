@@ -2,12 +2,15 @@
 
 dk:
   name: Dark Knight
-  level: 150
+  level: 1
+  code: dk
 
 dw:
   name: Dark Wizard
-  level: 150
+  level: 1
+  code: dw
   
-elf:
+fe:
   name: Fairy Elf
-  level: 150
+  level: 1
+  code: fe

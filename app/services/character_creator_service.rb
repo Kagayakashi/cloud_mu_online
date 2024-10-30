@@ -1,23 +1,28 @@
 class CharacterCreatorService
-  def initialize(user:, params:)
+  def initialize(user:, name:, type:)
     @user = user
-    @params = params
+    @name = name
+    @type = type
+    @character = Characters::Character.new(user: @user, name: @name, type: @type)
   end
 
-  def create
-    character = @user.characters.build(character_params)
-
-    if character.type.present?
-      subclass_instance = character.type.constantize.new(@params.except(:type))
-      subclass_instance.user = @user
-      subclass_instance.set_default_values
-      subclass_instance.save ? subclass_instance : nil
+  def call
+    if @character.invalid?
+      return @character
     end
+    @character = @character.type.constantize.new(user: @user, name: @name)
+    @character.save
+    @character
   end
 
   private
 
-  def character_params
-    @params.permit(:name, :type)
+  def valid_character_type?
+    if Characters::Character.subclasses.map(&:name).include?(@type)
+      true
+    else
+      @character.errors.add(:type, "is not a valid character type")
+      false
+    end
   end
 end
