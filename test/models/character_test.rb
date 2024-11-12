@@ -5,6 +5,18 @@ class CharacterTest < ActiveSupport::TestCase
     @user = users(:one)
   end
 
+  test "should create a valid character" do
+    character = Characters::Character.new(name: "Test Warrior", type: "Characters::DarkKnight")
+    character.user = @user
+    assert character.valid?
+  end
+
+  test "should create a valid dark knight" do
+    character = Characters::DarkKnight.new(name: "Test Warrior", type: "Characters::DarkKnight")
+    character.user = @user
+    assert character.valid?
+  end
+
   test "should have character types as subclasses" do
     assert_includes Characters::Character.subclasses.map(&:name), "Characters::DarkKnight"
     assert_includes Characters::Character.subclasses.map(&:name), "Characters::DarkWizard"
@@ -19,7 +31,7 @@ class CharacterTest < ActiveSupport::TestCase
   end
 
   test "should create a dark knight with a name" do
-    character = Characters::DarkKnight.new(name: "CreatedDarkKnight1", type: "Characters::DarkKnight", user: @user)
+    character = Characters::Character.new(name: "CreatedDarkKnight1", type: "Characters::DarkKnight", user: @user)
 
     assert character.save!
 
@@ -62,7 +74,7 @@ class CharacterTest < ActiveSupport::TestCase
     service = CharacterCreatorService.new(user: @user, name: "CreatedDarkKnight2", type: "Characters::DarkKnight")
     character = service.call
 
-    assert_not_nil = character
+    assert_not_nil character
 
     assert_equal "CreatedDarkKnight2", character.name
     assert_equal "Characters::DarkKnight", character.type

@@ -3,26 +3,25 @@ class CharacterCreatorService
     @user = user
     @name = name
     @type = type
-    @character = Characters::Character.new(user: @user, name: @name, type: @type)
   end
 
   def call
-    if @character.invalid?
-      return @character
-    end
-    @character = @character.type.constantize.new(user: @user, name: @name)
-    @character.save
-    @character
+    return invalid_character unless valid_character_type?
+
+    character = @type.constantize.new(user: @user, name: @name)
+    character.save
+    character
   end
 
   private
 
   def valid_character_type?
-    if Characters::Character.subclasses.map(&:name).include?(@type)
-      true
-    else
-      @character.errors.add(:type, "is not a valid character type")
-      false
-    end
+    Characters::Character.subclasses.map(&:name).include?(@type)
+  end
+
+  def invalid_character
+    character = Characters::Character.new(user: @user, name: @name)
+    character.errors.add(:type, "is not a valid character type")
+    character
   end
 end

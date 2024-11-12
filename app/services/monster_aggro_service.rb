@@ -14,9 +14,7 @@ class MonsterAggroService
   end
 
   def call
-    Rails.logger.info "Monster going to hit #{@character.name} #{monster_attacks} times"
     monster_attacks.times do
-      Rails.logger.info "Monster performing attack"
       perform_attack
     end
 
@@ -38,19 +36,13 @@ class MonsterAggroService
   end
 
   def perform_attack
-    Rails.logger.info "#{ @character.name } current health is #{ @character.current_health }"
-
     return unless @character.current_health > 0
 
     hit_chance = calculate_hit_chance(attack_rate: @monster_type.attack_rate, defense_rate: @player_defense_rate)
 
     return unless attack_success?(hit_chance)
 
-    Rails.logger.info "Monster attack is success"
-
     damage = calculate_damage(min_attack: @monster_type.min_attack, max_attack: @monster_type.max_attack, defense: @player_defense)
-
-    Rails.logger.info "Monster damage is #{ damage }"
 
     return unless damage > 0
 
@@ -62,13 +54,11 @@ class MonsterAggroService
 
   def attack_result
     if @character.current_health <= 0
-      Rails.logger.info "Player is dead"
       @monster.update(target: nil)
       @character.update(current_health: 1, map: Map.first)
       GameLogs::DamageReceivedLog.create(character: @character, description: "#{@monster_type.name} killed you.")
     else
       attack_later
-      Rails.logger.info "Player is not dead"
       GameLogs::DamageReceivedLog.create(character: @character, description: "#{@monster_type.name} dealt #{@damage} damage to you.") if @damage > 0
     end
   end

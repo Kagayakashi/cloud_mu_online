@@ -21,7 +21,7 @@ class CharactersControllerTest < ActionController::TestCase
 
     assert_response :unprocessable_entity
     assert_template :new
-    assert_match /is not a valid character type/, response.body
+    assert_match (/is not a valid character type/), response.body
   end
 
   test "should render new on empty name" do
@@ -30,6 +30,6 @@ class CharactersControllerTest < ActionController::TestCase
     end
     assert_response :unprocessable_entity
     assert_template :new
-    assert_match /can&#39;t be blank/, response.body
+    assert_match (/can&#39;t be blank/), response.body
   end
 end
