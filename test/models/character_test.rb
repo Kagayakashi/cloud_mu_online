@@ -110,8 +110,4 @@ class CharacterTest < ActiveSupport::TestCase
     assert_not_nil character.last_restore_at
     assert_not_nil character.last_regeneration_at
   end
-
-  teardown do
-    Characters::Character.delete_all  # Удаляем всех персонажей после тестов
-  end
 end
