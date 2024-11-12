@@ -3,13 +3,13 @@ source "https://rubygems.org"
 ruby "3.3.4"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0.0.rc1"
+gem "rails", "~> 8.0.0"
 
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft", "~> 1.1.0"
 
 # Use sqlite3 as the database for Active Record [https://github.com/sparklemotion/sqlite3-ruby]
-gem "sqlite3", "~> 2.1.0"
+gem "sqlite3", "~> 2.2.0"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 6.4.3"
