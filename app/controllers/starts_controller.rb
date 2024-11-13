@@ -13,11 +13,11 @@ class StartsController < ApplicationController
       begin
         @user = UserCreatorService.new.call
         @character = CharacterCreatorService.new(
-          user: @user, 
+          user: @user,
           name: character_params[:name],
           type: character_params[:type]
         ).call
-  
+
         if @character.persisted?
           login(@user)
           redirect_to adventure_path and return
