@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
     redirect_to start_path unless user_signed_in?
   end
 
+  def guest_only!
+    redirect_to adventure_path if user_signed_in?
+  end
+
   def current_user
     Current.user ||= authenticate_user_from_session
   end
