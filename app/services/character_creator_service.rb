@@ -1,4 +1,6 @@
 class CharacterCreatorService
+  attr_reader :character
+
   def initialize(user:, name:, type:)
     @user = user
     @name = name
@@ -8,9 +10,14 @@ class CharacterCreatorService
   def call
     return invalid_character unless valid_character_type?
 
-    character = @type.constantize.new(user: @user, name: @name)
-    character.save
-    character
+    @character = @type.constantize.new(user: @user, name: @name)
+    @character.save
+
+    unless @user.characters
+      @user.create_player(character: @character)
+    end
+
+    @character
   end
 
   private
@@ -20,8 +27,8 @@ class CharacterCreatorService
   end
 
   def invalid_character
-    character = Characters::Character.new(user: @user, name: @name)
-    character.errors.add(:type, "is not a valid character type")
-    character
+    @character = Characters::Character.new(user: @user, name: @name)
+    @character.errors.add(:type, "is not a valid character type")
+    @character
   end
 end
