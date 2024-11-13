@@ -10,22 +10,24 @@ class StartsController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      @user = UserCreatorService.new.call
-      @character = CharacterCreatorService.new(
-        user: @user, 
-        name: character_params[:name],
-        type: character_params[:type]
-      ).call
-
-      if @character.persisted?
-        login(@user)
-        redirect_to adventure_path and return
-      else
-        raise ActiveRecord::Rollback
+      begin
+        @user = UserCreatorService.new.call
+        @character = CharacterCreatorService.new(
+          user: @user, 
+          name: character_params[:name],
+          type: character_params[:type]
+        ).call
+  
+        if @character.persisted?
+          login(@user)
+          redirect_to adventure_path and return
+        else
+          raise ActiveRecord::Rollback
+        end
+      rescue ActiveRecord::RecordInvalid, ActiveRecord::Rollback
+        render :new, status: :unprocessable_entity
       end
     end
-
-    render :new, status: :unprocessable_entity
   end
 
   private
