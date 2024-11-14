@@ -1,6 +1,6 @@
 require "test_helper"
 
-class CharacterTest < ActiveSupport::TestCase
+class Characters::CharacterTest < ActiveSupport::TestCase
   setup do
     @user = users(:one)
   end
