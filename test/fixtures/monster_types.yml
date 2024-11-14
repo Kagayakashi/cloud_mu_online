@@ -1,0 +1,14 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Spider
+  level: 2
+  health: 40
+  min_attack: 6
+  max_attack: 8
+  attack_rate: 8
+  defense_rate: 1
+  defense: 1
+  experience: 100
+  spawn_time: 60
+  map: two

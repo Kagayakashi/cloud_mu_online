@@ -3,9 +3,9 @@
 one:
   username: user1
   email: user1@example.com
-  password_digest: <%= PasswordHelper.digest('user1pass') %>
+  password_digest: <%= BCrypt::Password.create('user1pass') %>
 
-two:
+first:
   username: user2
   email: user2@example.com
-  password_digest: <%= PasswordHelper.digest('user2pass') %>
+  password_digest: <%= BCrypt::Password.create('user2pass') %>
