@@ -1,6 +1,6 @@
 module Characters
   class Character < ApplicationRecord
-    before_validation :set_default_values
+    before_validation :set_default_values, if: :new_record?
 
     belongs_to :user
     belongs_to :profession

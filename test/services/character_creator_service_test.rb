@@ -5,11 +5,11 @@ class CharacterCreatorServiceTest < ActiveSupport::TestCase
     @user = users(:one)
   end
 
-  test "successfully creates a character" do
-    service = CharacterCreatorService.new(user: @user, name: "DarkKnight", type: "Characters::DarkKnight")
+  test "should successfully create a character" do
+    service = CharacterCreatorService.new(user: @user, name: "ServiceTestDK1", type: "Characters::DarkKnight")
     character = service.call
     assert character.persisted?, "Character should be persisted in the database"
-    assert_equal "DarkKnight", character.name
+    assert_equal "ServiceTestDK1", character.name
     assert_equal "Characters::DarkKnight", character.type
   end
 
