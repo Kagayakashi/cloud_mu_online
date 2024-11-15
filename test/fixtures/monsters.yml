@@ -1,5 +1,6 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  monster_type: one
+  id: 1
+  monster_type_id: 1
   health: 40
