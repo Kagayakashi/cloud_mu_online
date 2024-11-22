@@ -1,4 +1,6 @@
 class MonstersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :activate_character!
   before_action :set_monster
 
   include AttackDelay

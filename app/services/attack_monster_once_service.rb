@@ -33,6 +33,7 @@ class AttackMonsterOnceService
 
   def set_aggro
     return if @monster.target
+    @monster.target = @character
     MonsterPerformAttackJob.perform_later(@monster.id, @character.id)
   end
 
