@@ -38,7 +38,7 @@ module CombatService
         end
       end
 
-      @defender_health = [@defender_health, 0].max
+      @defender_health = [ @defender_health, 0 ].max
     end
   end
 end

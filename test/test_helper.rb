@@ -11,7 +11,7 @@ module ActiveSupport
     fixtures :all
 
     # Setup fixtures in order
-    #fixtures :users, :professions, :maps, :characters, :monster_types, :monsters
+    # fixtures :users, :professions, :maps, :characters, :monster_types, :monsters
 
     # Add more helper methods to be used by all tests here...
   end

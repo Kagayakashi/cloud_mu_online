@@ -1,5 +1,5 @@
 require "test_helper"
-require 'ostruct'
+require "ostruct"
 
 class CombatService::EngagementTest < ActiveSupport::TestCase
   def setup
