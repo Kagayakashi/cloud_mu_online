@@ -1,7 +1,11 @@
 module CombatService
-  class PerformAttack
+  class Engagement
+    attr_reader :hit_count, :damage, :total_damage, :defender_health
+
     def self.call(attacker:, defender:)
-      new(attacker: attacker, defender: defender).perform
+      instance = new(attacker: attacker, defender: defender)
+      instance.attack
+      instance
     end
 
     def initialize(attacker:, defender:)
@@ -12,22 +16,22 @@ module CombatService
       @dmg_calculation = DamageCalculation.new(
         min_attack: attacker.min_attack,
         max_attack: attacker.max_attack,
-        defense: defender.defense_rate
+        defense: defender.defense
       )
-      @attacks = attacker.attacks
+      @attack_speed = attacker.attacks
       @defender_health = defender.current_health
       @hit_count = 0
       @total_damage = 0
     end
 
-    def perform
-      @attacks.times do
+    def attack
+      @attack_speed.times do
         break if @defender_health <= 0
         if @hit_calculation.hit?
           @hit_count += 1
-          damage = @dmg_calculation.damage
+          @damage = @dmg_calculation.damage
 
-          if damage > 0
+          if @damage > 0
             @defender_health -= damage
             @total_damage += damage
           end
@@ -35,12 +39,6 @@ module CombatService
       end
 
       @defender_health = [@defender_health, 0].max
-
-      Result.new(
-        hit_count: @hit_count,
-        total_damage: @total_damage,
-        defender_health: @defender_health
-      )
     end
   end
 end
