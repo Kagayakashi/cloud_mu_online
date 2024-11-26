@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_many :characters, class_name: "Characters::Character", dependent: :destroy
   has_one :player, dependent: :destroy
 
-  validates :username, presence: true, uniqueness: true
+  validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, confirmation: true
   validates :username, length: { minimum: 4, maximum: 20 }
