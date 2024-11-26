@@ -12,3 +12,8 @@ two:
   id: 2
   name: Lorencia spiders
   min_level: 1
+
+three:
+  id: 3
+  name: Budge dragons
+  min_level: 1
