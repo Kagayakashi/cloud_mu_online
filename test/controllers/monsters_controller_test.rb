@@ -24,4 +24,12 @@ class MonstersControllerTest < ActionController::TestCase
     @monster.reload
     assert_same @user.id, @monster.target_id
   end
+
+  test "should not attack to fast" do
+    post :receive_attack_damage, params: { id: @monster.id }
+    post :receive_attack_damage, params: { id: @monster.id }
+
+    assert_redirected_to adventure_path
+    assert_equal "You cannot attack so fast.", flash[:alert]
+  end
 end
