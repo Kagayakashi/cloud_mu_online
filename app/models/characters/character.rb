@@ -1,5 +1,7 @@
 module Characters
   class Character < ApplicationRecord
+    before_validation :set_default_values, if: :new_record?
+
     belongs_to :user
     belongs_to :profession
     belongs_to :map
@@ -130,6 +132,8 @@ module Characters
       )
     end
 
+    private
+
     def set_default_values
       today = Time.current
       set_default_stats!
@@ -149,8 +153,6 @@ module Characters
       self.current_mana ||= max_mana
       self.map = Map.first
     end
-
-    private
 
     def can_restore?
       # Todo switch into 1 hour
