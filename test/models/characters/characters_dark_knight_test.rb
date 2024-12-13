@@ -1,44 +1,31 @@
 require "test_helper"
 
 module Characters
-  class CharacterTest < ActiveSupport::TestCase
+  class DarkKnightTest < ActiveSupport::TestCase
     setup do
       @user = users(:one)
     end
 
-    test "should be valid character dark knight" do
-      character = Characters::Character.new(name: "Test Warrior", type: "Characters::DarkKnight")
+    test "should be valid dark knight" do
+      character = Characters::DarkKnight.new(name: "Test Warrior")
       character.user = @user
       assert character.valid?
     end
 
     test "should save a valid dark knight" do
-      character = Characters::Character.new(name: "Test Warrior", type: "Characters::DarkKnight")
+      character = Characters::DarkKnight.new(name: "Test Warrior")
       character.user = @user
       assert character.save
     end
 
     test "should not be valid character with existing name" do
-      character = Characters::Character.new(name: "DarkKnight", type: "Characters::DarkKnight")
+      character = Characters::DarkKnight.new(name: "DarkKnight")
       character.user = @user
       assert_not character.valid?
     end
 
-    test "should have character types as subclasses" do
-      assert_includes Characters::Character.subclasses.map(&:name), "Characters::DarkKnight"
-      assert_includes Characters::Character.subclasses.map(&:name), "Characters::DarkWizard"
-      assert_includes Characters::Character.subclasses.map(&:name), "Characters::Elf"
-    end
-
-    test "should have character types as human-readable names" do
-      character_types = Characters::Character.character_types
-      assert_includes character_types.map(&:first), "Dark Knight"
-      assert_includes character_types.map(&:first), "Dark Wizard"
-      assert_includes character_types.map(&:first), "Elf"
-    end
-
-    test "should create a character with right stats" do
-      character = Characters::Character.new(name: "CreatedDarkKnight1", type: "Characters::DarkKnight", user: @user)
+    test "should create a dark knight with a name" do
+      character = Characters::DarkKnight.new(name: "CreatedDarkKnight1", user: @user)
 
       assert character.save!
 
