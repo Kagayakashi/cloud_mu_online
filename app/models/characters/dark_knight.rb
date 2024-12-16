@@ -60,6 +60,7 @@ module Characters
       self.agility = 20
       self.vitality = 25
       self.energy = 10
+      self.map = Map.find_by(code: "lorencia")
     end
   end
 end
