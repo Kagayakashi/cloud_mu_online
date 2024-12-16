@@ -1,4 +1,6 @@
 module Characters
+  # Base class for all character types. Do not use directly.
+  # Use the subclasses like DarkKnight or DarkWizard instead.
   class Character < ApplicationRecord
     before_validation :set_default_values, if: :new_record?
 
@@ -7,8 +9,7 @@ module Characters
     belongs_to :map
     has_many :game_logs, class_name: "GameLogs::GameLog"
 
-    validates :name, presence: true, uniqueness: true
-    validates :name, length: { minimum: 4, maximum: 20 }
+    validates :name, presence: true, uniqueness: true, length: { in: 4..20 }
     validates :type, presence: true
 
     def self.order
@@ -24,6 +25,62 @@ module Characters
       end.sort_by do |_, subclass_name|
         subclass_name.constantize.order
       end
+    end
+
+    def add_experience_from_monster!(monster)
+      experience = (monster.level.to_f / self.level * monster.experience).floor
+      gold = experience
+      self.gold += gold
+      self.experience += experience
+      add_level
+      self.save
+      experience
+    end
+
+    def max_experience
+      (self.level * self.level) * (self.level + 9) * 2
+    end
+
+    def add_level
+      while experience >= max_experience do
+        self.experience -= max_experience
+        self.level += 1
+        self.points += 5
+
+        self.max_health = calculate_health
+        self.max_mana = calculate_mana
+
+        self.current_health = max_health
+        self.current_mana = max_mana
+      end
+
+      level
+    end
+
+    def restore
+      return unless can_restore?
+
+      self.update(last_restore_at: Time.current, activity: 100)
+    end
+
+    def regenerate
+      return unless can_regenerate?
+
+      health = current_health + calculate_health_regen
+      if health > max_health
+        health = max_health
+      end
+
+      mana = current_mana + calculate_mana_regen
+      if mana > max_mana
+        mana = max_mana
+      end
+
+      self.update(
+        last_regeneration_at: Time.current,
+        current_health: health,
+        current_mana: mana,
+      )
     end
 
     def has_wizardy?
@@ -76,60 +133,6 @@ module Characters
 
     def calculate_mana_regen
       raise NotImplementedError, "You must implement the method in Character subclass"
-    end
-
-    def add_experience_from_monster!(monster)
-      experience = (monster.level.to_f / self.level * monster.experience).floor
-      gold = experience
-      self.gold += gold
-      self.experience += experience
-      add_level
-      self.save
-      experience
-    end
-
-    def max_experience
-      (self.level * self.level) * (self.level + 9) * 2
-    end
-
-    def add_level
-      if experience >= max_experience
-        self.experience = 0
-        self.level += 1
-        self.points += 5
-
-        self.max_health = calculate_health
-        self.max_mana = calculate_mana
-
-        self.current_health = max_health
-        self.current_mana = max_mana
-      end
-    end
-
-    def restore
-      return unless can_restore?
-
-      self.update(last_restore_at: Time.current, activity: 100)
-    end
-
-    def regenerate
-      return unless can_regenerate?
-
-      health = current_health + calculate_health_regen
-      if health > max_health
-        health = max_health
-      end
-
-      mana = current_mana + calculate_mana_regen
-      if mana > max_mana
-        mana = max_mana
-      end
-
-      self.update(
-        last_regeneration_at: Time.current,
-        current_health: health,
-        current_mana: mana,
-      )
     end
 
     private

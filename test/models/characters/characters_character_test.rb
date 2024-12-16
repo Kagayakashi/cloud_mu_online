@@ -6,24 +6,6 @@ module Characters
       @user = users(:one)
     end
 
-    test "should be valid character dark knight" do
-      character = Characters::Character.new(name: "Test Warrior", type: "Characters::DarkKnight")
-      character.user = @user
-      assert character.valid?
-    end
-
-    test "should save a valid dark knight" do
-      character = Characters::Character.new(name: "Test Warrior", type: "Characters::DarkKnight")
-      character.user = @user
-      assert character.save
-    end
-
-    test "should not be valid character with existing name" do
-      character = Characters::Character.new(name: "DarkKnight", type: "Characters::DarkKnight")
-      character.user = @user
-      assert_not character.valid?
-    end
-
     test "should have character types as subclasses" do
       assert_includes Characters::Character.subclasses.map(&:name), "Characters::DarkKnight"
       assert_includes Characters::Character.subclasses.map(&:name), "Characters::DarkWizard"
@@ -35,6 +17,21 @@ module Characters
       assert_includes character_types.map(&:first), "Dark Knight"
       assert_includes character_types.map(&:first), "Dark Wizard"
       assert_includes character_types.map(&:first), "Elf"
+    end
+
+    test "should be valid character dark knight" do
+      character = Characters::Character.new(name: "Test Warrior", type: "Characters::DarkKnight", user: @user)
+      assert character.valid?
+    end
+
+    test "should save a valid dark knight" do
+      character = Characters::Character.new(name: "Test Warrior", type: "Characters::DarkKnight", user: @user)
+      assert character.save
+    end
+
+    test "should not be valid character with existing name" do
+      character = Characters::Character.new(name: "DarkKnight", type: "Characters::DarkKnight", user: @user)
+      assert_not character.valid?
     end
 
     test "should create a character with right stats" do
@@ -75,6 +72,33 @@ module Characters
 
       assert_not_nil character.last_restore_at
       assert_not_nil character.last_regeneration_at
+    end
+
+    test "should have not enough exp to level up" do
+      character = Characters::Character.new(name: "Test Warrior", type: "Characters::DarkKnight", user: @user)
+      character.valid?
+
+      character.experience = 19
+      character.add_level
+      assert_equal 1, character.level
+    end
+
+    test "should have enough exp to level up" do
+      character = Characters::Character.new(name: "Test Warrior", type: "Characters::DarkKnight", user: @user)
+      character.valid?
+
+      character.experience = 20
+      character.add_level
+      assert_equal 2, character.level
+    end
+
+    test "should level up multiple times from a lot exp" do
+      character = Characters::Character.new(name: "Test Warrior", type: "Characters::DarkKnight", user: @user)
+      character.valid?
+
+      character.experience = 1000
+      character.add_level
+      assert_operator character.level, :>, 3
     end
   end
 end

@@ -7,20 +7,19 @@ module Characters
     end
 
     test "should be valid dark knight" do
-      character = Characters::DarkKnight.new(name: "Test Warrior")
-      character.user = @user
+      character = Characters::DarkKnight.new(name: "Test Warrior", user: @user)
       assert character.valid?
     end
 
     test "should save a valid dark knight" do
-      character = Characters::DarkKnight.new(name: "Test Warrior")
-      character.user = @user
+      character = Characters::DarkKnight.new(name: "Test Warrior", user: @user)
       assert character.save
     end
 
     test "should not be valid character with existing name" do
-      character = Characters::DarkKnight.new(name: "DarkKnight")
-      character.user = @user
+      character = Characters::DarkKnight.new(name: "Test Knight", user: @user)
+      assert character.save
+      character = Characters::DarkKnight.new(name: "Test Knight", user: @user)
       assert_not character.valid?
     end
 
