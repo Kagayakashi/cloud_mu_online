@@ -1,5 +1,5 @@
 module Characters
-  class Elf < Character
+  class FairyElf < Character
     def self.order
       3
     end
@@ -60,6 +60,7 @@ module Characters
       self.agility = 25
       self.vitality = 20
       self.energy = 15
+      self.map = Map.find_by(code: "noria")
     end
   end
 end

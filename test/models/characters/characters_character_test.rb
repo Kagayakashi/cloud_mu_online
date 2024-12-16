@@ -9,22 +9,22 @@ module Characters
     test "should have character types as subclasses" do
       assert_includes Characters::Character.subclasses.map(&:name), "Characters::DarkKnight"
       assert_includes Characters::Character.subclasses.map(&:name), "Characters::DarkWizard"
-      assert_includes Characters::Character.subclasses.map(&:name), "Characters::Elf"
+      assert_includes Characters::Character.subclasses.map(&:name), "Characters::FairyElf"
     end
 
     test "should have character types as human-readable names" do
       character_types = Characters::Character.character_types
       assert_includes character_types.map(&:first), "Dark Knight"
       assert_includes character_types.map(&:first), "Dark Wizard"
-      assert_includes character_types.map(&:first), "Elf"
+      assert_includes character_types.map(&:first), "Fairy Elf"
     end
 
-    test "should be valid character dark knight" do
+    test "should be valid character" do
       character = Characters::Character.new(name: "Test Warrior", type: "Characters::DarkKnight", user: @user)
       assert character.valid?
     end
 
-    test "should save a valid dark knight" do
+    test "should save a valid character" do
       character = Characters::Character.new(name: "Test Warrior", type: "Characters::DarkKnight", user: @user)
       assert character.save
     end
