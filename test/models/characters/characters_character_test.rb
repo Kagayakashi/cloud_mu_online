@@ -74,33 +74,6 @@ module Characters
       assert_not_nil character.last_regeneration_at
     end
 
-    test "should have not enough exp to level up" do
-      character = Characters::Character.new(name: "Test Warrior", type: "Characters::DarkKnight", user: @user)
-      character.valid?
-
-      character.experience = 19
-      character.add_level
-      assert_equal 1, character.level
-    end
-
-    test "should have enough exp to level up" do
-      character = Characters::Character.new(name: "Test Warrior", type: "Characters::DarkKnight", user: @user)
-      character.valid?
-
-      character.experience = 20
-      character.add_level
-      assert_equal 2, character.level
-    end
-
-    test "should level up multiple times from a lot exp" do
-      character = Characters::Character.new(name: "Test Warrior", type: "Characters::DarkKnight", user: @user)
-      character.valid?
-
-      character.experience = 1000
-      character.add_level
-      assert_operator character.level, :>, 3
-    end
-
     test "should regenerate after time delay" do
       character = Characters::Character.new(name: "Test Warrior", type: "Characters::DarkKnight", user: @user)
       character.valid?

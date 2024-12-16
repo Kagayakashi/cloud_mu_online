@@ -27,39 +27,6 @@ module Characters
       end
     end
 
-    def add_experience_from_monster(monster)
-      reward = (monster.level.to_f / level * monster.experience).floor
-      self.gold += reward
-      self.experience += reward
-      experience
-    end
-
-    def add_experience_from_monster!(monster)
-      experience = add_experience_from_monster
-      save
-      experience
-    end
-
-    def max_experience
-      (level * level) * (level + 9) * 2
-    end
-
-    def add_level
-      while experience >= max_experience do
-        self.experience -= max_experience
-        self.level += 1
-        self.points += 5
-
-        self.max_health = calculate_health
-        self.max_mana = calculate_mana
-
-        self.current_health = max_health
-        self.current_mana = max_mana
-      end
-
-      level
-    end
-
     def restore
       return unless can_restore?
 
@@ -137,6 +104,10 @@ module Characters
       raise NotImplementedError, "You must implement the method in Character subclass"
     end
 
+    def calculate_max_experience
+      150 * level * level - 110 * level + 60
+    end
+
     private
 
     def set_default_values
@@ -145,6 +116,7 @@ module Characters
 
       self.level = 1
       self.experience = 0
+      self.max_experience = calculate_max_experience
       self.points = 0
       self.activity = 100
       self.gold = 0

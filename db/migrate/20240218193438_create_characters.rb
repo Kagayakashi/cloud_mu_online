@@ -5,6 +5,7 @@ class CreateCharacters < ActiveRecord::Migration[7.1]
       t.string :type, null: false
       t.integer :level, null: false
       t.integer :experience, null: false
+      t.integer :max_experience, null: false
       t.integer :points, null: false
       t.integer :current_health, null: false
       t.integer :max_health, null: false

@@ -13,3 +13,17 @@ spider:
   experience: 100
   spawn_time: 60
   map_id: 2
+
+expbox:
+  id: 2
+  name: Spider
+  level: 1
+  health: 1
+  min_attack: 1
+  max_attack: 1
+  attack_rate: 1
+  defense_rate: 1
+  defense: 1
+  experience: 1000
+  spawn_time: 60
+  map_id: 2
