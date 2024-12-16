@@ -9,7 +9,7 @@ module RewardsService
       @player_character.save
     end
 
-    test "should calculate experience per spider with level 1" do
+    test "should distribute experience and gold per monster" do
       initial_experience = @player_character.experience
       initial_gold = @player_character.gold
 
