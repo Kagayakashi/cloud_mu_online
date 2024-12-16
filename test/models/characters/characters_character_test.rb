@@ -100,5 +100,35 @@ module Characters
       character.add_level
       assert_operator character.level, :>, 3
     end
+
+    test "should regenerate after time delay" do
+      character = Characters::Character.new(name: "Test Warrior", type: "Characters::DarkKnight", user: @user)
+      character.valid?
+
+      initial_health = 1
+      initial_mana = 1
+      character.current_health = initial_health
+      character.current_mana = initial_mana
+      character.last_regeneration_at = 1.hour.ago.in_time_zone('UTC')
+
+      character.regenerate
+      assert_operator character.current_health, :>, initial_health
+      assert_operator character.current_mana, :>, initial_mana
+    end
+
+    test "should not regenerate too often" do
+      character = Characters::Character.new(name: "Test Warrior", type: "Characters::DarkKnight", user: @user)
+      character.valid?
+
+      initial_health = 1
+      initial_mana = 1
+      character.current_health = initial_health
+      character.current_mana = initial_mana
+      character.last_regeneration_at = 1.seconds.ago.in_time_zone('UTC')
+
+      character.regenerate
+      assert_equal character.current_health, initial_health
+      assert_equal character.current_mana, initial_mana
+    end
   end
 end

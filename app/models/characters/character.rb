@@ -66,21 +66,20 @@ module Characters
     def regenerate
       return unless can_regenerate?
 
-      health = current_health + calculate_health_regen
-      if health > max_health
-        health = max_health
+      self.current_health += calculate_health_regen
+      if current_health > max_health
+        self.current_health = max_health
       end
 
-      mana = current_mana + calculate_mana_regen
-      if mana > max_mana
-        mana = max_mana
+      self.current_mana += calculate_mana_regen
+      if current_mana > max_mana
+        self.current_mana = max_mana
       end
+    end
 
-      self.update(
-        last_regeneration_at: Time.current,
-        current_health: health,
-        current_mana: mana,
-      )
+    def regenerate!
+      regenerate
+      save
     end
 
     def has_wizardy?
