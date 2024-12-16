@@ -82,7 +82,7 @@ module Characters
       initial_mana = 1
       character.current_health = initial_health
       character.current_mana = initial_mana
-      character.last_regeneration_at = 1.hour.ago.in_time_zone('UTC')
+      character.last_regeneration_at = 1.hour.ago.in_time_zone("UTC")
 
       character.regenerate
       assert_operator character.current_health, :>, initial_health
@@ -97,7 +97,7 @@ module Characters
       initial_mana = 1
       character.current_health = initial_health
       character.current_mana = initial_mana
-      character.last_regeneration_at = 1.seconds.ago.in_time_zone('UTC')
+      character.last_regeneration_at = 1.seconds.ago.in_time_zone("UTC")
 
       character.regenerate
       assert_equal character.current_health, initial_health
