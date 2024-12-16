@@ -14,6 +14,7 @@ module RewardsService
       exp = calculate_experience
       @player_character.experience += exp
       @player_character.gold += exp
+      @player_character.add_level
       @player_character.save!
     end
 
