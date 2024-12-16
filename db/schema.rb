@@ -60,11 +60,12 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
   end
 
   create_table "maps", force: :cascade do |t|
+    t.string "code"
     t.string "name", null: false
-    t.integer "min_level", default: 0, null: false
+    t.integer "min_level", default: 1, null: false
     t.boolean "can_teleport", default: false, null: false
-    t.integer "teleport_cost", default: 0, null: false
-    t.integer "teleport_min_level", default: 0, null: false
+    t.integer "teleport_cost", default: 1000, null: false
+    t.integer "teleport_min_level", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
