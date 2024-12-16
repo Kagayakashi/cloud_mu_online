@@ -27,18 +27,21 @@ module Characters
       end
     end
 
+    def add_experience_from_monster(monster)
+      reward = (monster.level.to_f / level * monster.experience).floor
+      self.gold += reward
+      self.experience += reward
+      experience
+    end
+
     def add_experience_from_monster!(monster)
-      experience = (monster.level.to_f / self.level * monster.experience).floor
-      gold = experience
-      self.gold += gold
-      self.experience += experience
-      add_level
-      self.save
+      experience = add_experience_from_monster
+      save
       experience
     end
 
     def max_experience
-      (self.level * self.level) * (self.level + 9) * 2
+      (level * level) * (level + 9) * 2
     end
 
     def add_level
@@ -153,7 +156,6 @@ module Characters
 
       self.current_health ||= max_health
       self.current_mana ||= max_mana
-      self.map = Map.first
     end
 
     def can_restore?
