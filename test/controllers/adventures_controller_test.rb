@@ -42,7 +42,7 @@ class AdventuresControllerTest < ActionController::TestCase
   test "should not travel to unknown map" do
     post :travel, params: { id: 322 }
     @character.reload
-    
+
     assert_redirected_to adventure_path
     assert_equal "Location does not exist.", flash[:alert]
     assert_equal @character.map, @lorencia
