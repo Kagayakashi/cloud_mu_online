@@ -14,8 +14,3 @@ three:
   id: 3
   map_id: 2
   connected_map_id: 3
-
-four:
-  id: 4
-  map_id: 3
-  connected_map_id: 2
