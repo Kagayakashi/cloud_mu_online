@@ -16,7 +16,7 @@ spider:
 
 expbox:
   id: 2
-  name: Spider
+  name: Experience Box
   level: 1
   health: 1
   min_attack: 1
