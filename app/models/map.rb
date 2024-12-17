@@ -9,4 +9,6 @@ class Map < ApplicationRecord
   has_many :connected_maps, through: :map_connections, source: :connected_map
 
   scope :teleportable, -> { where(can_teleport: true) }
+
+  validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 255 }
 end
