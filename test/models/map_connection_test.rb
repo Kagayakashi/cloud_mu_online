@@ -12,6 +12,14 @@ class MapConnectionTest < ActiveSupport::TestCase
     assert_not connection.valid?
   end
 
+  test "should not be valid connection if it already exist from map" do
+    first_connection = @lorencia.map_connections.create(connected_map: @noria)
+    assert first_connection.valid?
+
+    second_connection = @lorencia.map_connections.build(connected_map: @noria)
+    assert_not second_connection.valid?
+  end
+
   test "should be valid with filled all attributes" do
     connection = MapConnection.new(map: @lorencia, connected_map: @noria)
     assert connection.valid?
