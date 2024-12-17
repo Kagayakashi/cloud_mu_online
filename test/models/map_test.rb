@@ -10,6 +10,27 @@ class MapTest < ActiveSupport::TestCase
     assert_not map.valid?
   end
 
+  test "should not be valid with incorrect min level" do
+    map = Map.new(name: "I Have Only Name", min_level: 0)
+    assert_not map.valid?
+
+    map = Map.new(name: "I Have Only Name", min_level: -1)
+    assert_not map.valid?
+  end
+
+  test "should not be valid with incorrect teleport min level" do
+    map = Map.new(name: "I Have Only Name", teleport_min_level: 0)
+    assert_not map.valid?
+
+    map = Map.new(name: "I Have Only Name", teleport_min_level: -1)
+    assert_not map.valid?
+  end
+
+  test "should not be valid with incorrect teleport cost" do
+    map = Map.new(name: "I Have Only Name", teleport_min_level: -1)
+    assert_not map.valid?
+  end
+
   test "should be valid with name" do
     map = Map.new(name: "I Have Only Name")
     assert_equal 1, map.min_level
