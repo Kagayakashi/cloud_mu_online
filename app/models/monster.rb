@@ -4,6 +4,8 @@ class Monster < ApplicationRecord
 
   before_validation :set_health, if: :new_record?
 
+  validates :monster_type_id, presence: true
+
   private
 
   def set_health
