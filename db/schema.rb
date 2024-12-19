@@ -26,6 +26,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
     t.integer "agility", null: false
     t.integer "vitality", null: false
     t.integer "energy", null: false
+    t.integer "attack_rate", null: false
+    t.integer "min_attack", null: false
+    t.integer "max_attack", null: false
+    t.integer "defense_rate", null: false
+    t.integer "defense", null: false
     t.integer "gold", null: false
     t.integer "activity", null: false
     t.datetime "last_restore_at", null: false
