@@ -5,31 +5,40 @@ class MonstersControllerTest < ActionController::TestCase
     @monster = monsters(:one)
     @user = users(:one)
     session[:user_id] = @user.id
+    @character = @user.player.character
   end
 
-  test "should perform physical attack to monster and reduce monster health" do
-    initial_monster_health = @monster.health
+  test "should reduce monster health after attack" do
+    initial_health = @monster.health
 
     post :receive_attack_damage, params: { id: @monster.id }
     assert_redirected_to adventure_path
 
     @monster.reload
-    assert @monster.health < initial_monster_health
+    assert @monster.health < initial_health
   end
 
-  test "should perform physical attack to monster and become monster target" do
+  test "should set monster target after attack" do
     post :receive_attack_damage, params: { id: @monster.id }
     assert_redirected_to adventure_path
 
     @monster.reload
-    assert_same @user.id, @monster.target_id
+    assert_equal @character, @monster.target
   end
 
-  test "should not attack to fast" do
-    post :receive_attack_damage, params: { id: @monster.id }
-    post :receive_attack_damage, params: { id: @monster.id }
+  test "should not attack too fast and health/target should remain unchanged" do
+    initial_health = @monster.health
 
+    def @controller.attack_delay_left
+      5
+    end
+
+    post :receive_attack_damage, params: { id: @monster.id }
     assert_redirected_to adventure_path
     assert_equal "You cannot attack so fast.", flash[:alert]
+
+    @monster.reload
+    assert_equal initial_health, @monster.health
+    assert_nil @monster.target
   end
 end
