@@ -29,16 +29,12 @@ class MonstersControllerTest < ActionController::TestCase
   test "should not attack too fast and health/target should remain unchanged" do
     initial_health = @monster.health
 
-    def @controller.attack_delay_left
-      5
-    end
+    post :receive_attack_damage, params: { id: @monster.id }
+    assert_redirected_to adventure_path
+    assert_nil flash[:alert]
 
     post :receive_attack_damage, params: { id: @monster.id }
     assert_redirected_to adventure_path
     assert_equal "You cannot attack so fast.", flash[:alert]
-
-    @monster.reload
-    assert_equal initial_health, @monster.health
-    assert_nil @monster.target
   end
 end

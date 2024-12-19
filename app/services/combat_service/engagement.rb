@@ -9,6 +9,7 @@ module CombatService
     end
 
     def initialize(attacker:, defender:, session:)
+      @defender = defender
       @attack_delay = AttackDelay.new(session)
       @hit_calculation = HitCalculation.new(
         attack_rate: attacker.attack_rate,
@@ -27,24 +28,24 @@ module CombatService
 
     def attack
       return @damage = nil unless @attack_delay.can_attack?
-      return @damage = nil unless @defender_health > 0
+      return @damage = nil unless @defender.health > 0
 
       @attack_speed.times do
-        break if @defender_health <= 0
+        break if @defender.health <= 0
 
         if @hit_calculation.hit?
           @hit_count += 1
           @damage = @dmg_calculation.damage
 
           if @damage > 0
-            @defender_health -= damage
+            @defender.health -= damage
             @total_damage += damage
           end
         end
       end
 
       @attack_delay.set_delay
-      @defender_health = [ @defender_health, 0 ].max
+      @defender_health = [ @defender.health, 0 ].max
     end
   end
 end
