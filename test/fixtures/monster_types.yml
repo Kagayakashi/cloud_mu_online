@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+spider:
+  id: 1
+  name: Spider
+  level: 2
+  health: 40
+  min_attack: 6
+  max_attack: 8
+  attack_rate: 8
+  defense_rate: 1
+  defense: 1
+  experience: 100
+  spawn_time: 60
+  map_id: 2
+
+expbox:
+  id: 2
+  name: Experience Box
+  level: 1
+  health: 1
+  min_attack: 1
+  max_attack: 1
+  attack_rate: 1
+  defense_rate: 1
+  defense: 1
+  experience: 1000
+  spawn_time: 60
+  map_id: 2

@@ -34,8 +34,11 @@ Profession.create! name: "Fairy Elf", code: "fe", level: 1
 puts "Created profession Fairy Elf"
 
 # Maps
-map_lorencia = Map.create! name: "Lorencia city", min_level: 1, can_teleport: true, teleport_cost: 1000, teleport_min_level: 10
+map_lorencia = Map.create! code: "lorencia", name: "Lorencia city", min_level: 1, can_teleport: true, teleport_cost: 1000, teleport_min_level: 10
 puts "Created Lorencia city"
+
+map_noria = Map.create! code: "noria", name: "Noria city", min_level: 1, can_teleport: true, teleport_cost: 1000, teleport_min_level: 10
+puts "Created Noria city"
 
 map_spiders = Map.create! name: "Lorencia spiders", min_level: 1
 puts "Created Lorencia spiders spot"
