@@ -16,7 +16,8 @@ module CombatService
 
       if @monster.health > 0 && @monster.target.nil?
         @monster.update(target: @character)
-        MonsterPerformAttackJob.perform_later(@monster.id, @character.id)
+        ActiveSupport::Notifications.instrument('monster.perform_attack', monster: @monster, character: @character)
+        # MonsterPerformAttackJob.perform_later(@monster.id, @character.id)
       end
     end
   end
