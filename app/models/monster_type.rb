@@ -15,6 +15,10 @@ class MonsterType < ApplicationRecord
 
   validate :max_attack_greater_than_min_attack
 
+  def attacks
+    1
+  end
+
   private
 
   def max_attack_greater_than_min_attack

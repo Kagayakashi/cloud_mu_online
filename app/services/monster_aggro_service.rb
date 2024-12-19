@@ -36,7 +36,7 @@ class MonsterAggroService
   end
 
   def perform_attack
-    return unless @character.current_health > 0
+    return unless @character.health > 0
 
     hit_chance = calculate_hit_chance(attack_rate: @monster_type.attack_rate, defense_rate: @player_defense_rate)
 
@@ -47,15 +47,15 @@ class MonsterAggroService
     return unless damage > 0
 
     @damage += damage
-    @character.current_health -= damage
+    @character.health -= damage
 
-    nil if @character.current_health <= 0
+    nil if @character.health <= 0
   end
 
   def attack_result
-    if @character.current_health <= 0
+    if @character.health <= 0
       @monster.update(target: nil)
-      @character.update(current_health: 1, map: Map.first)
+      @character.update(health: 1, map: Map.first)
       GameLogs::DamageReceivedLog.create(character: @character, description: "#{@monster_type.name} killed you.")
     else
       attack_later

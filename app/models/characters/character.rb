@@ -27,6 +27,10 @@ module Characters
       end
     end
 
+    def attacks
+      2
+    end
+
     def restore
       return unless can_restore?
 
@@ -36,14 +40,14 @@ module Characters
     def regenerate
       return unless can_regenerate?
 
-      self.current_health += calculate_health_regen
-      if current_health > max_health
-        self.current_health = max_health
+      self.health += calculate_health_regen
+      if health > max_health
+        self.health = max_health
       end
 
-      self.current_mana += calculate_mana_regen
-      if current_mana > max_mana
-        self.current_mana = max_mana
+      self.mana += calculate_mana_regen
+      if mana > max_mana
+        self.mana = max_mana
       end
     end
 
@@ -122,12 +126,15 @@ module Characters
       self.gold = 0
       self.last_restore_at = today
       self.last_regeneration_at = today
-
+      self.attack_rate = calculate_attack_rate
+      self.min_attack = calculate_min_attack
+      self.max_attack = calculate_max_attack
+      self.defense_rate = calculate_defense_rate
+      self.defense = calculate_defense
       self.max_health = calculate_health
       self.max_mana = calculate_mana
-
-      self.current_health ||= max_health
-      self.current_mana ||= max_mana
+      self.health = max_health
+      self.mana = max_mana
     end
 
     def can_restore?
@@ -136,7 +143,7 @@ module Characters
     end
 
     def can_regenerate?
-      (current_health < max_health || current_mana < max_mana) &&
+      (health < max_health || mana < max_mana) &&
       (last_regeneration_at.nil? || last_regeneration_at < 1.minute.ago)
     end
   end

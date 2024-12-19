@@ -50,8 +50,8 @@ module Characters
       assert_equal 1, character.calculate_health_regen
       assert_equal 3, character.calculate_mana_regen
 
-      assert_equal 60, character.current_health
-      assert_equal 60, character.current_mana
+      assert_equal 60, character.health
+      assert_equal 60, character.mana
       assert_equal 60, character.max_health
       assert_equal 60, character.max_mana
 

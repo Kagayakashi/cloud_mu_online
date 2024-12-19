@@ -13,14 +13,14 @@ class CombatService::EngagementTest < ActiveSupport::TestCase
     @defender = OpenStruct.new(
       defense_rate: 50,
       defense: 25,
-      current_health: 1000
+      health: 1000
     )
 
     @session = {}
   end
 
   test "should calculate total hit count" do
-    @defender.current_health = 100
+    @defender.health = 100
     combat = CombatService::Engagement.new(attacker: @attacker, defender: @defender, session: @session)
 
     assert_equal 100, combat.defender_health

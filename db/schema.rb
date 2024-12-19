@@ -18,9 +18,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
     t.integer "experience", null: false
     t.integer "max_experience", null: false
     t.integer "points", null: false
-    t.integer "current_health", null: false
+    t.integer "health", null: false
     t.integer "max_health", null: false
-    t.integer "current_mana", null: false
+    t.integer "mana", null: false
     t.integer "max_mana", null: false
     t.integer "strength", null: false
     t.integer "agility", null: false

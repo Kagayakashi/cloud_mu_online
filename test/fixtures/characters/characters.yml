@@ -8,14 +8,19 @@ one:
   experience: 0
   max_experience: 23200
   points: 95
-  current_health: 128
-  max_health: 128
-  current_mana: 29
+  health: 129
+  max_health: 129
+  mana: 29
   max_mana: 29
   strength: 28
   agility: 20
   vitality: 25
   energy: 10
+  attack_rate: 137
+  min_attack: 4
+  max_attack: 7
+  defense_rate: 6
+  defense: 6
   gold: 0
   activity: 1000
   last_restore_at: 2024-11-14 09:11:32.025058000 +0000
@@ -34,14 +39,19 @@ two:
   experience: 0
   max_experience: 23200
   points: 95
-  current_health: 128
+  health: 128
   max_health: 128
-  current_mana: 29
+  mana: 29
   max_mana: 29
   strength: 28
   agility: 20
   vitality: 25
   energy: 10
+  attack_rate: 137
+  min_attack: 4
+  max_attack: 7
+  defense_rate: 6
+  defense: 6
   gold: 0
   activity: 1000
   last_restore_at: 2024-11-14 09:11:32.025058000 +0000
@@ -60,14 +70,19 @@ three:
   experience: 0
   max_experience: 100
   points: 0
-  current_health: 110
+  health: 110
   max_health: 110
-  current_mana: 20
+  mana: 20
   max_mana: 20
   strength: 28
   agility: 20
   vitality: 25
   energy: 10
+  attack_rate: 42
+  min_attack: 4
+  max_attack: 7
+  defense_rate: 6
+  defense: 6
   gold: 0
   activity: 1000
   last_restore_at: 2024-11-14 09:11:32.025058000 +0000

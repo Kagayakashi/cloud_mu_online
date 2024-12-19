@@ -20,14 +20,6 @@ module Characters
       (strength + agility * 2).floor / 8
     end
 
-    def calculate_min_wizard
-      0
-    end
-
-    def calculate_max_wizard
-      0
-    end
-
     def calculate_defense
       (agility / 10).floor
     end

@@ -61,8 +61,8 @@ module Characters
       assert_equal 3, character.calculate_health_regen
       assert_equal 1, character.calculate_mana_regen
 
-      assert_equal 110, character.current_health
-      assert_equal 20, character.current_mana
+      assert_equal 110, character.health
+      assert_equal 20, character.mana
       assert_equal 110, character.max_health
       assert_equal 20, character.max_mana
 
@@ -80,13 +80,13 @@ module Characters
 
       initial_health = 1
       initial_mana = 1
-      character.current_health = initial_health
-      character.current_mana = initial_mana
+      character.health = initial_health
+      character.mana = initial_mana
       character.last_regeneration_at = 1.hour.ago.in_time_zone("UTC")
 
       character.regenerate
-      assert_operator character.current_health, :>, initial_health
-      assert_operator character.current_mana, :>, initial_mana
+      assert_operator character.health, :>, initial_health
+      assert_operator character.mana, :>, initial_mana
     end
 
     test "should not regenerate too often" do
@@ -95,13 +95,13 @@ module Characters
 
       initial_health = 1
       initial_mana = 1
-      character.current_health = initial_health
-      character.current_mana = initial_mana
+      character.health = initial_health
+      character.mana = initial_mana
       character.last_regeneration_at = 1.seconds.ago.in_time_zone("UTC")
 
       character.regenerate
-      assert_equal character.current_health, initial_health
-      assert_equal character.current_mana, initial_mana
+      assert_equal character.health, initial_health
+      assert_equal character.mana, initial_mana
     end
   end
 end

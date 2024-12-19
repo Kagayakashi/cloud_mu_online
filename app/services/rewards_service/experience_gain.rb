@@ -32,9 +32,9 @@ module RewardsService
       end
 
       @player_character.max_health = @player_character.calculate_health
-      @player_character.current_health = @player_character.max_health
+      @player_character.health = @player_character.max_health
       @player_character.max_mana = @player_character.calculate_mana
-      @player_character.current_mana = @player_character.max_mana
+      @player_character.mana = @player_character.max_mana
 
       @player_character.level
     end

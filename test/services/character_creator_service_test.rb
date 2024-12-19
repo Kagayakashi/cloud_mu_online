@@ -53,8 +53,8 @@ class CharacterCreatorServiceTest < ActiveSupport::TestCase
     assert_equal 3, character.calculate_health_regen
     assert_equal 1, character.calculate_mana_regen
 
-    assert_equal 110, character.current_health
-    assert_equal 20, character.current_mana
+    assert_equal 110, character.health
+    assert_equal 20, character.mana
     assert_equal 110, character.max_health
     assert_equal 20, character.max_mana
 

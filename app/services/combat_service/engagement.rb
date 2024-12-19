@@ -20,7 +20,7 @@ module CombatService
         defense: defender.defense
       )
       @attack_speed = attacker.attacks
-      @defender_health = defender.current_health
+      @defender_health = defender.health
       @hit_count = 0
       @total_damage = 0
     end

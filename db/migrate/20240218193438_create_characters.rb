@@ -9,9 +9,9 @@ class CreateCharacters < ActiveRecord::Migration[7.1]
       t.integer :max_experience, null: false
       t.integer :points, null: false
 
-      t.integer :current_health, null: false
+      t.integer :health, null: false
       t.integer :max_health, null: false
-      t.integer :current_mana, null: false
+      t.integer :mana, null: false
       t.integer :max_mana, null: false
 
       t.integer :strength, null: false

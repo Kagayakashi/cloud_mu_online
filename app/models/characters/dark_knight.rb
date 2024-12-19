@@ -20,14 +20,6 @@ module Characters
       (strength / 4).floor
     end
 
-    def calculate_min_wizard
-      0
-    end
-
-    def calculate_max_wizard
-      0
-    end
-
     def calculate_defense
       (agility / 3).floor
     end
@@ -45,7 +37,7 @@ module Characters
     end
 
     def calculate_mana
-      10 + (level - 1) / 2 + energy
+      10 + ((level - 1) / 2).floor + energy
     end
 
     def calculate_mana_regen
@@ -56,11 +48,12 @@ module Characters
 
     def set_default_stats!
       self.profession = Profession.find_by(code: "dk")
+      self.map = Map.find_by(code: "lorencia")
+
       self.strength = 28
       self.agility = 20
       self.vitality = 25
       self.energy = 10
-      self.map = Map.find_by(code: "lorencia")
     end
   end
 end
