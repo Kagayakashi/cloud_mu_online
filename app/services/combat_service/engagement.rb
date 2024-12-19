@@ -2,13 +2,14 @@ module CombatService
   class Engagement
     attr_reader :hit_count, :damage, :total_damage, :defender_health
 
-    def self.call(attacker:, defender:)
-      instance = new(attacker: attacker, defender: defender)
+    def self.call(attacker:, defender:, session:)
+      instance = new(attacker: attacker, defender: defender, session: session)
       instance.attack
       instance
     end
 
-    def initialize(attacker:, defender:)
+    def initialize(attacker:, defender:, session:)
+      @attack_delay = AttackDelay.new(session)
       @hit_calculation = HitCalculation.new(
         attack_rate: attacker.attack_rate,
         defense_rate: defender.defense_rate
@@ -25,8 +26,12 @@ module CombatService
     end
 
     def attack
+      return @damage = nil unless @attack_delay.can_attack?
+      return @damage = nil unless @defender_health > 0
+
       @attack_speed.times do
         break if @defender_health <= 0
+
         if @hit_calculation.hit?
           @hit_count += 1
           @damage = @dmg_calculation.damage
@@ -38,6 +43,7 @@ module CombatService
         end
       end
 
+      @attack_delay.set_delay
       @defender_health = [ @defender_health, 0 ].max
     end
   end

@@ -3,11 +3,8 @@ require "test_helper"
 module CombatService
   class AttackDelayTest < ActiveSupport::TestCase
     def setup
-      @service = CombatService::AttackDelay.new
-
-      def @service.session
-        @session ||= {}
-      end
+      session = {}
+      @service = CombatService::AttackDelay.new(session)
     end
 
     test "should be able to attack with no delay" do
