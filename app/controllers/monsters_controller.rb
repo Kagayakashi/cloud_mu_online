@@ -1,24 +1,18 @@
 class MonstersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :activate_character!
   before_action :set_monster
-
-  include AttackDelay
 
   def receive_spell_damage
   end
 
   def receive_attack_damage
-    if attack_delay_left > 0
+    combat = CombatService::Engagement.call(attacker: active_character, defender: @monster, session: session)
+    @monster.update(target: active_character)
+
+    if combat.defender_health > 0 && combat.damage.nil?
       return redirect_to adventure_path, alert: "You cannot attack so fast."
     end
-
-    if active_character.activity.zero?
-      return redirect_to adventure_path, alert: "You need to rest."
-    end
-
-    attack_service = AttackMonsterOnceService.new(monster: @monster, character: active_character)
-    attack_service.call
-
-    set_attack_delay
 
     redirect_to adventure_path
   end

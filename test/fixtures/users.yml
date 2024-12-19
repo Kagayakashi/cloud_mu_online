@@ -1,11 +1,19 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   username: user1
   email: user1@example.com
-  password_digest: <%= PasswordHelper.digest('user1pass') %>
+  password_digest: <%= BCrypt::Password.create('password1') %>
 
 two:
+  id: 2
   username: user2
   email: user2@example.com
-  password_digest: <%= PasswordHelper.digest('user2pass') %>
+  password_digest: <%= BCrypt::Password.create('password2') %>
+
+three:
+  id: 3
+  username: user3
+  email: user3@example.com
+  password_digest: <%= BCrypt::Password.create('password3') %>

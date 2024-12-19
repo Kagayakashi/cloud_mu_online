@@ -1,23 +1,34 @@
 class CharacterCreatorService
-  def initialize(user:, params:)
+  attr_reader :character
+
+  def initialize(user:, name:, type:)
     @user = user
-    @params = params
+    @name = name
+    @type = type
   end
 
-  def create
-    character = @user.characters.build(character_params)
+  def call
+    return invalid_character unless valid_character_type?
 
-    if character.type.present?
-      subclass_instance = character.type.constantize.new(@params.except(:type))
-      subclass_instance.user = @user
-      subclass_instance.set_default_values
-      subclass_instance.save ? subclass_instance : nil
+    @character = @type.constantize.new(user: @user, name: @name)
+    @character.save
+
+    unless @user.characters
+      @user.create_player(character: @character)
     end
+
+    @character
   end
 
   private
 
-  def character_params
-    @params.permit(:name, :type)
+  def valid_character_type?
+    Characters::Character.subclasses.map(&:name).include?(@type)
+  end
+
+  def invalid_character
+    @character = Characters::Character.new(user: @user, name: @name)
+    @character.errors.add(:type, "is not a valid character type")
+    @character
   end
 end

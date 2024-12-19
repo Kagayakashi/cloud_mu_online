@@ -1,7 +1,7 @@
 class CreateMonsterTypes < ActiveRecord::Migration[7.1]
   def change
     create_table :monster_types do |t|
-      t.string :name, null: false
+      t.string :name, null: false, index: { unique: true, name: 'unique_monster_name' }
       t.integer :level, null: false
       t.integer :health, null: false
       t.integer :min_attack, null: false
