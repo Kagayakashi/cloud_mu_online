@@ -3,19 +3,8 @@ require "ostruct"
 
 class CombatService::EngagementTest < ActiveSupport::TestCase
   def setup
-    @attacker = OpenStruct.new(
-      attack_rate: 75,
-      min_attack: 25,
-      max_attack: 50,
-      attacks: 10
-    )
-
-    @defender = OpenStruct.new(
-      defense_rate: 50,
-      defense: 25,
-      health: 1000
-    )
-
+    @attacker = characters_characters(:one)
+    @defender = monsters(:one)
     @session = {}
   end
 
@@ -50,8 +39,8 @@ class CombatService::EngagementTest < ActiveSupport::TestCase
   end
 
   test "should calculate damage properly with not enough attack" do
-    @attacker.min_attack = 15
-    @attacker.max_attack = 25
+    @attacker.min_attack = 1
+    @attacker.max_attack = 1
     combat = CombatService::Engagement.call(attacker: @attacker, defender: @defender, session: @session)
     assert_equal 0, combat.total_damage
   end

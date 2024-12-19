@@ -8,13 +8,12 @@ class MonstersController < ApplicationController
 
   def receive_attack_damage
     combat = CombatService::Engagement.call(attacker: active_character, defender: @monster, session: session)
-    @monster.update(target: active_character)
 
-    if combat.defender_health > 0 && combat.damage.nil?
-      return redirect_to adventure_path, alert: "You cannot attack so fast."
+    if combat.success
+      return redirect_to adventure_path
+    else
+      redirect_to adventure_path, alert: combat.message
     end
-
-    redirect_to adventure_path
   end
 
   private

@@ -26,7 +26,7 @@ class MonstersControllerTest < ActionController::TestCase
     assert_equal @character, @monster.target
   end
 
-  test "should not attack too fast and health/target should remain unchanged" do
+  test "should not attack too often" do
     initial_health = @monster.health
 
     post :receive_attack_damage, params: { id: @monster.id }
@@ -35,6 +35,6 @@ class MonstersControllerTest < ActionController::TestCase
 
     post :receive_attack_damage, params: { id: @monster.id }
     assert_redirected_to adventure_path
-    assert_equal "You cannot attack so fast.", flash[:alert]
+    assert_equal "You cannot attack so often.", flash[:alert]
   end
 end

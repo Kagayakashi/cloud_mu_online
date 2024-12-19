@@ -1,6 +1,6 @@
 module CombatService
   class Engagement
-    attr_reader :hit_count, :damage, :total_damage, :defender_health
+    attr_reader :success, :message, :hit_count, :damage, :total_damage, :defender_health
 
     def self.call(attacker:, defender:, session:)
       instance = new(attacker: attacker, defender: defender, session: session)
@@ -9,6 +9,7 @@ module CombatService
     end
 
     def initialize(attacker:, defender:, session:)
+      @attacker = attacker
       @defender = defender
       @attack_delay = AttackDelay.new(session)
       @hit_calculation = HitCalculation.new(
@@ -20,32 +21,68 @@ module CombatService
         max_attack: attacker.max_attack,
         defense: defender.defense
       )
-      @attack_speed = attacker.attacks
       @defender_health = defender.health
       @hit_count = 0
       @total_damage = 0
+      @success = false
+      @message = ""
     end
 
     def attack
-      return @damage = nil unless @attack_delay.can_attack?
-      return @damage = nil unless @defender.health > 0
+      return unless can_attack?
 
-      @attack_speed.times do
+      @attacker.attacks.times do
         break if @defender.health <= 0
 
         if @hit_calculation.hit?
-          @hit_count += 1
-          @damage = @dmg_calculation.damage
-
-          if @damage > 0
-            @defender.health -= damage
-            @total_damage += damage
-          end
+          handle_hit
         end
       end
 
+      finalize_attack
+    end
+
+    private
+
+    def can_attack?
+      unless @attack_delay.can_attack?
+        @message = "You cannot attack so often."
+        return false
+      end
+
+      return true if @defender.health > 0
+
+      @message = "Target is already defeated."
+      false
+    end
+
+    def handle_hit
+      @hit_count += 1
+      @damage = @dmg_calculation.damage
+
+      if @damage > 0
+        apply_damage
+        log_damage
+      end
+    end
+
+    def apply_damage
+      @defender.health -= @damage
+      @total_damage += @damage
+      @defender_health = [@defender.health, 0].max
+    end
+
+    def log_damage
+      if @attacker.is_a? Characters::Character
+        GameLogs::DamageDealtLog.create(character: @attacker, description: "You dealt #{@damage} damage.")
+      end
+    end
+
+    def finalize_attack
+      @success = true
       @attack_delay.set_delay
-      @defender_health = [ @defender.health, 0 ].max
+      @defender.save if @defender.changed?
+      MonsterReaction.call(monster: @defender, character: @attacker)
     end
   end
 end
