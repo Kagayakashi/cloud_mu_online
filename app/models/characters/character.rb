@@ -1,12 +1,15 @@
 module Characters
+  # Base class for all character types. Do not use directly.
+  # Use the subclasses like DarkKnight or DarkWizard instead.
   class Character < ApplicationRecord
+    before_validation :set_default_values, if: :new_record?
+
     belongs_to :user
     belongs_to :profession
     belongs_to :map
     has_many :game_logs, class_name: "GameLogs::GameLog"
 
-    validates :name, presence: true, uniqueness: true
-    validates :name, length: { minimum: 4, maximum: 20 }
+    validates :name, presence: true, uniqueness: true, length: { in: 4..20 }
     validates :type, presence: true
 
     def self.order
@@ -22,6 +25,20 @@ module Characters
       end.sort_by do |_, subclass_name|
         subclass_name.constantize.order
       end
+    end
+
+    def attacks
+      2
+    end
+
+    def restore
+      return unless can_restore?
+
+      self.update(last_restore_at: Time.current, activity: 100)
+    end
+
+    def regenerate
+      CharacterRegenerationService.call(self)
     end
 
     def has_wizardy?
@@ -76,59 +93,11 @@ module Characters
       raise NotImplementedError, "You must implement the method in Character subclass"
     end
 
-    def add_experience_from_monster!(monster)
-      experience = (monster.level.to_f / self.level * monster.experience).floor
-      gold = experience
-      self.gold += gold
-      self.experience += experience
-      add_level
-      self.save
-      experience
+    def calculate_max_experience
+      150 * level * level - 110 * level + 60
     end
 
-    def max_experience
-      (self.level * self.level) * (self.level + 9) * 2
-    end
-
-    def add_level
-      if experience >= max_experience
-        self.experience = 0
-        self.level += 1
-        self.points += 5
-
-        self.max_health = calculate_health
-        self.max_mana = calculate_mana
-
-        self.current_health = max_health
-        self.current_mana = max_mana
-      end
-    end
-
-    def restore
-      return unless can_restore?
-
-      self.update(last_restore_at: Time.current, activity: 100)
-    end
-
-    def regenerate
-      return unless can_regenerate?
-
-      health = current_health + calculate_health_regen
-      if health > max_health
-        health = max_health
-      end
-
-      mana = current_mana + calculate_mana_regen
-      if mana > max_mana
-        mana = max_mana
-      end
-
-      self.update(
-        last_regeneration_at: Time.current,
-        current_health: health,
-        current_mana: mana,
-      )
-    end
+    private
 
     def set_default_values
       today = Time.current
@@ -136,30 +105,26 @@ module Characters
 
       self.level = 1
       self.experience = 0
+      self.max_experience = calculate_max_experience
       self.points = 0
       self.activity = 100
       self.gold = 0
       self.last_restore_at = today
       self.last_regeneration_at = today
-
+      self.attack_rate = calculate_attack_rate
+      self.min_attack = calculate_min_attack
+      self.max_attack = calculate_max_attack
+      self.defense_rate = calculate_defense_rate
+      self.defense = calculate_defense
       self.max_health = calculate_health
       self.max_mana = calculate_mana
-
-      self.current_health ||= max_health
-      self.current_mana ||= max_mana
-      self.map = Map.first
+      self.health = max_health
+      self.mana = max_mana
     end
-
-    private
 
     def can_restore?
       # Todo switch into 1 hour
       last_restore_at < 1.minutes.ago
-    end
-
-    def can_regenerate?
-      (current_health < max_health || current_mana < max_mana) &&
-      (last_regeneration_at.nil? || last_regeneration_at < 1.minute.ago)
     end
   end
 end

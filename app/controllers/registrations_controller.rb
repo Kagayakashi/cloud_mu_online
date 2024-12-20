@@ -1,14 +1,10 @@
 class RegistrationsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :activate_character!
-
   def new
     @user = User.new
   end
 
   def create
-    @user = current_user
-    @user.assign_attributes(registration_params)
+    @user = User.new(registration_params)
     @user.is_guest = false
     if @user.save
       redirect_to root_path

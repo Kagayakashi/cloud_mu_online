@@ -14,16 +14,20 @@ class CharactersController < ApplicationController
   end
 
   def new
+    @character = Characters::Character.new
   end
 
   def create
-    character_creator = CharacterCreatorService.new(user: current_user, params: create_character_params)
-    @character = character_creator.create
+    character_creator_service = CharacterCreatorService.new(
+      user: current_user,
+      name: character_params[:name],
+      type: character_params[:type]
+    )
 
-    Rails.logger.debug(@character)
+    @character = character_creator_service.call
 
-    if @character
-      redirect_to characters_path, notice: "Character created successfully!"
+    if @character.persisted?
+      redirect_to characters_path, notice: "Character created successfully."
     else
       flash.now[:alert] = "Failed to create character."
       render :new, status: :unprocessable_entity
@@ -56,7 +60,7 @@ class CharactersController < ApplicationController
     end
   end
 
-  def create_character_params
+  def character_params
     params.require(:characters_character).permit(:name, :type)
   end
 end

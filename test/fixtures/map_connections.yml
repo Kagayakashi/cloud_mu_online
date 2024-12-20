@@ -1,0 +1,16 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  map_id: 1
+  connected_map_id: 2
+
+two:
+  id: 2
+  map_id: 2
+  connected_map_id: 1
+
+three:
+  id: 3
+  map_id: 2
+  connected_map_id: 3
