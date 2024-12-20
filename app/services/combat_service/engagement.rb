@@ -62,7 +62,6 @@ module CombatService
 
       if @damage > 0
         apply_damage
-        log_damage
       end
     end
 
@@ -70,12 +69,6 @@ module CombatService
       @defender.health -= @damage
       @total_damage += @damage
       @defender_health = [@defender.health, 0].max
-    end
-
-    def log_damage
-      if @attacker.is_a? Characters::Character
-        GameLogs::DamageDealtLog.create(character: @attacker, description: "You dealt #{@damage} damage.")
-      end
     end
 
     def finalize_attack

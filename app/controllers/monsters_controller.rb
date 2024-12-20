@@ -10,6 +10,7 @@ class MonstersController < ApplicationController
     combat = CombatService::Engagement.call(attacker: active_character, defender: @monster, session: session)
 
     if combat.success
+      GameLogs::DamageDealtLog.create(character: active_character, description: "You dealt #{combat.total_damage} damage.")
       return redirect_to adventure_path
     else
       redirect_to adventure_path, alert: combat.message

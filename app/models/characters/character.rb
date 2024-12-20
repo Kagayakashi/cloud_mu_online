@@ -40,20 +40,26 @@ module Characters
     def regenerate
       return unless can_regenerate?
 
-      self.health += calculate_health_regen
-      if health > max_health
-        self.health = max_health
-      end
+      ActiveRecord::Base.transaction do
+        health_regen = calculate_health_regen
+        mana_regen = calculate_mana_regen
 
-      self.mana += calculate_mana_regen
-      if mana > max_mana
-        self.mana = max_mana
-      end
-    end
+        actual_health_regen = [health_regen, max_health - health].min
+        actual_mana_regen = [mana_regen, max_mana - mana].min
 
-    def regenerate!
-      regenerate
-      save
+        self.health += actual_health_regen
+        self.mana += actual_mana_regen
+        self.last_regeneration_at = Time.current
+
+        if save
+          GameLogs::GameLog.create(
+            character: self, 
+            description: "You regenerated #{actual_health_regen} health and #{actual_mana_regen} mana."
+          )
+        else
+          raise ActiveRecord::Rollback
+        end
+      end
     end
 
     def has_wizardy?
