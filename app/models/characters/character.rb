@@ -44,8 +44,8 @@ module Characters
         health_regen = calculate_health_regen
         mana_regen = calculate_mana_regen
 
-        actual_health_regen = [health_regen, max_health - health].min
-        actual_mana_regen = [mana_regen, max_mana - mana].min
+        actual_health_regen = [ health_regen, max_health - health ].min
+        actual_mana_regen = [ mana_regen, max_mana - mana ].min
 
         self.health += actual_health_regen
         self.mana += actual_mana_regen
@@ -53,7 +53,7 @@ module Characters
 
         if save
           GameLogs::GameLog.create(
-            character: self, 
+            character: self,
             description: "You regenerated #{actual_health_regen} health and #{actual_mana_regen} mana."
           )
         else

@@ -68,7 +68,7 @@ module CombatService
     def apply_damage
       @defender.health -= @damage
       @total_damage += @damage
-      @defender_health = [@defender.health, 0].max
+      @defender_health = [ @defender.health, 0 ].max
     end
 
     def finalize_attack
