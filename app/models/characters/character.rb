@@ -38,28 +38,7 @@ module Characters
     end
 
     def regenerate
-      return unless can_regenerate?
-
-      ActiveRecord::Base.transaction do
-        health_regen = calculate_health_regen
-        mana_regen = calculate_mana_regen
-
-        actual_health_regen = [ health_regen, max_health - health ].min
-        actual_mana_regen = [ mana_regen, max_mana - mana ].min
-
-        self.health += actual_health_regen
-        self.mana += actual_mana_regen
-        self.last_regeneration_at = Time.current
-
-        if save
-          GameLogs::GameLog.create(
-            character: self,
-            description: "You regenerated #{actual_health_regen} health and #{actual_mana_regen} mana."
-          )
-        else
-          raise ActiveRecord::Rollback
-        end
-      end
+      CharacterRegenerationService.call(self)
     end
 
     def has_wizardy?
@@ -146,11 +125,6 @@ module Characters
     def can_restore?
       # Todo switch into 1 hour
       last_restore_at < 1.minutes.ago
-    end
-
-    def can_regenerate?
-      (health < max_health || mana < max_mana) &&
-      (last_regeneration_at.nil? || last_regeneration_at < 1.minute.ago)
     end
   end
 end
