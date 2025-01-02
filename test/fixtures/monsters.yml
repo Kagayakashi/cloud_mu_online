@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  monster_type_id: 1
+  health: 40
+
+expbox:
+  id: 2
+  monster_type_id: 2
+  health: 1

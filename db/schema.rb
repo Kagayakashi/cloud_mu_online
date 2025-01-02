@@ -16,15 +16,21 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
     t.string "type", null: false
     t.integer "level", null: false
     t.integer "experience", null: false
+    t.integer "max_experience", null: false
     t.integer "points", null: false
-    t.integer "current_health", null: false
+    t.integer "health", null: false
     t.integer "max_health", null: false
-    t.integer "current_mana", null: false
+    t.integer "mana", null: false
     t.integer "max_mana", null: false
     t.integer "strength", null: false
     t.integer "agility", null: false
     t.integer "vitality", null: false
     t.integer "energy", null: false
+    t.integer "attack_rate", null: false
+    t.integer "min_attack", null: false
+    t.integer "max_attack", null: false
+    t.integer "defense_rate", null: false
+    t.integer "defense", null: false
     t.integer "gold", null: false
     t.integer "activity", null: false
     t.datetime "last_restore_at", null: false
@@ -35,6 +41,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
     t.integer "map_id", null: false
     t.integer "profession_id", null: false
     t.index ["map_id"], name: "index_characters_on_map_id"
+    t.index ["name"], name: "unique_character_name", unique: true
     t.index ["profession_id"], name: "index_characters_on_profession_id"
     t.index ["type"], name: "index_characters_on_type"
     t.index ["user_id"], name: "index_characters_on_user_id"
@@ -60,13 +67,16 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
   end
 
   create_table "maps", force: :cascade do |t|
+    t.string "code"
     t.string "name", null: false
-    t.integer "min_level", default: 0, null: false
+    t.integer "min_level", default: 1, null: false
     t.boolean "can_teleport", default: false, null: false
-    t.integer "teleport_cost", default: 0, null: false
-    t.integer "teleport_min_level", default: 0, null: false
+    t.integer "teleport_cost", default: 1000, null: false
+    t.integer "teleport_min_level", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["code"], name: "unique_map_code", unique: true
+    t.index ["name"], name: "unique_map_name", unique: true
   end
 
   create_table "monster_types", force: :cascade do |t|
@@ -84,10 +94,14 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["map_id"], name: "index_monster_types_on_map_id"
+    t.index ["name"], name: "unique_monster_name", unique: true
   end
 
   create_table "monsters", force: :cascade do |t|
+    t.string "type"
     t.integer "health", null: false
+    t.boolean "dead", default: false, null: false
+    t.datetime "dead_at"
     t.integer "monster_type_id", null: false
     t.integer "target_id"
     t.datetime "created_at", null: false
@@ -101,8 +115,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
     t.integer "character_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["character_id"], name: "index_players_on_character_id"
-    t.index ["user_id"], name: "unique_users", unique: true
+    t.index ["character_id"], name: "unique_player_character", unique: true
+    t.index ["user_id"], name: "unique_player_user", unique: true
   end
 
   create_table "professions", force: :cascade do |t|
@@ -111,6 +125,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
     t.integer "level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["code"], name: "unique_profession_code", unique: true
+    t.index ["name"], name: "unique_profession_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -121,6 +137,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
     t.boolean "is_guest", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "unique_user_email", unique: true
+    t.index ["username"], name: "unique_user_username", unique: true
   end
 
   add_foreign_key "characters", "maps"

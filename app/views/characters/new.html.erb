@@ -1,11 +1,16 @@
 <article>
   <h1>Create character</h1>
 
-  <%= form_with model: Characters::Character.new, url: characters_path do |form| %>
-    <% if form.object && form.object.errors.any? %>
-      <% form.object.errors.full_messages.each do |message| %>
-        <p><%= message %></p>
-      <% end %>
+  <%= form_with model: @character, url: characters_path do |form| %>
+    <% if @character.errors.any? %>
+      <div class="error_messages">
+        <h2>Errors:</h2>
+        <ul>
+          <% @character.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
     <% end %>
 
     <div>

@@ -1,5 +1,5 @@
 module Characters
-  class Elf < Character
+  class FairyElf < Character
     def self.order
       3
     end
@@ -18,14 +18,6 @@ module Characters
 
     def calculate_max_attack
       (strength + agility * 2).floor / 8
-    end
-
-    def calculate_min_wizard
-      0
-    end
-
-    def calculate_max_wizard
-      0
     end
 
     def calculate_defense
@@ -60,6 +52,7 @@ module Characters
       self.agility = 25
       self.vitality = 20
       self.energy = 15
+      self.map = Map.find_by(code: "noria")
     end
   end
 end

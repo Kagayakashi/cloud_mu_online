@@ -13,18 +13,10 @@ module Characters
     end
 
     def calculate_min_attack
-      (strength / 8).floor
-    end
-
-    def calculate_max_attack
-      (strength / 6).floor
-    end
-
-    def calculate_min_wizard
       (energy / 9).floor
     end
 
-    def calculate_max_wizard
+    def calculate_max_attack
       (energy / 4).floor
     end
 
@@ -60,6 +52,7 @@ module Characters
       self.agility = 18
       self.vitality = 15
       self.energy = 30
+      self.map = Map.find_by(code: "lorencia")
     end
   end
 end

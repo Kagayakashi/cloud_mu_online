@@ -2,21 +2,30 @@ class AdventuresController < ApplicationController
   before_action :authenticate_user!
   before_action :activate_character!
 
-  include AttackDelay
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def show
     @map = active_character.map
-    @monsters = @map.monsters
+    @monsters = @map.monsters.alive
     @paths = @map.connected_maps
     @logs = active_character.game_logs.order(created_at: :desc).limit(10)
-    @attack_delay = attack_delay_left
+    @attack_delay = CombatService::AttackDelay.new(session).delay_left
   end
 
   def travel
     map = Map.find(params[:id])
-    active_character.map = map
-    if active_character.save
+    if active_character.map.connected_maps.include?(map)
+      active_character.update(map: map)
       redirect_to adventure_path
+    else
+      redirect_to adventure_path, alert: "You cannot go there."
     end
+  end
+
+  private
+
+  def record_not_found
+    flash[:alert] = "Location does not exist."
+    redirect_to adventure_path
   end
 end

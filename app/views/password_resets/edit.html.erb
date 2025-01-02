@@ -2,9 +2,11 @@
 
 <%= form_with model: @user, url: password_reset_path(token: params[:token]) do |form| %>
   <% if form.object.errors.any? %>
-    <% form.object.errors.full_messages.each do |message| %>
-      <div><%= message %></div>
-    <% end %>
+    <div class="errors">
+      <% form.object.errors.full_messages.each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
   <% end %>
 
   <div>
