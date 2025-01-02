@@ -98,7 +98,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
   end
 
   create_table "monsters", force: :cascade do |t|
+    t.string "type"
     t.integer "health", null: false
+    t.boolean "dead", default: false, null: false
+    t.datetime "dead_at"
     t.integer "monster_type_id", null: false
     t.integer "target_id"
     t.datetime "created_at", null: false

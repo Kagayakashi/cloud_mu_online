@@ -69,13 +69,22 @@ module CombatService
       @defender.health -= @damage
       @total_damage += @damage
       @defender_health = [ @defender.health, 0 ].max
+      @defender.health = @defender_health
     end
 
     def finalize_attack
       @success = true
       @attack_delay.set_delay
       @defender.save if @defender.changed?
-      MonsterReaction.call(monster: @defender, character: @attacker)
+
+      if @defender.is_a? Monster
+        if @defender.health.zero?
+          RewardsService.call(monster: @defender, character: @attacker)
+          MonsterDeath.call(@defender)
+        else
+          MonsterReaction.call(monster: @defender, character: @attacker)
+        end
+      end
     end
   end
 end

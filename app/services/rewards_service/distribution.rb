@@ -12,7 +12,6 @@ module RewardsService
 
     def apply
       ExperienceGain.call(monster: @monster, player_character: @player_character)
-      true
     end
   end
 end

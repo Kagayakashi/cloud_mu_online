@@ -1,5 +1,4 @@
 require "test_helper"
-require "ostruct"
 
 class CombatService::EngagementTest < ActiveSupport::TestCase
   def setup
@@ -43,5 +42,15 @@ class CombatService::EngagementTest < ActiveSupport::TestCase
     @attacker.max_attack = 1
     combat = CombatService::Engagement.call(attacker: @attacker, defender: @defender, session: @session)
     assert_equal 0, combat.total_damage
+  end
+
+  test "should kill target and get experience" do
+    initial_experience = @attacker.experience
+    @attacker.min_attack = 9999
+    @attacker.max_attack = 9999
+    @attacker.attack_rate = 9999
+    combat = CombatService::Engagement.call(attacker: @attacker, defender: @defender, session: @session)
+
+    assert_operator @attacker.experience, :>=, initial_experience
   end
 end

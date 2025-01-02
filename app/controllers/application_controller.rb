@@ -1,8 +1,13 @@
 class ApplicationController < ActionController::Base
   before_action :restore_activity, if: :active_character
   before_action :regenerate, if: :active_character
+  before_action :respawn_dead_monsters
 
   private
+
+  def respawn_dead_monsters
+    Monster.dead_for_respawn.update_all(dead: false)
+  end
 
   def regenerate
     active_character.regenerate

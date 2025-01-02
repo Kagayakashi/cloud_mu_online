@@ -6,6 +6,17 @@ class Monster < ApplicationRecord
 
   validates :monster_type_id, presence: true
 
+  scope :alive, -> { where(dead: false) }
+  scope :dead_for_respawn, -> { where(dead: true).where("dead_at <= ?", respawn_time.ago) }
+
+  def self.respawn_time
+    60.seconds
+  end
+
+  def name
+    monster_type.name
+  end
+
   def attack_rate
     monster_type.attack_rate
   end
@@ -28,6 +39,10 @@ class Monster < ApplicationRecord
 
   def attacks
     monster_type.attacks
+  end
+
+  def max_health
+    monster_type.health
   end
 
   private
