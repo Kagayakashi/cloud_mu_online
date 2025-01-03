@@ -1,6 +1,6 @@
 module CombatService
   class Engagement
-    attr_reader :success, :message, :hit_count, :damage, :total_damage, :defender_health
+    attr_reader :success, :message, :damage, :total_damage
 
     def self.call(attacker:, defender:, session:)
       instance = new(attacker: attacker, defender: defender, session: session)
@@ -21,8 +21,6 @@ module CombatService
         max_attack: attacker.max_attack,
         defense: defender.defense
       )
-      @defender_health = defender.health
-      @hit_count = 0
       @total_damage = 0
       @success = false
       @message = ""
@@ -57,31 +55,29 @@ module CombatService
     end
 
     def handle_hit
-      @hit_count += 1
-      @damage = @dmg_calculation.damage
-
-      if @damage > 0
-        apply_damage
-      end
+      damage = @dmg_calculation.damage
+      apply_damage(damage) if damage > 0
     end
 
-    def apply_damage
-      @defender.health -= @damage
-      @total_damage += @damage
-      @defender_health = [ @defender.health, 0 ].max
-      @defender.health = @defender_health
+    def apply_damage(damage)
+      @defender.health -= damage
+      @total_damage += damage
+      @defender.health = [ @defender.health, 0 ].max
     end
 
     def finalize_attack
-      @success = true
-      @attack_delay.set_delay
-      @defender.save if @defender.changed?
+      if @total_damage > 0
+        @success = true
+        @attack_delay.set_delay
 
-      if @defender.is_a? Monster
-        if @defender.health.zero?
-          RewardsService.call(monster: @defender, character: @attacker)
-          MonsterDeath.call(@defender)
-        else
+        if @attacker.is_a? Characters::Character
+          GameLogs::DamageDealtLog.create(character: @attacker, description: "You dealt #{@total_damage} damage to #{@defender.name}.")
+        end
+        if @defender.is_a? Characters::Character
+          GameLogs::DamageReceivedLog.create(character: @defender, description: "You received #{@total_damage} damage from #{@attacker.name}.")
+        end
+
+        if @attacker.is_a?(Characters::Character) && @defender.is_a?(Monster)
           MonsterReaction.call(monster: @defender, character: @attacker)
         end
       end
