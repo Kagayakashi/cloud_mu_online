@@ -1,7 +1,5 @@
-module RewardsService
+module CombatService
   class ExperienceGain
-    attr_reader :experience, :leveled_up, :level
-
     def self.call(monster:, player_character:)
       instance = new(monster: monster, player_character: player_character)
       instance.apply
@@ -9,16 +7,17 @@ module RewardsService
     end
 
     def initialize(monster:, player_character:)
+      raise ArgumentError, "monster must be a Monster" unless monster.is_a?(Monster)
+      raise ArgumentError, "player_character must be a Character" unless player_character.is_a?(Characters::Character)
       @monster_type = monster.monster_type
       @player_character = player_character
     end
 
     def apply
-      @experience = calculate_experience
-      @player_character.experience += @experience
-      @player_character.gold += @experience
+      experience = calculate_experience
+      @player_character.experience += experience
       level_up_if_can
-      @player_character.save
+      GameLogs::ExperienceGainedLog.create(character: @player_character, description: "You received #{experience} experience.")
     end
 
     private

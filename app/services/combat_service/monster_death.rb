@@ -12,8 +12,8 @@ module CombatService
     end
 
     def handle
-      if @monster.health <= 0
-        @monster.update(target: nil, dead: true, dead_at: Time.now, health: @monster.max_health)
+      if @monster.health <= 0 && ! @monster.dead
+        @monster.assign_attributes(target: nil, dead: true, dead_at: Time.now, health: @monster.max_health)
       end
     end
   end
