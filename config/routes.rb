@@ -34,6 +34,8 @@ Rails.application.routes.draw do
     post "travel"
   end
 
+  resource :combat, only: [ :new, :create, :show ]
+
   resource :map, only: [ :show ]
 
   resource :teleport, only: [ :new, :create ]

@@ -16,9 +16,9 @@ class AdventuresController < ApplicationController
     map = Map.find(params[:id])
     if active_character.map.connected_maps.include?(map)
       active_character.update(map: map)
-      redirect_to adventure_path
+      redirect_to new_combat_path
     else
-      redirect_to adventure_path, alert: "You cannot go there."
+      redirect_to new_combat_path, alert: "You cannot go there."
     end
   end
 
@@ -26,6 +26,6 @@ class AdventuresController < ApplicationController
 
   def record_not_found
     flash[:alert] = "Location does not exist."
-    redirect_to adventure_path
+    redirect_to new_combat_path
   end
 end

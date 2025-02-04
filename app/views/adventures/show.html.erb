@@ -54,7 +54,7 @@
     <div class="hr"></div>
 
     <ul class="menu">
-      <li class="menu-item menu-header">Travel to:</li>
+      <li class="menu-item menu-header">Go to:</li>
       <% @paths.each do |path| %>
         <li class="menu-item">
           <%= button_to path.name, url_for(controller: :adventures, action: :travel, id: path.id), :method => :post %>
