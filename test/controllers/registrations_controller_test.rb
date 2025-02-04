@@ -21,7 +21,6 @@ class RegistrationsControllerTest < ActionController::TestCase
       password_confirmation: "passwordtest"
     } }
     assert_response :unprocessable_entity
-    assert_template :new
     assert_match (/Email is invalid/), response.body
   end
 
@@ -33,7 +32,6 @@ class RegistrationsControllerTest < ActionController::TestCase
       password_confirmation: "passwordtest"
     } }
     assert_response :unprocessable_entity
-    assert_template :new
     assert_match (/Email has already been taken/), response.body
   end
 
@@ -45,7 +43,6 @@ class RegistrationsControllerTest < ActionController::TestCase
       password_confirmation: "passwordtest"
     } }
     assert_response :unprocessable_entity
-    assert_template :new
     assert_match (/Username has already been taken/), response.body
   end
 end

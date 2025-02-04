@@ -2,9 +2,14 @@
 
 <%= form_with model: current_user, url: password_path do |form| %>
   <% if form.object.errors.any? %>
-    <% form.object.errors.full_messages.each do |message| %>
-      <div><%= message %></div>
-    <% end %>
+    <div class="error_messages">
+      <h2>Errors:</h2>
+      <ul>
+        <% form.object.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
 
   <div>

@@ -10,7 +10,7 @@ module Characters
     has_many :game_logs, class_name: "GameLogs::GameLog"
 
     validates :name, presence: true, uniqueness: true, length: { in: 4..20 }
-    validates :type, presence: true
+    validates :type, presence: true, inclusion: { in: ->(_) { Character.descendants.map(&:name) } }
 
     def self.order
       raise NotImplementedError, "You must implement the method in Character subclass"
@@ -26,7 +26,7 @@ module Characters
         subclass_name.constantize.order
       end
     end
-
+    Characters::Character.subclasses.map(&:name).include?(@type)
     def attacks
       2
     end

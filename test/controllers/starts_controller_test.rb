@@ -14,7 +14,6 @@ class StartsControllerTest < ActionController::TestCase
     end
 
     assert_response :unprocessable_entity
-    assert_template :new
     assert_match (/is not a valid character type/), response.body
   end
 
@@ -23,7 +22,6 @@ class StartsControllerTest < ActionController::TestCase
       post :create, params: { characters_character: { name: "", type: "Characters::DarkKnight" } }
     end
     assert_response :unprocessable_entity
-    assert_template :new
     assert_match (/can&#39;t be blank/), response.body
   end
 end

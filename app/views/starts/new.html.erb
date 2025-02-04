@@ -1,7 +1,7 @@
 <article>
   <h1>Create character</h1>
 
-  <%= form_with model: @character, url: characters_path do |form| %>
+  <%= form_with model: @character, url: start_path, method: :post, scope: :characters_character do |form| %>
     <% if @character.errors.any? %>
       <div class="error_messages">
         <h2>Errors:</h2>

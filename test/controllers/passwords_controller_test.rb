@@ -13,8 +13,15 @@ class PasswordsControllerTest < ActionController::TestCase
   end
 
   test "should not change password with invalid attributes" do
-    post :update, params: { user: { password: "passwordNew", password_confirmation: "passwordNew", password_challenge: "qqqq" } }
+    post :update, params: { user: { password: "password3", password_confirmation: "passwordNew", password_challenge: "qqqq" } }
     assert_response :unprocessable_entity
-    assert_template :edit
+    assert_select ".error_messages" do
+      assert_select "h2"
+      assert_select "ul" do |elements|
+        elements.each do |element|
+          assert_select element, "li", "Password confirmation doesn't match Password"
+        end
+      end
+    end
   end
 end
