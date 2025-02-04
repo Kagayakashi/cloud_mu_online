@@ -15,7 +15,7 @@ class MonsterPerformAttackJob < ApplicationJob
 
       combat = CombatService::Engagement.call(attacker: monster, defender: character, session: {})
 
-      if combat.defender_health <= 0
+      if character.health <= 0
         monster.update(target: nil)
         character.update(health: 1, map: Map.first)
         GameLogs::DamageReceivedLog.create(
@@ -29,6 +29,8 @@ class MonsterPerformAttackJob < ApplicationJob
           description: "#{monster.monster_type.name} dealt #{combat.total_damage} damage to you."
         ) if combat.total_damage > 0
       end
+
+      character.save if character.changed?
     end
   rescue ActiveRecord::RecordNotFound => e
     Rails.logger.error("[MonsterPerformAttackJob] Error: #{e.class} - #{e.message}. Monster ID: #{monster_id}, Character ID: #{character_id}. Trace: #{e.backtrace.take(5).join(' | ')}")
