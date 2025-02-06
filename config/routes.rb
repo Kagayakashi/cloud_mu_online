@@ -37,11 +37,4 @@ Rails.application.routes.draw do
   resource :combat, only: [ :new, :create, :show ]
 
   resource :map, only: [ :show ]
-
-  resource :teleport, only: [ :new, :create ]
-
-  resources :monsters do
-    post "receive_spell_damage", on: :member
-    post "receive_attack_damage", on: :member
-  end
 end
