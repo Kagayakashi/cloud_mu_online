@@ -1,5 +1,5 @@
 module Characters
-  class FairyElf < Character
+  class FairyElf < Player
     def self.order
       3
     end
@@ -47,12 +47,11 @@ module Characters
     private
 
     def set_default_stats!
-      self.profession = Profession.find_by(code: "fe")
+      self.map = Map.first
       self.strength = 22
       self.agility = 25
       self.vitality = 20
       self.energy = 15
-      self.map = Map.find_by(code: "noria")
     end
   end
 end

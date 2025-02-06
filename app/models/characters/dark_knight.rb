@@ -1,5 +1,5 @@
 module Characters
-  class DarkKnight < Character
+  class DarkKnight < Player
     def self.order
       1
     end
@@ -47,9 +47,7 @@ module Characters
     private
 
     def set_default_stats!
-      self.profession = Profession.find_by(code: "dk")
-      self.map = Map.find_by(code: "lorencia")
-
+      self.map = Map.first
       self.strength = 28
       self.agility = 20
       self.vitality = 25
