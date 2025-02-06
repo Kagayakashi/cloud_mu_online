@@ -15,5 +15,6 @@ class CombatsController < ApplicationController
   end
 
   def show
+    @logs = active_character.game_logs.order(created_at: :desc).limit(50)
   end
 end

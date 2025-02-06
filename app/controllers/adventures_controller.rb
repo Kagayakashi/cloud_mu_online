@@ -6,10 +6,7 @@ class AdventuresController < ApplicationController
 
   def show
     @map = active_character.map
-    @monsters = @map.monsters.alive
     @paths = @map.connected_maps
-    @logs = active_character.game_logs.order(created_at: :desc).limit(10)
-    @attack_delay = CombatService::AttackDelay.new(session).delay_left
   end
 
   def travel
