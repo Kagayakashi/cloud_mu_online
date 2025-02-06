@@ -2,18 +2,12 @@
 
 one:
   id: 1
-  name: Lorencia city
-  min_level: 1
-  peace: true
+  name: Lorencia
+  code: lorencia
+  level: 1
 
 two:
   id: 2
-  name: Lorencia spiders
-  min_level: 1
-  peace: false
-
-three:
-  id: 3
-  name: Budge dragons
-  min_level: 1
-  peace: false
+  name: Noria
+  code: noria
+  level: 10

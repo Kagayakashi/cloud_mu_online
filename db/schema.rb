@@ -38,7 +38,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "map_id", null: false
+    t.integer "location_id"
     t.integer "user_id"
+    t.index ["location_id"], name: "index_characters_on_location_id"
     t.index ["map_id"], name: "index_characters_on_map_id"
     t.index ["name"], name: "unique_character_name", unique: true
     t.index ["user_id"], name: "index_characters_on_user_id"
@@ -53,22 +55,25 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
     t.index ["character_id"], name: "index_game_logs_on_character_id"
   end
 
-  create_table "map_connections", force: :cascade do |t|
+  create_table "locations", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
+    t.boolean "peace", null: false
     t.integer "map_id", null: false
-    t.integer "connected_map_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["connected_map_id"], name: "index_map_connections_on_connected_map_id"
-    t.index ["map_id", "connected_map_id"], name: "index_map_connections_on_map_id_and_connected_map_id", unique: true
-    t.index ["map_id"], name: "index_map_connections_on_map_id"
+    t.index ["code"], name: "unique_location_code", unique: true
+    t.index ["map_id"], name: "index_locations_on_map_id"
+    t.index ["name"], name: "unique_location_name", unique: true
   end
 
   create_table "maps", force: :cascade do |t|
     t.string "name", null: false
-    t.boolean "peace", null: false
-    t.integer "min_level", default: 1, null: false
+    t.string "code", null: false
+    t.integer "level", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["code"], name: "unique_map_code", unique: true
     t.index ["name"], name: "unique_map_name", unique: true
   end
 
@@ -86,10 +91,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_18_142256) do
     t.index ["username"], name: "unique_user_username", unique: true
   end
 
+  add_foreign_key "characters", "locations"
   add_foreign_key "characters", "maps"
   add_foreign_key "characters", "users"
   add_foreign_key "game_logs", "characters"
-  add_foreign_key "map_connections", "maps"
-  add_foreign_key "map_connections", "maps", column: "connected_map_id"
   add_foreign_key "users", "characters"
 end

@@ -56,7 +56,7 @@
 
                 <p>
                   <span class="icon gold-coin-icon"></span>
-                  <%= active_character.gold %>
+                  0
                 </p>
               </div>
             <% end %>
@@ -82,7 +82,7 @@
             <div class="hr"></div>
               <ul class="menu player-menu">
                 <% if active_character %>
-                  <li class="menu-item dev"><%= link_to "Adventure", adventure_path %></li>
+                  <li class="menu-item"><%= link_to "Adventure", adventure_path %></li>
                   <li class="menu-item"><%= link_to "Character", character_path(active_character) %></li>
                 <% end %>
                 <li class="menu-item"><%= link_to "Settings", settings_path %></li>

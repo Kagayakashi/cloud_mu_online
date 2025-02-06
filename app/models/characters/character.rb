@@ -6,7 +6,9 @@ module Characters
     after_initialize :set_default_hp
 
     belongs_to :map
+    belongs_to :location, optional: true
 
+    validates :map, presence: true
     validates :name, presence: true, uniqueness: true, length: { in: 4..20 }
 
     def set_default_hp

@@ -3,7 +3,9 @@ module Characters
     before_validation :calculate_params!, if: :new_record?
 
     belongs_to :user
-    has_many :game_logs, class_name: "GameLogs::GameLog"
+    has_many :game_logs, class_name: "GameLogs::GameLog", foreign_key: "character_id"
+
+    validates :user, presence: true
 
     def self.order
       raise NotImplementedError, "You must implement the method in Player subclass"

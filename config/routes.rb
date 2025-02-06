@@ -34,7 +34,6 @@ Rails.application.routes.draw do
     post "travel"
   end
 
+  resources :hunting, only: [ :index, :show ]
   resource :combat, only: [ :new, :create, :show ]
-
-  resource :map, only: [ :show ]
 end

@@ -38,14 +38,14 @@ module CombatService
     end
 
     def log_hit(damage)
-      if @attacker.is_a? Characters::Character
+      if @attacker.is_a? Characters::Player
         GameLogs::DamageDealtLog.create(
           character: @attacker,
           description: "You dealt #{ damage } damage."
         )
       end
 
-      if @defender.is_a? Characters::Character
+      if @defender.is_a? Characters::Player
         GameLogs::DamageReceivedLog.create(
           character: @defender,
           description: "You received #{ damage } damage."

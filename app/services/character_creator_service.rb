@@ -14,7 +14,7 @@ class CharacterCreatorService
     @character.save
 
     unless @user.characters
-      @user.create_player(character: @character)
+      @user.update(character: @character)
     end
 
     @character
@@ -23,11 +23,11 @@ class CharacterCreatorService
   private
 
   def valid_character_type?
-    Characters::Character.subclasses.map(&:name).include?(@type)
+    Characters::Player.subclasses.map(&:name).include?(@type)
   end
 
   def invalid_character
-    @character = Characters::Character.new(user: @user, name: @name)
+    @character = @user.characters.build(user: @user, name: @name)
     @character.errors.add(:type, "is not a valid character type")
     @character
   end

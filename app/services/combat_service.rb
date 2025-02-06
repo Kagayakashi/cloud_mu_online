@@ -1,8 +1,8 @@
 module CombatService
-  def self.call(attacker:, defender:, session:)
-    combat = Engagement.call(attacker: attacker, defender: defender, session: session)
-    attacker.save if attacker.changed?
-    defender.save if defender.changed?
+  def self.call(player:, target:)
+    combat = QuickCombat.call(player: player, target: target)
+    player.save! if player.changed?
+    target.save! if target.changed?
     combat
   end
 end

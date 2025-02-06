@@ -39,20 +39,20 @@ module CombatService
       loser = winner == @attacker ? @defender : @attacker
       log(winner, loser)
 
-      if loser.is_a? MonsterType
-        ExperienceGain.call(monster_type: loser, player_character: winner)
+      if loser.is_a? Characters::Monster
+        ExperienceGain.call(monster: loser, player_character: winner)
       end
     end
 
     def log(winner, loser)
-      if winner.is_a? Characters::Character
+      if winner.is_a? Characters::Player
         GameLogs::ExperienceGainedLog.create(
           character: winner,
           description: "You won battle."
         )
       end
 
-      if loser.is_a? Characters::Character
+      if loser.is_a? Characters::Player
         GameLogs::DamageReceivedLog.create(
           character: loser,
           description: "You lose battle."

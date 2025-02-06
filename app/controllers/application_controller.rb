@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def activate_character!
-    redirect_to characters_path, alert: "You must have active character to do that." unless player
+    redirect_to characters_path, alert: "You must have active character to do that." unless active_character
   end
 
   def authenticate_user!
@@ -30,14 +30,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
-  def player
-    current_user&.player
-  end
-
-  helper_method :player
-
   def active_character
-    player&.character
+    current_user&.character
   end
 
   helper_method :active_character

@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  name: "Amy, the tavernkeeper"
+  code: tavernkeeper
+  map_id: 1
+
+two:
+  id: 2
+  name: "Hanzo, the Blacksmith"
+  code: blacksmith
+  map_id: 1
+
+three:
+  id: 2
+  name: "Pasi, the Mage"
+  code: mage
+  map_id: 1
+
+ten:
+  id: 10
+  name: "Goblin of the Chaos machine"
+  code: chaos_machine
+  map_id: 2
