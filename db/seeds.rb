@@ -10,6 +10,7 @@
 
 GameLogs::GameLog.destroy_all
 Characters::Character.destroy_all
+Session.destroy_all
 User.destroy_all
 Location.destroy_all
 Map.destroy_all
