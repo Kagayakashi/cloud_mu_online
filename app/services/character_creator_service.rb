@@ -11,9 +11,8 @@ class CharacterCreatorService
     return invalid_character unless valid_character_type?
 
     @character = @type.constantize.new(user: @user, name: @name)
-    @character.save
 
-    unless @user.characters
+    unless @user.characters.any? && @character.save
       @user.update(character: @character)
     end
 

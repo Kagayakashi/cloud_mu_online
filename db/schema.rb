@@ -77,6 +77,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_07_074422) do
     t.index ["name"], name: "unique_map_name", unique: true
   end
 
+  create_table "sessions", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
     t.string "email", null: false
@@ -95,5 +102,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_07_074422) do
   add_foreign_key "characters", "maps"
   add_foreign_key "characters", "users"
   add_foreign_key "game_logs", "characters"
+  add_foreign_key "sessions", "users"
   add_foreign_key "users", "characters"
 end

@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   resource :start, only: [ :show, :new, :create ]
   resource :session, only: [ :new, :create, :destroy ]
   resource :registration, only: [ :new, :create ]
-  resource :password_reset
+  resources :password_resets, only: [ :new, :create ]
+  resources :password_resets, param: :token, only: [ :edit, :update ]
   resource :password, only: [ :edit, :update ]
   resource :settings, only: [ :show ]
   resources :characters do

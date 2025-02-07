@@ -1,9 +1,10 @@
 <h1>Reset your password<h1>
 
-<%= form_with model: @user, url: password_reset_path do |form| %>
+<%= form_with url: password_resets_path, method: :post do |form| %>
   <div>
     <%= form.label :email %>
-    <%= form.email_field :email %>
+    <%= form.email_field :email, required: true, autofocus: true,
+      placeholder: "Enter your email address", value: params[:email] %>
   </div>
 
   <div>

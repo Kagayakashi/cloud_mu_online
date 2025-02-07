@@ -1,5 +1,5 @@
 class SettingsController < ApplicationController
-  before_action :authenticate_user!
+  allow_unactivated_character_access
 
   def show
   end

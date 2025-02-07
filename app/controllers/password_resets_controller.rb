@@ -1,40 +1,36 @@
 class PasswordResetsController < ApplicationController
-  before_action :set_user_by_token, only: [ :edit, :update ]
+  disallow_authenticated_access
+  allow_unauthenticated_access
+  allow_unactivated_character_access
+
+  before_action :set_user_by_token, only: %i[ edit update ]
 
   def new
-    @user = User.new
   end
 
   def create
     if user = User.find_by(email: params[:email])
-      PasswordMailer.with(
-        user: user,
-        token: user.generate_token_for(:password_reset)
-      ).password_reset.deliver_now
+      PasswordResetsMailer.reset(user).deliver_later
     end
 
-    redirect_to root_path, notice: "Check your email to reset your password."
+    redirect_to new_session_path, notice: "Password reset instructions sent (if user with that email address exists)."
   end
 
   def edit
   end
 
   def update
-    if @user.update(password_params)
-      redirect_to new_session_path, notice: "Your password has been reset successfully. Please login."
+    if @user.update!(params.require(:user).permit(:password, :password_confirmation))
+      redirect_to new_session_path, notice: "Password has been reset."
     else
-      render :edit, status: :unprocessable_entity
+      redirect_to edit_password_reset_path(params[:token]), alert: "Passwords did not match."
     end
   end
 
   private
-
-  def set_user_by_token
-    @user = User.find_by_token_for(:password_reset, params[:token])
-    redirect_to new_password_reset_path, alert: "Invalid token, please try again." unless @user.present?
-  end
-
-  def password_params
-    params.require(:user).permit(:password, :password_confirmation)
-  end
+    def set_user_by_token
+      @user = User.find_by_password_reset_token!(params[:token])
+    rescue ActiveSupport::MessageVerifier::InvalidSignature
+      redirect_to new_password_path, alert: "Password reset link is invalid or has expired."
+    end
 end

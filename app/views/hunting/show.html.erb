@@ -5,7 +5,7 @@
 
       <table class="quick-combat">
         <tr>
-          <td><%= active_character.name %>[<%= active_character.level %>]</td>
+          <td><%= Current.character.name %>[<%= Current.character.level %>]</td>
           <td>versus</td>
           <td><%= @monster.name %>[<%= @monster.level %>]</td>
         </tr>
@@ -21,31 +21,31 @@
         </tr>
         <!-- Attack rate -->
         <tr>
-          <td><%= active_character.attack_rate %></td>
+          <td><%= Current.character.attack_rate %></td>
           <td><p title="Attack Rate (Accuracy)">ACC</p></td>
           <td><%= @monster.attack_rate %></td>
         </tr>
         <!-- Attack power -->
         <tr>
-          <td><%= active_character.min_attack %> - <%= active_character.max_attack %></td>
+          <td><%= Current.character.min_attack %> - <%= Current.character.max_attack %></td>
           <td><p title="Min and Max Attack Power">ATK</p></td>
           <td><%= @monster.min_attack %> - <%= @monster.max_attack %></td>
         </tr>
         <!-- Defense rate -->
         <tr>
-          <td><%= active_character.defense_rate %></td>
+          <td><%= Current.character.defense_rate %></td>
           <td><p title="Defense Success Rate">DSR</p></td>
           <td><%= @monster.defense_rate %></td>
         </tr>
         <!-- Defense -->
         <tr>
-          <td><%= active_character.defense %></td>
+          <td><%= Current.character.defense %></td>
           <td><p title="Defense">DEF</p></td>
           <td><%= @monster.defense %></td>
         </tr>
         <!-- Health -->
         <tr>
-          <td><%= active_character.max_health %></td>
+          <td><%= Current.character.max_health %></td>
           <td><p title="Health Points">HP</p></td>
           <td><%= @monster.health %></td>
         </tr>

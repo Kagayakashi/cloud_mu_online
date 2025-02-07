@@ -48,20 +48,22 @@
           <% end %>
         </td>
       </tr>
+      <% unless @character.has_wizardy? %>
       <tr>
         <td colspan="2"></td>
         <td>Attack</td>
         <td>
-          <%= @character.calculate_min_attack %>
+          <%= @character.min_attack %>
           &mdash;
-          <%= @character.calculate_max_attack %>
+          <%= @character.max_attack %>
         </td>
       </tr>
       <tr>
         <td colspan="2"></td>
         <td>Attack rate</td>
-        <td><%= @character.calculate_attack_rate %></td>
+        <td><%= @character.attack_rate %></td>
       </tr>
+      <% end %>
 
       <!-- Agility -->
       <tr>
@@ -77,12 +79,12 @@
       <tr>
         <td colspan="2"></td>
         <td>Defense</td>
-        <td><%= @character.calculate_defense %></td>
+        <td><%= @character.defense %></td>
       </tr>
       <tr>
         <td colspan="2"></td>
         <td>Defense rate</td>
-        <td><%= @character.calculate_defense_rate %></td>
+        <td><%= @character.defense_rate %></td>
       </tr>
 
       <!-- Vitality -->
@@ -99,12 +101,7 @@
       <tr>
         <td colspan="2"></td>
         <td>Health</td>
-        <td><%= @character.calculate_health %></td>
-      </tr>
-      <tr>
-        <td colspan="2"></td>
-        <td>Health regen</td>
-        <td><%= @character.calculate_health_regen %></td>
+        <td><%= @character.max_health %></td>
       </tr>
 
       <!-- Energy -->
@@ -121,23 +118,23 @@
       <% if @character.has_wizardy? %>
       <tr>
         <td colspan="2"></td>
-        <td>Wizard power</td>
+        <td>Attack</td>
         <td>
-          <%= @character.calculate_min_wizard %>
+          <%= @character.min_attack %>
           &mdash;
-          <%= @character.calculate_max_wizard %>
+          <%= @character.max_attack %>
         </td>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+        <td>Attack rate</td>
+        <td><%= @character.attack_rate %></td>
       </tr>
       <% end %>
       <tr>
         <td colspan="2"></td>
         <td>Mana</td>
-        <td><%= @character.calculate_mana %></td>
-      </tr>
-      <tr>
-        <td colspan="2"></td>
-        <td>Mana regen</td>
-        <td><%= @character.calculate_mana_regen %></td>
+        <td><%= @character.mana %></td>
       </tr>
     </tbody>
   </table>
