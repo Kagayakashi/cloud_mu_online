@@ -38,7 +38,8 @@ class CharactersController < ApplicationController
     Rails.logger.info(Current.user.inspect)
     if character = Current.user.characters.find(params[:id])
       flash[:notice] = "Character #{character.name} has been activated."
-      Current.user.update!(character: character)
+      # update_attribute - skip password validation which is defaul in standard update
+      Current.user.update_attribute(:character, character)
     end
 
     redirect_to characters_path
