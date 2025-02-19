@@ -98,10 +98,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_07_074422) do
     t.index ["username"], name: "unique_user_username", unique: true
   end
 
-  add_foreign_key "characters", "locations"
-  add_foreign_key "characters", "maps"
-  add_foreign_key "characters", "users"
+  add_foreign_key "characters", "locations", on_delete: :cascade
+  add_foreign_key "characters", "maps", on_delete: :cascade
+  add_foreign_key "characters", "users", on_delete: :cascade
   add_foreign_key "game_logs", "characters"
-  add_foreign_key "sessions", "users"
-  add_foreign_key "users", "characters"
+  add_foreign_key "locations", "maps", on_delete: :cascade
+  add_foreign_key "sessions", "users", on_delete: :cascade
+  add_foreign_key "users", "characters", on_delete: :nullify
 end

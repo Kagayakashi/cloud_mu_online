@@ -12,8 +12,8 @@ class CharacterCreatorService
 
     @character = @type.constantize.new(user: @user, name: @name)
 
-    unless @user.characters.any? && @character.save
-      @user.update(character: @character)
+    if @user.characters.empty? && @character.save
+      @user.update_attribute(:character, @character)
     end
 
     @character

@@ -3,7 +3,7 @@ module Characters
     before_validation :calculate_params!, if: :new_record?
 
     belongs_to :user
-    has_many :game_logs, class_name: "GameLogs::GameLog", foreign_key: "character_id"
+    has_many :game_logs, class_name: "GameLogs::GameLog", foreign_key: "character_id", dependent: :destroy
 
     validates :user, presence: true
 

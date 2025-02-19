@@ -9,11 +9,13 @@
 #   end
 
 GameLogs::GameLog.destroy_all
-Characters::Character.destroy_all
-Session.destroy_all
-User.destroy_all
+Characters::Player.destroy_all
+Characters::Monster.destroy_all
 Location.destroy_all
 Map.destroy_all
+Session.destroy_all
+User.destroy_all
+
 puts "Database records cleared"
 
 # Users
@@ -32,7 +34,6 @@ puts "Created Lorencia npc Hanzo"
 
 lorencia.locations.create! name: "Pasi", code: "pasi", peace: true
 puts "Created Lorencia npc Pasi"
-
 
 map_spiders = lorencia.locations.create! name: "Lorencia spiders", code: "spiders", peace: false
 puts "Created Lorencia spiders spot"
