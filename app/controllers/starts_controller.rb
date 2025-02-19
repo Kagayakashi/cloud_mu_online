@@ -1,25 +1,24 @@
 class StartsController < ApplicationController
-  before_action :guest_only!
-
-  def show
-  end
+  disallow_authenticated_access
+  allow_unauthenticated_access
+  allow_unactivated_character_access
 
   def new
-    @character = Characters::Character.new
+    @character = Characters::Player.new
   end
 
   def create
     ActiveRecord::Base.transaction do
       begin
-        @user = UserCreatorService.new.call
+        user = UserCreatorService.new.call
         @character = CharacterCreatorService.new(
-          user: @user,
+          user: user,
           name: character_params[:name],
           type: character_params[:type]
         ).call
 
         if @character.persisted?
-          login(@user)
+          start_new_session_for user
           redirect_to adventure_path and return
         else
           raise ActiveRecord::Rollback
@@ -28,6 +27,9 @@ class StartsController < ApplicationController
         render :new, status: :unprocessable_entity
       end
     end
+  end
+
+  def show
   end
 
   private

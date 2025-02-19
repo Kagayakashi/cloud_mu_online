@@ -1,67 +1,14 @@
 <article>
-  <h1><%= @map.name %></h1>
+  <h1><%= I18n.t @location&.name, default: @location&.name %></h1>
+  <%= render "adventures/#{@map.code}/#{@location.code}" if @map.code.present? && @location.code.present? %>
 
-  <% if @monsters.present? %>
+  <% if @location != @map %>
     <ul class="menu">
-      <li class="menu-item menu-header">Monsters:</li>
-      <% @monsters.each do |monster| %>
-        <li class="menu-item">
-          <div class="row-block">
-            <%= monster.monster_type.name %>[<%= monster.monster_type.level %>]
-            <div class="max-health">
-              <p class="health-value"><%= monster.health %> / <%= monster.monster_type.health %></p>
-              <div style="width: <%= monster_health_percent(monster) %>%;" class="current-health"></div>
-            </div>
-
-            <div
-              class="row-block"
-              data-controller="attack-delay"
-              data-attack-delay-delay-value="<%= @attack_delay.to_s %>"
-            >
-              <%= button_to "Attack", receive_attack_damage_monster_path(monster),
-                disabled: true,
-                data: { turbo_method: :post, attack_delay_target: "attack" },
-                class: "action-button" %>
-              <p data-attack-delay-target="timer" style="display:none;">
-                <span data-attack-delay-target="time">
-                  <%= @attack_delay %>
-                </span> seconds
-              <p>
-            </div>
-          <div>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
-
-  <% if @logs.present? %>
-    <article>
-      <% @logs.each do |log| %>
-        <p class="log-text <%= case log
-                      when GameLogs::DamageDealtLog then 'log-damage-dealt'
-                      when GameLogs::DamageReceivedLog then 'log-damage-received'
-                      when GameLogs::ExperienceGainedLog then 'log-experience-gained'
-                    end %>">
-          <%= log.description %>
-        </p>
-      <% end %>
-    </article>
-  <% end %>
-
-
-  <% if @paths.present? %>
-    <div class="hr"></div>
-    <div class="hr"></div>
-
-    <ul class="menu">
-      <li class="menu-item menu-header">Travel to:</li>
-      <% @paths.each do |path| %>
-        <li class="menu-item">
-          <%= button_to path.name, url_for(controller: :adventures, action: :travel, id: path.id), :method => :post %>
-        </li>
-      <% end %>
-      <li class="menu-item menu-header">Or:</li>
-      <li class="menu-item"><%= link_to "Teleport", new_teleport_path %></li>
+      <li class="menu-item">
+        <%= button_to I18n.t(@map.name, default: @map.name),
+          url_for(controller: :adventures, action: :travel),
+          :method => :post %>
+      </li>
     </ul>
   <% end %>
 </article>

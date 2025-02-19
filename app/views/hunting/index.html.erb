@@ -1,0 +1,10 @@
+<article>
+  <h1>Spots with monsters</h1>
+  <ul class="menu">
+    <% @spots.each do |spot| %>
+      <li class="menu-item">
+        <%= link_to spot.name, hunting_path(spot) %>
+      </li>
+    <% end %>
+  </ul>
+</article>

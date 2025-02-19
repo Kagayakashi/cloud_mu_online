@@ -1,0 +1,16 @@
+<% if @locations.present? %>
+  <div class="hr"></div>
+  <div class="hr"></div>
+
+  <ul class="menu">
+    <li class="menu-item menu-header">Go to:</li>
+    <li class="menu-item">
+      <%= link_to "Hunting", hunting_index_path %>
+    </li>
+    <% @locations.each do |path| %>
+      <li class="menu-item">
+        <%= button_to I18n.t(path.name, default: path.name), url_for(controller: :adventures, action: :travel, location_id: path.id), :method => :post %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

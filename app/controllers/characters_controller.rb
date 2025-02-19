@@ -1,13 +1,13 @@
 class CharactersController < ApplicationController
-  before_action :authenticate_user!
+  allow_unactivated_character_access
 
   def index
-    @characters = current_user.characters
+    @characters = Current.user.characters
   end
 
   def show
     begin
-      @character = current_user.characters.find(params[:id])
+      @character = Current.user.characters.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       redirect_to characters_path, alert: "Character not found."
     end
@@ -19,7 +19,7 @@ class CharactersController < ApplicationController
 
   def create
     character_creator_service = CharacterCreatorService.new(
-      user: current_user,
+      user: Current.user,
       name: character_params[:name],
       type: character_params[:type]
     )
@@ -35,30 +35,17 @@ class CharactersController < ApplicationController
   end
 
   def activate
-    character = current_user.characters.find_by(id: params[:id])
-
-    if character.nil?
-      return redirect_to characters_path, alert: "Character not found."
+    Rails.logger.info(Current.user.inspect)
+    if character = Current.user.characters.find(params[:id])
+      flash[:notice] = "Character #{character.name} has been activated."
+      # update_attribute - skip password validation that is in standard update
+      Current.user.update_attribute(:character, character)
     end
 
-    replace_active_character(character)
-  rescue ActiveRecord::RecordInvalid
-    redirect_to characters_path, alert: "Failed to activate character #{character.name}."
+    redirect_to characters_path
   end
 
   private
-
-  def replace_active_character(character)
-    ActiveRecord::Base.transaction do
-      player&.destroy
-      player = current_user.build_player(character: character)
-      if player.save
-        redirect_to characters_path, notice: "Character #{character.name} has been activated."
-      else
-        raise ActiveRecord::Rollback
-      end
-    end
-  end
 
   def character_params
     params.require(:characters_character).permit(:name, :type)
