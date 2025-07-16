@@ -21,7 +21,6 @@ one:
   max_attack: 7
   defense_rate: 6
   defense: 6
-  gold: 0
   activity: 1000
   last_restore_at: 2024-11-14 09:11:32.025058000 +0000
   last_regeneration_at: 2024-11-14 09:11:32.025058000 +0000
@@ -51,7 +50,6 @@ two:
   max_attack: 7
   defense_rate: 6
   defense: 6
-  gold: 0
   activity: 1000
   last_restore_at: 2024-11-14 09:11:32.025058000 +0000
   last_regeneration_at: 2024-11-14 09:11:32.025058000 +0000
@@ -81,7 +79,6 @@ three:
   max_attack: 7
   defense_rate: 6
   defense: 6
-  gold: 0
   activity: 1000
   last_restore_at: 2024-11-14 09:11:32.025058000 +0000
   last_regeneration_at: 2024-11-14 09:11:32.025058000 +0000
@@ -111,7 +108,6 @@ low_status:
   max_attack: 7
   defense_rate: 6
   defense: 6
-  gold: 0
   activity: 1000
   last_restore_at: 2024-11-14 09:11:32.025058000 +0000
   last_regeneration_at: 2024-11-14 09:11:32.025058000 +0000
@@ -141,7 +137,6 @@ five:
   max_attack: 200
   defense_rate: 6
   defense: 6
-  gold: 0
   activity: 1000
   last_restore_at: 2024-11-14 09:11:32.025058000 +0000
   last_regeneration_at: 2024-11-14 09:11:32.025058000 +0000

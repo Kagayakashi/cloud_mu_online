@@ -36,6 +36,29 @@ module Characters
       CharacterRegenerationService.call(self)
     end
 
+    def add_experience(xp)
+      remaining_xp = xp
+
+      while remaining_xp > 0
+        xp_needed = calculate_max_experience - self.experience
+
+        if remaining_xp >= xp_needed
+          self.level += 1
+          remaining_xp -= xp_needed
+          self.experience = 0
+        else
+          self.experience += remaining_xp
+          remaining_xp = 0
+        end
+      end
+
+      self.save!
+    end
+
+    def add_gold(gold)
+      self.update!(gold: gold + gold)
+    end
+
     def has_wizardy?
       raise NotImplementedError, "You must implement the method in Player subclass"
     end
@@ -89,7 +112,8 @@ module Characters
     end
 
     def calculate_max_experience
-      5 * level * level - 5 * level + 10
+      # 5 * level * level - 5 * level + 10
+      10
     end
 
     private

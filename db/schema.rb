@@ -60,7 +60,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_02_07_074422) do
     t.datetime "created_at", null: false
     t.integer "map_id", null: false
     t.string "name", null: false
-    t.boolean "peace", null: false
     t.datetime "updated_at", null: false
     t.index ["code"], name: "index_locations_on_code", unique: true
     t.index ["map_id"], name: "index_locations_on_map_id"

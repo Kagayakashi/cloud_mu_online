@@ -3,61 +3,59 @@ module CombatService
     MAX_ROUNDS = 25
 
     def self.call(player:, target:)
-      instance = new(player: player, target: target)
+      instance = new(player, target)
       instance.start
       instance
     end
 
-    def initialize(player:, target:)
-      @player = player
-      @target = target
-      @attacker, @defender = [ @player, @target ].shuffle
+    def initialize(player, target)
+      @attacker = player
+      @defender = target
+      @pvp = @defender.is_a?(Characters::Player)
     end
 
     def start
-      round = 1
-      while both_alive? && round <= MAX_ROUNDS do
-        QuickEngagement.call(attacker: @attacker, defender: @defender)
-        break unless both_alive?
+      round = 0
+      loop do
         round += 1
-        buf = @attacker
-        @attacker = @defender
-        @defender = buf
+
+        attack
+
+        break if ended?
+        break if pvp? && round >= MAX_ROUNDS
+
+        swap_roles
       end
 
-      determine_winner
+      result
     end
 
     private
 
-    def both_alive?
-      @attacker.hp > 0 && @defender.hp > 0
+    def pvp?
+      @pvp
     end
 
-    def determine_winner
-      winner = @attacker.hp > 0 ? @attacker : @defender
-      loser = winner == @attacker ? @defender : @attacker
-      log(winner, loser)
-
-      if loser.is_a? Characters::Monster
-        ExperienceGain.call(monster: loser, player_character: winner)
-      end
+    def ended?
+      @attacker.dead? || @defender.dead?
     end
 
-    def log(winner, loser)
-      if winner.is_a? Characters::Player
-        GameLogs::ExperienceGainedLog.create(
-          character: winner,
-          description: "You won battle."
-        )
-      end
+    def swap_roles
+      @attacker, @defender = @defender, @attacker
+    end
 
-      if loser.is_a? Characters::Player
-        GameLogs::DamageReceivedLog.create(
-          character: loser,
-          description: "You lose battle."
-        )
-      end
+    def attack
+      QuickEngagement.call(
+        attacker: @attacker,
+        defender: @defender
+      )
+    end
+
+    def result
+      RewardCalculator.call(
+        attacker: @attacker,
+        defender: @defender
+      )
     end
   end
 end
