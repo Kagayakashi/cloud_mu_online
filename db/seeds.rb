@@ -63,13 +63,10 @@ puts "Created Lorencia skeletons spot"
 puts "Created monster type Spider"
 Characters::Monster.create!(
   name: "Spider",
-  level: 2,
-  health: 40,
-  min_attack: 6,
-  max_attack: 8,
-  attack_rate: 8,
-  defense: 1,
-  defense_rate: 1,
+  level: 1,
+  strength: 4,
+  agility: 5,
+  vitality: 8,
   location: map_spiders,
   map: lorencia,
 )
@@ -77,13 +74,10 @@ Characters::Monster.create!(
 puts "Created monster type Budge Dragon"
 Characters::Monster.create!(
   name: "Budge Dragon",
-  level: 4,
-  health: 80,
-  min_attack: 12,
-  max_attack: 17,
-  attack_rate: 18,
-  defense: 3,
-  defense_rate: 3,
+  level: 2,
+  strength: 8,
+  agility: 10,
+  vitality: 16,
   location: map_budge_dragons,
   map: lorencia,
 )
@@ -91,13 +85,10 @@ Characters::Monster.create!(
 puts "Created monster type Bull Fighter"
 Characters::Monster.create!(
   name: "Bull Fighter",
-  level: 6,
-  health: 120,
-  min_attack: 19,
-  max_attack: 26,
-  attack_rate: 28,
-  defense: 6,
-  defense_rate: 6,
+  level: 4,
+  strength: 14,
+  agility: 25,
+  vitality: 28,
   location: map_bull_fighters,
   map: lorencia,
 )
@@ -105,13 +96,10 @@ Characters::Monster.create!(
 puts "Created monster type Hound"
 Characters::Monster.create!(
   name: "Hound",
-  level: 9,
-  health: 160,
-  min_attack: 25,
-  max_attack: 35,
-  attack_rate: 35,
-  defense: 9,
-  defense_rate: 9,
+  level: 7,
+  strength: 25,
+  agility: 30,
+  vitality: 36,
   location: map_hounds,
   map: lorencia,
 )
@@ -119,13 +107,10 @@ Characters::Monster.create!(
 puts "Created monster type Elite Bull Fighter"
 Characters::Monster.create!(
   name: "Elite Bull Fighter",
-  level: 12,
-  health: 220,
-  min_attack: 35,
-  max_attack: 44,
-  attack_rate: 50,
-  defense: 12,
-  defense_rate: 12,
+  level: 11,
+  strength: 30,
+  agility: 50,
+  vitality: 48,
   location: map_elite_bull_fighters,
   map: lorencia,
 )
@@ -133,13 +118,10 @@ Characters::Monster.create!(
 puts "Created monster type Lich"
 Characters::Monster.create!(
   name: "Lich",
-  level: 14,
-  health: 260,
-  min_attack: 45,
-  max_attack: 52,
-  attack_rate: 62,
-  defense: 15,
-  defense_rate: 15,
+  level: 15,
+  strength: 40,
+  agility: 75,
+  vitality: 65,
   location: map_lichs,
   map: lorencia,
 )
@@ -147,13 +129,10 @@ Characters::Monster.create!(
 puts "Created monster type Giant"
 Characters::Monster.create!(
   name: "Giant",
-  level: 17,
-  health: 400,
-  min_attack: 57,
-  max_attack: 62,
-  attack_rate: 80,
-  defense: 18,
-  defense_rate: 18,
+  level: 18,
+  strength: 50,
+  agility: 105,
+  vitality: 80,
   location: map_giants,
   map: lorencia,
 )
@@ -161,13 +140,10 @@ Characters::Monster.create!(
 puts "Created monster type Skeleton"
 Characters::Monster.create!(
   name: "Skeleton",
-  level: 19,
-  health: 525,
-  min_attack: 68,
-  max_attack: 74,
-  attack_rate: 93,
-  defense: 21,
-  defense_rate: 21,
+  level: 20,
+  strength: 60,
+  agility: 150,
+  vitality: 105,
   location: map_skeletons,
   map: lorencia,
 )
