@@ -42,7 +42,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_07_074422) do
     t.integer "user_id"
     t.index ["location_id"], name: "index_characters_on_location_id"
     t.index ["map_id"], name: "index_characters_on_map_id"
-    t.index ["name"], name: "unique_character_name", unique: true
+    t.index ["name"], name: "index_characters_on_name", unique: true
     t.index ["user_id"], name: "index_characters_on_user_id"
   end
 
@@ -62,9 +62,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_07_074422) do
     t.integer "map_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["code"], name: "unique_location_code", unique: true
+    t.index ["code"], name: "index_locations_on_code", unique: true
     t.index ["map_id"], name: "index_locations_on_map_id"
-    t.index ["name"], name: "unique_location_name", unique: true
+    t.index ["name"], name: "index_locations_on_name", unique: true
   end
 
   create_table "maps", force: :cascade do |t|
@@ -73,8 +73,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_07_074422) do
     t.integer "level", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["code"], name: "unique_map_code", unique: true
-    t.index ["name"], name: "unique_map_name", unique: true
+    t.index ["code"], name: "index_maps_on_code", unique: true
+    t.index ["name"], name: "index_maps_on_name", unique: true
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -94,8 +94,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_07_074422) do
     t.datetime "updated_at", null: false
     t.integer "character_id"
     t.index ["character_id"], name: "index_users_on_character_id"
-    t.index ["email"], name: "unique_user_email", unique: true
-    t.index ["username"], name: "unique_user_username", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "characters", "locations", on_delete: :cascade
