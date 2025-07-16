@@ -2,7 +2,7 @@ class CreateCharacters < ActiveRecord::Migration[7.1]
   def change
     create_table :characters do |t|
       t.string :type, null: false
-      t.string :name, null: false, index: { unique: true, name: 'unique_character_name' }
+      t.string :name, null: false, index: { unique: true }
       t.integer :level, null: false, default: 1
 
       t.integer :health, null: false, default: 1
