@@ -10,16 +10,16 @@ one:
   max_health: 20
   mana: 20
   max_mana: 20
-  strength: 10
-  agility: 10
-  vitality: 10
-  energy: 10
-  attack_rate: 10
-  min_attack: 10
-  max_attack: 10
-  defense_rate: 10
-  defense: 10
-  activity: 10
+  strength: 3
+  agility: 3
+  vitality: 3
+  energy: 3
+  attack_rate: 3
+  min_attack: 3
+  max_attack: 3
+  defense_rate: 3
+  defense: 3
+  activity: 3
   last_restore_at: 2024-11-14 09:11:32.025058000 +0000
   last_regeneration_at: 2024-11-14 09:11:32.025058000 +0000
   created_at: 2024-11-14 09:11:32.040339000 +0000

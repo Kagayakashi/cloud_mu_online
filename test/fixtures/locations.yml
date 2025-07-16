@@ -18,6 +18,12 @@ three:
   code: mage
   map_id: 1
 
+four:
+  id: 41
+  name: "Spiders"
+  code: spiders
+  map_id: 1
+
 ten:
   id: 21
   name: "Goblin of the Chaos machine"
