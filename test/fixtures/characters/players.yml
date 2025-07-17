@@ -58,7 +58,7 @@ two:
   user: two
   map: lorencia
 
-three:
+low_status:
   name: DarkKnightLow
   type: Characters::DarkKnight
   level: 1
