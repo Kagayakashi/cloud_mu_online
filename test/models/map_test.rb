@@ -2,7 +2,7 @@ require "test_helper"
 
 class MapTest < ActiveSupport::TestCase
   def setup
-    @map = maps(:one)
+    @map = maps(:lorencia)
   end
 
   test "should not be valid with empty attributes" do
@@ -11,32 +11,16 @@ class MapTest < ActiveSupport::TestCase
   end
 
   test "should not be valid with incorrect min level" do
-    map = Map.new(name: "I Have Only Name", min_level: 0)
+    map = Map.new(name: "I Have Only Name", level: 0)
     assert_not map.valid?
 
-    map = Map.new(name: "I Have Only Name", min_level: -1)
-    assert_not map.valid?
-  end
-
-  test "should not be valid with incorrect teleport min level" do
-    map = Map.new(name: "I Have Only Name", teleport_min_level: 0)
-    assert_not map.valid?
-
-    map = Map.new(name: "I Have Only Name", teleport_min_level: -1)
+    map = Map.new(name: "I Have Only Name", level: -1)
     assert_not map.valid?
   end
 
-  test "should not be valid with incorrect teleport cost" do
-    map = Map.new(name: "I Have Only Name", teleport_min_level: -1)
-    assert_not map.valid?
-  end
-
-  test "should be valid with name" do
+  test "should be valid" do
     map = Map.new(name: "I Have Only Name")
-    assert_equal 1, map.min_level
-    assert_equal false, map.can_teleport
-    assert_equal 1, map.teleport_min_level
-    assert_equal 1000, map.teleport_cost
+    assert_equal 1, map.level
     assert map.valid?
   end
 
