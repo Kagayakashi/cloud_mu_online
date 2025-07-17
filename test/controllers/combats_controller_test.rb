@@ -1,20 +1,23 @@
 require "test_helper"
 
-class CombatsControllerTest < ActionController::TestCase
+class CombatsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    user = users(:one)
+    start_new_session_for(user)
     @monster = characters_monsters(:spider)
-    @user = users(:one)
-    session[:user_id] = @user.id
-    @character = @user.player.character
+    @character = Current.character
   end
 
-  test "should reduce monster health after attack" do
-    initial_health = @monster.health
+  test "should win against monster" do
+    initial_xp = @character.experience
+    initial_gold = @character.gold
 
-    post :create, params: { id: @monster.id }
-    assert_redirected_to adventure_path
+    post combat_path, params: { character_id: @monster.id }
+    assert_redirected_to combat_path
 
-    @monster.reload
-    assert @monster.health < initial_health
+    @character.reload
+
+    assert @character.experience > initial_xp
+    assert @character.gold > initial_gold
   end
 end
