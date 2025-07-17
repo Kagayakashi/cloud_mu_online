@@ -26,38 +26,38 @@ User.create! username: "Admin", email: "admin@example.com", password: "admin", p
 lorencia = Map.create! name: "maps.lorencia", code: "lorencia", level: 1
 puts "Created Lorencia city"
 
-lorencia.locations.create! name: "Lumen", code: "lumen", peace: true
+lorencia.locations.create! name: "Lumen", code: "lumen"
 puts "Created Lorencia npc Lumen"
 
-lorencia.locations.create! name: "Hanzo", code: "hanzo", peace: true
+lorencia.locations.create! name: "Hanzo", code: "hanzo"
 puts "Created Lorencia npc Hanzo"
 
-lorencia.locations.create! name: "Pasi", code: "pasi", peace: true
+lorencia.locations.create! name: "Pasi", code: "pasi"
 puts "Created Lorencia npc Pasi"
 
-map_spiders = lorencia.locations.create! name: "Lorencia spiders", code: "spiders", peace: false
+map_spiders = lorencia.locations.create! name: "Lorencia spiders", code: "spiders"
 puts "Created Lorencia spiders spot"
 
-map_budge_dragons = lorencia.locations.create! name: "Lorencia budge dragons", code: "budge_dragons", peace: false
+map_budge_dragons = lorencia.locations.create! name: "Lorencia budge dragons", code: "budge_dragons"
 puts "Created Lorencia budge dragons spot"
 
-map_bull_fighters = lorencia.locations.create! name: "Lorencia bull fighters", code: "bull_fighters", peace: false
+map_bull_fighters = lorencia.locations.create! name: "Lorencia bull fighters", code: "bull_fighters"
 puts "Created Lorencia bull fighters spot"
 
-map_hounds = lorencia.locations.create! name: "Lorencia hounds", code: "hounds", peace: false
+map_hounds = lorencia.locations.create! name: "Lorencia hounds", code: "hounds"
 puts "Created Lorencia hounds spot"
 
 map_elite_bull_fighters =
-  lorencia.locations.create! name: "Lorencia elite bull fighters", code: "elite_bull_fighters", peace: false
+  lorencia.locations.create! name: "Lorencia elite bull fighters", code: "elite_bull_fighters"
 puts "Created Lorencia elite bull fighters spot"
 
-map_lichs = lorencia.locations.create! name: "Lorencia lichs", code: "lichs", peace: false
+map_lichs = lorencia.locations.create! name: "Lorencia lichs", code: "lichs"
 puts "Created Lorencia lichs spot"
 
-map_giants = lorencia.locations.create! name: "Lorencia giants", code: "giants", peace: false
+map_giants = lorencia.locations.create! name: "Lorencia giants", code: "giants"
 puts "Created Lorencia giants spot"
 
-map_skeletons = lorencia.locations.create! name: "Lorencia skeletons", code: "skeletons", peace: false
+map_skeletons = lorencia.locations.create! name: "Lorencia skeletons", code: "skeletons"
 puts "Created Lorencia skeletons spot"
 
 puts "Created monster type Spider"
