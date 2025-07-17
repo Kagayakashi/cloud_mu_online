@@ -8,6 +8,7 @@ class RegistrationsController < ApplicationController
   def create
     @user = Current.user
     @user.assign_attributes(registration_params)
+
     @user.is_guest = false
     if @user.save
       redirect_to settings_path

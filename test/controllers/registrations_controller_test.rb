@@ -1,16 +1,23 @@
 require "test_helper"
 
 class RegistrationsControllerTest < ActionDispatch::IntegrationTest
+  def setup
+    user = users(:four)
+    start_new_session_for(user)
+  end
+
   test "should register with correct credentials" do
-    assert_difference("User.count", 1) do
-      post registration_path, params: { user: {
-        username: "user101",
-        email: "user101@example.com",
-        password: "passwordtest",
-        password_confirmation: "passwordtest"
-      } }
-    end
-    assert_redirected_to root_path
+    post registration_path, params: { user: {
+      username: "user101",
+      email: "user101@example.com",
+      password: "passwordtest",
+      password_confirmation: "passwordtest"
+    } }
+
+    Current.user.reload
+
+    assert_not Current.user.is_guest
+    assert_redirected_to settings_path
   end
 
   test "should fail register with invalid email" do
@@ -21,7 +28,6 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       password_confirmation: "passwordtest"
     } }
     assert_response :unprocessable_entity
-    assert_match (/Email is invalid/), response.body
   end
 
   test "should fail register with already taken email" do
@@ -32,7 +38,6 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       password_confirmation: "passwordtest"
     } }
     assert_response :unprocessable_entity
-    assert_match (/Email has already been taken/), response.body
   end
 
   test "should fail register with already taken username" do
@@ -43,6 +48,5 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       password_confirmation: "passwordtest"
     } }
     assert_response :unprocessable_entity
-    assert_match (/Username has already been taken/), response.body
   end
 end

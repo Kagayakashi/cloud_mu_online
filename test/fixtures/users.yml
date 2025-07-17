@@ -19,3 +19,9 @@ three:
   email: user3@example.com
   password_digest: <%= BCrypt::Password.create('password') %>
   is_guest: false
+
+four:
+  username: user4
+  email: user4@example.com
+  password_digest: <%= BCrypt::Password.create('password') %>
+  character: four
