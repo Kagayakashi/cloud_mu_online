@@ -12,10 +12,12 @@ class AdventuresController < ApplicationController
 
     if params[:location_id].present?
       location = current_map.locations.find_by(id: params[:location_id])
+
       if location
         Current.character.update(location: location)
       else
         flash[:alert] = "You cannot go there."
+        Current.character.update(location: nil)
       end
     else
       Current.character.update(location: nil)
@@ -27,6 +29,7 @@ class AdventuresController < ApplicationController
   private
 
   def record_not_found
+    Current.character.update(location: nil)
     redirect_to adventure_path, alert: "Location does not exist."
   end
 end
