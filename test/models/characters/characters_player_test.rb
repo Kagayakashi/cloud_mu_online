@@ -4,7 +4,7 @@ module Characters
   class PlayerTest < ActiveSupport::TestCase
     setup do
       @user = users(:one)
-      @lorencia = maps(:one)
+      @lorencia = maps(:lorencia)
     end
 
     test "should have character types as subclasses" do
@@ -31,7 +31,7 @@ module Characters
     end
 
     test "should not be valid character with existing name" do
-      character = Characters::Character.new(name: "DarkKnight", type: "Characters::DarkKnight", user: @user)
+      character = Characters::Character.new(name: characters_players(:one), type: "Characters::DarkKnight", user: @user)
       assert_not character.valid?
     end
 

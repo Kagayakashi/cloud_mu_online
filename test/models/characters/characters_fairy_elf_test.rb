@@ -4,7 +4,7 @@ module Characters
   class FairyElfTest < ActiveSupport::TestCase
     setup do
       @user = users(:one)
-      @lorencia = maps(:one)
+      @lorencia = maps(:lorencia)
     end
 
     test "should be valid character" do

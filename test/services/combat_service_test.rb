@@ -2,8 +2,8 @@ require "test_helper"
 
 class CombatServiceTest < ActiveSupport::TestCase
   def setup
-    @player = characters_characters(:one)
-    @spider = characters_monsters(:one)
+    @player = characters_players(:one)
+    @spider = characters_monsters(:spider)
   end
 
   test "monster should die after combat" do

@@ -3,18 +3,19 @@ require "test_helper"
 class CharacterCreatorServiceTest < ActiveSupport::TestCase
   def setup
     @user = users(:one)
+    @lorencia = maps(:lorencia)
   end
 
   test "should successfully create a dark knight" do
     service = CharacterCreatorService.new(
       user: @user,
-      name: "CharacterCreatorServiceDK1",
+      name: "DkServiceCreat1",
       type: "Characters::DarkKnight"
     )
     character = service.call
 
     assert character.persisted?, "Character should be persisted in the database"
-    assert_equal "CharacterCreatorServiceDK1", character.name
+    assert_equal "DkServiceCreat1", character.name
     assert_equal "Characters::DarkKnight", character.type
   end
 
@@ -31,12 +32,12 @@ class CharacterCreatorServiceTest < ActiveSupport::TestCase
   end
 
   test "created dark knight should have calculated stats" do
-    service = CharacterCreatorService.new(user: @user, name: "CreatedDarkKnight2", type: "Characters::DarkKnight")
+    service = CharacterCreatorService.new(user: @user, name: "DkServiceCreat2", type: "Characters::DarkKnight")
     character = service.call
 
     assert_not_nil character
 
-    assert_equal "CreatedDarkKnight2", character.name
+    assert_equal "DkServiceCreat2", character.name
     assert_equal "Characters::DarkKnight", character.type
 
     assert_equal 1, character.level
@@ -64,8 +65,8 @@ class CharacterCreatorServiceTest < ActiveSupport::TestCase
     assert_equal 20, character.max_mana
 
     assert_equal 0, character.gold
-    assert_equal 100, character.activity
-    assert_equal "Lorencia city", character.map.name
+    assert_equal 10, character.activity
+    assert_equal @lorencia.name, character.map.name
 
     assert_not_nil character.last_restore_at
     assert_not_nil character.last_regeneration_at
