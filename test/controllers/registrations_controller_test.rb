@@ -1,9 +1,9 @@
 require "test_helper"
 
-class RegistrationsControllerTest < ActionController::TestCase
+class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   test "should register with correct credentials" do
     assert_difference("User.count", 1) do
-      post :create, params: { user: {
+      post registration_path, params: { user: {
         username: "user101",
         email: "user101@example.com",
         password: "passwordtest",
@@ -14,7 +14,7 @@ class RegistrationsControllerTest < ActionController::TestCase
   end
 
   test "should fail register with invalid email" do
-    post :create, params: { user: {
+    post registration_path, params: { user: {
       username: "user102",
       email: "wrong_email",
       password: "passwordtest",
@@ -25,7 +25,7 @@ class RegistrationsControllerTest < ActionController::TestCase
   end
 
   test "should fail register with already taken email" do
-    post :create, params: { user: {
+    post registration_path, params: { user: {
       username: "user103",
       email: users(:one).email,
       password: "passwordtest",
@@ -36,7 +36,7 @@ class RegistrationsControllerTest < ActionController::TestCase
   end
 
   test "should fail register with already taken username" do
-    post :create, params: { user: {
+    post registration_path, params: { user: {
       username: users(:one).username,
       email: "user104@example.com",
       password: "passwordtest",

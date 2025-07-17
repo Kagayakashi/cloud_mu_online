@@ -1,17 +1,17 @@
 require "test_helper"
 
-class PasswordsControllerTest < ActionController::TestCase
+class PasswordsControllerTest < ActionDispatch::IntegrationTest
   def setup
-    @user = users(:three)
-    session[:user_id] = @user.id
+    user = users(:three)
+    start_new_session_for(user)
   end
 
   test "should change password with correct attributes" do
-    post :update, params: {
+    patch password_path, params: {
       user: {
         password: "passwordNew",
         password_confirmation: "passwordNew",
-        password_challenge: "password3"
+        password_challenge: "password"
       }
     }
 
@@ -20,9 +20,9 @@ class PasswordsControllerTest < ActionController::TestCase
   end
 
   test "should not change password with invalid attributes" do
-    post :update, params: {
+    patch password_path, params: {
       user: {
-        password: "password3",
+        password: "password",
         password_confirmation: "passwordNew",
         password_challenge: "qqqq"
       }
