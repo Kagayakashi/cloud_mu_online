@@ -26,8 +26,11 @@ class CreateCharacters < ActiveRecord::Migration[7.1]
       t.integer :max_experience, null: false, default: 1
       t.integer :points, null: false, default: 0
 
+      t.integer :gold, null: false, default: 0
+
       t.integer :activity, null: false, default: 10
       t.integer :max_activity, null: false, default: 10
+
       t.datetime :last_restore_at, null: false, default: -> { 'CURRENT_TIMESTAMP' }
       t.datetime :last_regeneration_at, null: false, default: -> { 'CURRENT_TIMESTAMP' }
 

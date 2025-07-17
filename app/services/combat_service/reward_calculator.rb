@@ -16,8 +16,8 @@ module CombatService
       return if @attacker.dead?
       return unless @attacker.is_a?(Characters::Player)
 
-      xp = 1
-      gold = 1
+      xp = 3
+      gold = 3
 
       GameLogs::ExperienceGainedLog.create(
         character: @attacker,
@@ -29,7 +29,7 @@ module CombatService
       )
 
       @attacker.add_experience(xp)
-      # @attacker.add_gold(gold)
+      @attacker.add_gold(gold)
     end
   end
 end
