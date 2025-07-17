@@ -24,12 +24,13 @@ class AddStatsController < ApplicationController
   private
 
   def increase_stat(stat)
-    if Current.character.points > 0
-      Current.character.update(points: Current.character.points - 1, stat => Current.character.send(stat) + 1)
-      redirect_to character_path(Current.character), notice: "#{stat.capitalize} increased."
-    else
-      redirect_to character_path(Current.character), alert: "Not enought stat points."
-    end
+    Current.character.update(
+      points: Current.character.points - 1,
+      stat => Current.character.send(stat) + 1
+    )
+
+    redirect_to character_path(Current.character),
+      notice: "#{stat.capitalize} increased."
   end
 
   def are_stats_available
