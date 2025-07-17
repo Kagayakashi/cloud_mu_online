@@ -11,7 +11,6 @@ module CombatService
     def initialize(player, target)
       @attacker = player
       @defender = target
-      @pvp = @defender.is_a?(Characters::Player)
     end
 
     def start
@@ -33,7 +32,7 @@ module CombatService
     private
 
     def pvp?
-      @pvp
+      @attacker.is_a?(Characters::Player) && @defender.is_a?(Characters::Player)
     end
 
     def ended?

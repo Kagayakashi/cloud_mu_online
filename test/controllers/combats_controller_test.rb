@@ -11,7 +11,7 @@ class CombatsControllerTest < ActionController::TestCase
   test "should reduce monster health after attack" do
     initial_health = @monster.health
 
-    post :receive_attack_damage, params: { id: @monster.id }
+    post :create, params: { id: @monster.id }
     assert_redirected_to adventure_path
 
     @monster.reload

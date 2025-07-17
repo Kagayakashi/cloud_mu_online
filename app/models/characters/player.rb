@@ -38,25 +38,27 @@ module Characters
 
     def add_experience(xp)
       remaining_xp = xp
+      new_level = self.level
+      new_experience = self.experience
 
       while remaining_xp > 0
-        xp_needed = calculate_max_experience - self.experience
+        xp_needed = calculate_max_experience - new_experience
 
         if remaining_xp >= xp_needed
-          self.level += 1
+          new_level += 1
           remaining_xp -= xp_needed
-          self.experience = 0
+          new_experience = 0
         else
-          self.experience += remaining_xp
+          new_experience += remaining_xp
           remaining_xp = 0
         end
       end
 
-      self.save!
+      self.update!(level: new_level, experience: new_experience)
     end
 
     def add_gold(gold)
-      self.update!(gold: gold + gold)
+      self.update!(gold: self.gold + gold)
     end
 
     def has_wizardy?

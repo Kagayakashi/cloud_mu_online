@@ -29,7 +29,7 @@ module CombatService
       )
 
       @attacker.add_experience(xp)
-      @attacker.add_gold(gold)
+      # @attacker.add_gold(gold)
     end
   end
 end

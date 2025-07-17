@@ -15,20 +15,18 @@ module CombatService
       accuracy = accuracy_handler
       attack = damage_handler
 
-      damage = 0
-
       @attacker.attacks.times do
         if accuracy.hit?
-          damage += attack.damage
+          damage = attack.damage
+
+          if damage > 0
+            apply_damage(damage)
+          else
+            log_zero
+          end
         else
           log_miss
         end
-      end
-
-      if damage > 0
-        apply_damage(damage)
-      else
-        log_zero
       end
     end
 
