@@ -3,7 +3,7 @@ require "test_helper"
 class CharacterRegenerationServiceTest < ActiveSupport::TestCase
   def setup
     # low health and mana
-    @character = characters_characters(:low_status)
+    @character = characters_characters(:low_health)
   end
 
   test "should regenerate health and mana once" do

@@ -4,6 +4,7 @@ module Characters
   class FairyElfTest < ActiveSupport::TestCase
     setup do
       @user = users(:one)
+      @lorencia = maps(:one)
     end
 
     test "should be valid character" do
@@ -56,8 +57,8 @@ module Characters
       assert_equal 30, character.max_mana
 
       assert_equal 0, character.gold
-      assert_equal 100, character.activity
-      assert_equal "Noria city", character.map.name
+      assert_equal 10, character.activity
+      assert_equal @lorencia.name, character.map.name
 
       assert_not_nil character.last_restore_at
       assert_not_nil character.last_regeneration_at

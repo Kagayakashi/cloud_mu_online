@@ -20,6 +20,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_02_07_074422) do
     t.integer "defense_rate", default: 1, null: false
     t.integer "energy", default: 1, null: false
     t.integer "experience", default: 0, null: false
+    t.integer "gold", default: 0, null: false
     t.integer "health", default: 1, null: false
     t.datetime "last_regeneration_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.datetime "last_restore_at", default: -> { "CURRENT_TIMESTAMP" }, null: false

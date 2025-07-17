@@ -2,7 +2,7 @@ require "test_helper"
 
 class CombatServiceTest < ActiveSupport::TestCase
   def setup
-    @player = characters_characters(:three)
+    @player = characters_characters(:one)
     @spider = characters_monsters(:one)
   end
 
@@ -20,10 +20,10 @@ class CombatServiceTest < ActiveSupport::TestCase
     assert @player.experience > xp_before, "Experience should increase"
   end
 
-  # test "player character should gain gold after combat" do
-  #   gold_before = @player.gold
-  #   CombatService.call(player: @player, target: @spider)
-  #   @player.reload
-  #   assert @player.gold > gold_before, "Gold should increase"
-  # end
+  test "player character should gain gold after combat" do
+    gold_before = @player.gold
+    CombatService.call(player: @player, target: @spider)
+    @player.reload
+    assert @player.gold > gold_before, "Gold should increase"
+  end
 end

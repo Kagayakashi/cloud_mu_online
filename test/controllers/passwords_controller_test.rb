@@ -7,13 +7,27 @@ class PasswordsControllerTest < ActionController::TestCase
   end
 
   test "should change password with correct attributes" do
-    post :update, params: { user: { password: "passwordNew", password_confirmation: "passwordNew", password_challenge: "password3" } }
-    assert_redirected_to edit_password_path
+    post :update, params: {
+      user: {
+        password: "passwordNew",
+        password_confirmation: "passwordNew",
+        password_challenge: "password3"
+      }
+    }
+
+    assert_redirected_to settings_path
     assert_equal "Your password has been updated successfully.", flash[:notice]
   end
 
   test "should not change password with invalid attributes" do
-    post :update, params: { user: { password: "password3", password_confirmation: "passwordNew", password_challenge: "qqqq" } }
+    post :update, params: {
+      user: {
+        password: "password3",
+        password_confirmation: "passwordNew",
+        password_challenge: "qqqq"
+      }
+    }
+
     assert_response :unprocessable_entity
     assert_select ".error_messages" do
       assert_select "h2"

@@ -8,6 +8,7 @@ class AddStatsControllerTest < ActionController::TestCase
   end
 
   test "should increase strength by 1 and redirect" do
+    puts @character.inspect
     assert_difference("@character.reload.strength", 1) do
       post :strength
     end

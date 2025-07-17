@@ -12,8 +12,8 @@ class PasswordResetsControllerTest < ActionController::TestCase
       post :create, params: { email: @user.email }
     end
 
-    assert_redirected_to root_path
-    assert_equal "Check your email to reset your password.", flash[:notice]
+    assert_redirected_to new_session_path
+    assert_equal "Password reset instructions sent (if user with that email address exists).", flash[:notice]
   end
 
   test "should not send email for non-existent user" do
@@ -21,8 +21,8 @@ class PasswordResetsControllerTest < ActionController::TestCase
       post :create, params: { email: "nonexistent@example.com" }
     end
 
-    assert_redirected_to root_path
-    assert_equal "Check your email to reset your password.", flash[:notice]
+    assert_redirected_to new_session_path
+    assert_equal "Password reset instructions sent (if user with that email address exists).", flash[:notice]
   end
 
   test "should display password reset form with valid token" do
@@ -47,7 +47,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
     }
 
     assert_redirected_to new_session_path
-    assert_equal "Your password has been reset successfully. Please login.", flash[:notice]
+    assert_equal "Password has been reset.", flash[:notice]
   end
 
   test "should show errors when passwords do not match" do

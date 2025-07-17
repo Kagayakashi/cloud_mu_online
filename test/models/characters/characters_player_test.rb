@@ -1,19 +1,20 @@
 require "test_helper"
 
 module Characters
-  class CharacterTest < ActiveSupport::TestCase
+  class PlayerTest < ActiveSupport::TestCase
     setup do
       @user = users(:one)
+      @lorencia = maps(:one)
     end
 
     test "should have character types as subclasses" do
-      assert_includes Characters::Character.subclasses.map(&:name), "Characters::DarkKnight"
-      assert_includes Characters::Character.subclasses.map(&:name), "Characters::DarkWizard"
-      assert_includes Characters::Character.subclasses.map(&:name), "Characters::FairyElf"
+      assert_includes Characters::Player.subclasses.map(&:name), "Characters::DarkKnight"
+      assert_includes Characters::Player.subclasses.map(&:name), "Characters::DarkWizard"
+      assert_includes Characters::Player.subclasses.map(&:name), "Characters::FairyElf"
     end
 
     test "should have character types as human-readable names" do
-      character_types = Characters::Character.character_types
+      character_types = Characters::Player.character_types
       assert_includes character_types.map(&:first), "Dark Knight"
       assert_includes character_types.map(&:first), "Dark Wizard"
       assert_includes character_types.map(&:first), "Fairy Elf"
@@ -67,8 +68,8 @@ module Characters
       assert_equal 20, character.max_mana
 
       assert_equal 0, character.gold
-      assert_equal 100, character.activity
-      assert_equal "Lorencia city", character.map.name
+      assert_equal 10, character.activity
+      assert_equal @lorencia.name, character.map.name
 
       assert_not_nil character.last_restore_at
       assert_not_nil character.last_regeneration_at
