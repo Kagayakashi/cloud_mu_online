@@ -1,13 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  id: 1
+lorencia:
   name: Lorencia
   code: lorencia
   level: 1
 
-two:
-  id: 2
+noria:
   name: Noria
   code: noria
   level: 10

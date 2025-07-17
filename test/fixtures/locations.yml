@@ -1,31 +1,26 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  id: 11
+amy:
   name: "Amy, the tavernkeeper"
   code: tavernkeeper
-  map_id: 1
+  map: lorencia
 
-two:
-  id: 12
+hanzo:
   name: "Hanzo, the Blacksmith"
   code: blacksmith
-  map_id: 1
+  map: lorencia
 
-three:
-  id: 13
+pasi:
   name: "Pasi, the Mage"
   code: mage
-  map_id: 1
+  map: lorencia
 
-four:
-  id: 41
+spiders:
   name: "Spiders"
   code: spiders
-  map_id: 1
+  map: lorencia
 
-ten:
-  id: 21
+chaos:
   name: "Goblin of the Chaos machine"
   code: chaos_machine
-  map_id: 2
+  map: noria

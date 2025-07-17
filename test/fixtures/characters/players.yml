@@ -1,7 +1,6 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  id: 1
   name: DarkKnight1
   type: Characters::DarkKnight
   level: 1
@@ -27,11 +26,10 @@ one:
   last_regeneration_at: 2024-11-14 09:11:32.025058000 +0000
   created_at: 2024-11-14 09:11:32.040339000 +0000
   updated_at: 2024-11-14 09:11:32.040339000 +0000
-  user_id: 1
-  map_id: 1
+  user: one
+  map: lorencia
 
 two:
-  id: 2
   name: DarkKnight2
   type: Characters::DarkKnight
   level: 1
@@ -57,11 +55,10 @@ two:
   last_regeneration_at: 2024-11-14 09:11:32.025058000 +0000
   created_at: 2024-11-14 09:11:32.040339000 +0000
   updated_at: 2024-11-14 09:11:32.040339000 +0000
-  user_id: 2
-  map_id: 1
+  user: two
+  map: lorencia
 
-low_health:
-  id: 10
+three:
   name: DarkKnightLow
   type: Characters::DarkKnight
   level: 1
@@ -81,10 +78,10 @@ low_health:
   max_attack: 7
   defense_rate: 6
   defense: 6
-  activity: 1000
+  activity: 1
   last_restore_at: 2024-11-14 09:11:32.025058000 +0000
   last_regeneration_at: 2024-11-14 09:11:32.025058000 +0000
   created_at: 2024-11-14 09:11:32.040339000 +0000
   updated_at: 2024-11-14 09:11:32.040339000 +0000
-  user_id: 1
-  map_id: 1
+  user: one
+  map: lorencia
