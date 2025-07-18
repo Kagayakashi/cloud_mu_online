@@ -1,20 +1,26 @@
 class SessionsController < ApplicationController
+  disallow_authenticated_access only: %i[ new create ]
+  allow_unauthenticated_access only: %i[ new create ]
+  allow_unactivated_character_access
+
+  rate_limit to: 10, within: 3.minutes, only: :create,
+    with: -> { redirect_to new_session_url, alert: "Try again later." }
+
   def new
     @user = User.new
   end
 
   def create
-    user = User.find_by(email: params[:user][:email])
-    if user&.authenticate(params[:user][:password])
-      login(user)
+    if user = User.authenticate_by(params.permit(:email, :password))
+      start_new_session_for user
       redirect_to characters_path
     else
-      redirect_to new_session_path, alert: "Invalid email or password."
+      redirect_to new_session_path, alert: "Try another email address or password."
     end
   end
 
   def destroy
-    logout current_user
-    redirect_to root_path, notice: "You have been logged out."
+    terminate_session
+    redirect_to root_path
   end
 end

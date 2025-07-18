@@ -24,7 +24,7 @@
           <% end %>
         </header>
 
-        <% if current_user&.is_guest %>
+        <% if Current.user&.is_guest %>
           <article class="complete-register">
             <%= link_to new_registration_path, title: "Complete registration" do %>
               <p>Register your account and get rewards</p>
@@ -32,31 +32,31 @@
           </article>
         <% end %>
         
-        <% if user_signed_in? %>
+        <% if authenticated? %>
           <section class="player-status">
-            <% if active_character %>
+            <% if Current.character&.persisted? %>
               <div class="player-info">
                 <p>
                   <span class="icon dark-wizard-icon"></span>
-                  <%= active_character.name %>
+                  <%= Current.character.name %>
                 </p>
 
                 <p>
                   <span class="icon health-icon"></span>
-                  <%= active_character.health %> / <%= active_character.max_health %>
+                  <%= Current.character.health %> / <%= Current.character.max_health %>
                 </p>
                 <p>
                   <span class="icon mana-icon"></span>
-                  <%= active_character.mana %> / <%= active_character.max_mana %>
+                  <%= Current.character.mana %> / <%= Current.character.max_mana %>
                 </p>
                 <p>
                   <span class="icon activity-icon"></span>
-                  <%= active_character.activity %>
+                  <%= Current.character.activity %>
                 </p>
 
                 <p>
                   <span class="icon gold-coin-icon"></span>
-                  <%= active_character.gold %>
+                  0
                 </p>
               </div>
             <% end %>
@@ -76,14 +76,14 @@
 
         <%= yield %>
 
-        <% if user_signed_in? %>
+        <% if authenticated? %>
           <section class="">
             <div class="hr"></div>
             <div class="hr"></div>
               <ul class="menu player-menu">
-                <% if active_character %>
+                <% if Current.character&.persisted? %>
                   <li class="menu-item"><%= link_to "Adventure", adventure_path %></li>
-                  <li class="menu-item dev"><%= link_to "Character", character_path(active_character) %></li>
+                  <li class="menu-item"><%= link_to "Character", character_path(Current.character) %></li>
                 <% end %>
                 <li class="menu-item"><%= link_to "Settings", settings_path %></li>
                 <li class="menu-item"><%= button_to "Logout", session_path, method: :delete %></li>

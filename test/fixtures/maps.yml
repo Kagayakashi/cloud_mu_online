@@ -1,38 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  id: 1
-  name: Lorencia city
+lorencia:
+  name: Lorencia
   code: lorencia
-  min_level: 1
-  can_teleport: true
-  teleport_cost: 1000
-  teleport_min_level: 10
+  level: 1
 
-two:
-  id: 2
-  name: Lorencia spiders
-  min_level: 1
-
-three:
-  id: 3
-  name: Budge dragons
-  min_level: 1
-
-four:
-  id: 4
-  name: Devias city
-  code: devias
-  min_level: 10
-  can_teleport: true
-  teleport_cost: 1000
-  teleport_min_level: 20
-
-five:
-  id: 5
+noria:
+  name: Noria
   code: noria
-  name: Noria city
-  min_level: 10
-  can_teleport: true
-  teleport_cost: 1000
-  teleport_min_level: 20
+  level: 10

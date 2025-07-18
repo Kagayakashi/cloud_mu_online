@@ -2,20 +2,28 @@ require "test_helper"
 
 class CombatServiceTest < ActiveSupport::TestCase
   def setup
-    @strong_attacker = characters_characters(:five)
-    @spider = monsters(:one)
-    @session = {}
+    @player = characters_players(:one)
+    @spider = characters_monsters(:spider)
   end
 
-  test "should kill spider, receive rewards and get logs" do
-    assert_difference("GameLogs::DamageDealtLog.count", 1) do
-      assert_difference("GameLogs::ExperienceGainedLog.count", 1) do
-        assert_difference("GameLogs::LootReceivedLog.count", 1) do
-          CombatService.call(attacker: @strong_attacker, defender: @spider, session: @session)
-        end
-      end
-    end
+  test "monster should die after combat" do
+    CombatService.call(player: @player, target: @spider)
+    @spider.reload
+    assert @spider.dead?,
+      "Monster should be dead after combat. Monsters health #{ @spider.health }"
+  end
 
-    assert @spider.dead
+  test "player character should gain experience after combat" do
+    xp_before = @player.experience
+    CombatService.call(player: @player, target: @spider)
+    @player.reload
+    assert @player.experience > xp_before, "Experience should increase"
+  end
+
+  test "player character should gain gold after combat" do
+    gold_before = @player.gold
+    CombatService.call(player: @player, target: @spider)
+    @player.reload
+    assert @player.gold > gold_before, "Gold should increase"
   end
 end

@@ -1,0 +1,69 @@
+<article>
+  <% if @monster.present? %>
+    <section style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+      <h2>Hunting</h2>
+
+      <table class="quick-combat">
+        <tr>
+          <td><%= Current.character.name %>[<%= Current.character.level %>]</td>
+          <td>versus</td>
+          <td><%= @monster.name %>[<%= @monster.level %>]</td>
+        </tr>
+        <!-- Avatars -->
+        <tr>
+          <td>
+            <div class="avatar player-avatar"></div>
+          </td>
+          <td></td>
+          <td>
+            <div class="avatar enemy-avatar"></div
+          </td>
+        </tr>
+        <!-- Attack rate -->
+        <tr>
+          <td><%= Current.character.attack_rate %></td>
+          <td><p title="Attack Rate (Accuracy)">ACC</p></td>
+          <td><%= @monster.attack_rate %></td>
+        </tr>
+        <!-- Attack power -->
+        <tr>
+          <td><%= Current.character.min_attack %> - <%= Current.character.max_attack %></td>
+          <td><p title="Min and Max Attack Power">ATK</p></td>
+          <td><%= @monster.min_attack %> - <%= @monster.max_attack %></td>
+        </tr>
+        <!-- Defense rate -->
+        <tr>
+          <td><%= Current.character.defense_rate %></td>
+          <td><p title="Defense Success Rate">DSR</p></td>
+          <td><%= @monster.defense_rate %></td>
+        </tr>
+        <!-- Defense -->
+        <tr>
+          <td><%= Current.character.defense %></td>
+          <td><p title="Defense">DEF</p></td>
+          <td><%= @monster.defense %></td>
+        </tr>
+        <!-- Health -->
+        <tr>
+          <td><%= Current.character.max_health %></td>
+          <td><p title="Health Points">HP</p></td>
+          <td><%= @monster.health %></td>
+        </tr>
+      </table>
+
+      <%= form_with url: combat_path, method: :post do |form| %>
+        <%= hidden_field_tag :character_id, @monster.id %>
+        <%= form.submit "Attack" %>
+      <% end %>
+    </section>
+  <% end %>
+
+  <ul class="menu">
+    <li class="menu-item">
+      <%= link_to "Try another", hunting_path %>
+    </li>
+    <li class="menu-item">
+      <%= link_to "Hunting", hunting_index_path %>
+    </li>
+  </ul>
+</article>

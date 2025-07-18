@@ -1,0 +1,26 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+amy:
+  name: "Amy, the tavernkeeper"
+  code: tavernkeeper
+  map: lorencia
+
+hanzo:
+  name: "Hanzo, the Blacksmith"
+  code: blacksmith
+  map: lorencia
+
+pasi:
+  name: "Pasi, the Mage"
+  code: mage
+  map: lorencia
+
+spiders:
+  name: "Spiders"
+  code: spiders
+  map: lorencia
+
+chaos:
+  name: "Goblin of the Chaos machine"
+  code: chaos_machine
+  map: noria

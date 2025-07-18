@@ -1,23 +1,22 @@
 require "test_helper"
 
-class SessionsControllerTest < ActionController::TestCase
+class SessionsControllerTest < ActionDispatch::IntegrationTest
   test "should login with correct credentials" do
-    post :create, params: { user: { email: "user1@example.com", password: "password1" } }
+    post session_path, params: { email: "user1@example.com", password: "password" }
     assert_redirected_to characters_path
   end
 
   test "should not login with wrong credentials" do
-    post :create, params: { user: { email: "unknowm@example.com", password: "unknown" } }
+    post session_path, params: { email: "unknowm@example.com", password: "unknown" }
     assert_redirected_to new_session_path
-    assert_equal "Invalid email or password.", flash[:alert]
+    assert_equal "Try another email address or password.", flash[:alert]
   end
 
   test "should login and logout" do
-    post :create, params: { user: { email: "user1@example.com", password: "password1" } }
+    post session_path, params: { email: "user1@example.com", password: "password" }
     assert_redirected_to characters_path
 
-    post :destroy
+    delete session_path
     assert_redirected_to root_path
-    assert_equal "You have been logged out.", flash[:notice]
   end
 end

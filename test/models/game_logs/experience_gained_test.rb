@@ -3,7 +3,7 @@ require "test_helper"
 module GameLogs
   class ExperienceGainedLogTest < ActiveSupport::TestCase
     def setup
-      @character = characters_characters(:one)
+      @character = characters_players(:one)
     end
 
     test "should not be valid with empty attributes" do

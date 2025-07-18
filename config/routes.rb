@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   resource :start, only: [ :show, :new, :create ]
   resource :session, only: [ :new, :create, :destroy ]
   resource :registration, only: [ :new, :create ]
-  resource :password_reset
+  resources :password_resets, only: [ :new, :create ]
+  resources :password_resets, param: :token, only: [ :edit, :update ]
   resource :password, only: [ :edit, :update ]
   resource :settings, only: [ :show ]
   resources :characters do
@@ -34,12 +35,6 @@ Rails.application.routes.draw do
     post "travel"
   end
 
-  resource :map, only: [ :show ]
-
-  resource :teleport, only: [ :new, :create ]
-
-  resources :monsters do
-    post "receive_spell_damage", on: :member
-    post "receive_attack_damage", on: :member
-  end
+  resources :hunting, only: [ :index, :show ]
+  resource :combat, only: [ :new, :create, :show ]
 end

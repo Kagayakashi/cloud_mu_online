@@ -14,17 +14,17 @@
         <%= link_to character_path(character) do %>
           <h2>
             <%= character.name %>
-            <% if character == active_character %>
+            <% if character == Current.character %>
               <sup>*</sup>
             <% end %>
           </h2>
         <% end %>
 
         <p>
-          <%= character.profession.name %> <strong>[<%= character.level %>]</strong>
+          <%= character.profession %> <strong>[<%= character.level %>]</strong>
         </p>
         
-        <% if character != active_character %>
+        <% if character != Current.character %>
           <%= button_to "Activate", activate_character_path(character), method: :post, class: "action-button" %>
         <% end %>
       </section>

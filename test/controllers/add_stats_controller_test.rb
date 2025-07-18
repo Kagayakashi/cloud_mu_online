@@ -1,41 +1,45 @@
 require "test_helper"
 
-class AddStatsControllerTest < ActionController::TestCase
-  def setup
+class AddStatsControllerTest < ActionDispatch::IntegrationTest
+  setup do
     user = users(:one)
-    session[:user_id] = user.id
-    @character = characters_characters(:one)
+    start_new_session_for(user)
+    Current.character.update(points: 5)
   end
 
   test "should increase strength by 1 and redirect" do
-    assert_difference("@character.reload.strength", 1) do
-      post :strength
+    assert_difference("Current.character.reload.strength", 1) do
+      post add_strength_path
     end
-    assert_redirected_to character_path(@character)
-    assert_equal "Strength increased.", flash[:notice]
+
+    assert_redirected_to character_path(Current.character)
+    assert_match "Strength increased", flash[:notice]
   end
 
   test "should increase agility by 1 and redirect" do
-    assert_difference("@character.reload.agility", 1) do
-      post :agility
+    assert_difference("Current.character.reload.agility", 1) do
+      post add_agility_path
     end
-    assert_redirected_to character_path(@character)
-    assert_equal "Agility increased.", flash[:notice]
+
+    assert_redirected_to character_path(Current.character)
+    assert_match "Agility increased", flash[:notice]
   end
 
   test "should increase vitality by 1 and redirect" do
-    assert_difference("@character.reload.vitality", 1) do
-      post :vitality
+    assert_difference("Current.character.reload.vitality", 1) do
+      post add_vitality_path
     end
-    assert_redirected_to character_path(@character)
-    assert_equal "Vitality increased.", flash[:notice]
+
+    assert_redirected_to character_path(Current.character)
+    assert_match "Vitality increased", flash[:notice]
   end
 
   test "should increase energy by 1 and redirect" do
-    assert_difference("@character.reload.energy", 1) do
-      post :energy
+    assert_difference("Current.character.reload.energy", 1) do
+      post add_energy_path
     end
-    assert_redirected_to character_path(@character)
-    assert_equal "Energy increased.", flash[:notice]
+
+    assert_redirected_to character_path(Current.character)
+    assert_match "Energy increased", flash[:notice]
   end
 end

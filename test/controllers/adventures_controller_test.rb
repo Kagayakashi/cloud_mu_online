@@ -1,50 +1,61 @@
 require "test_helper"
 
-class AdventuresControllerTest < ActionController::TestCase
+class AdventuresControllerTest < ActionDispatch::IntegrationTest
   def setup
-    @user = users(:one)
-    session[:user_id] = @user.id
-    @character = characters_characters(:one)
-    @lorencia = maps(:one)
-    @spiders = maps(:two)
-    @budge_dragons = maps(:three)
+    user = users(:one)
+    start_new_session_for(user)
+    @character = characters_players(:one)
+    @lorencia = maps(:lorencia)
+
+    @tavern = locations(:amy)
+    @blacksmith = locations(:hanzo)
+    @mage = locations(:pasi)
+    @spiders = locations(:spiders)
   end
 
-  test "should travel from lorencia to spiders" do
+  test "should travel in Lorencia to tavern" do
     assert_equal @character.map, @lorencia
 
-    post :travel, params: { id: @spiders.id }
-    @character.reload
+    post travel_adventure_path, params: { location_id: @tavern.id }
+    assert_redirected_to adventure_path
 
-    assert_equal @character.map, @spiders
+    @character.reload
+    assert_equal @character.location, @tavern
   end
 
-  test "should travel from lorencia to budge dragons cross spiders" do
+  test "should travel in Lorencia to blacksmith" do
     assert_equal @character.map, @lorencia
 
-    post :travel, params: { id: @spiders.id }
-    post :travel, params: { id: @budge_dragons.id }
+    post travel_adventure_path, params: { location_id: @blacksmith.id }
     @character.reload
 
-    assert_equal @character.map, @budge_dragons
+    assert_equal @character.location, @blacksmith
   end
 
-  test "should not travel from lorencia straight to the budge dragons" do
+  test "should travel in Lorencia to mage" do
     assert_equal @character.map, @lorencia
 
-    post :travel, params: { id: @budge_dragons.id }
+    post travel_adventure_path, params: { location_id: @mage.id }
     @character.reload
 
-    assert_equal "You cannot go there.", flash[:alert]
+    assert_equal @character.location, @mage
+  end
+
+  test "should travel in Lorencia to spiders" do
     assert_equal @character.map, @lorencia
+
+    post travel_adventure_path, params: { location_id: @spiders.id }
+    @character.reload
+
+    assert_equal @character.location, @spiders
   end
 
   test "should not travel to unknown map" do
-    post :travel, params: { id: 322 }
+    post travel_adventure_path, params: { location_id: 322 }
     @character.reload
 
     assert_redirected_to adventure_path
-    assert_equal "Location does not exist.", flash[:alert]
-    assert_equal @character.map, @lorencia
+    assert_equal "You cannot go there.", flash[:alert]
+    assert_nil @character.location
   end
 end

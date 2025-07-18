@@ -231,3 +231,22 @@ table td button {
   border-radius: 5px;
   color: #41e600;
 }
+
+table.quick-combat td {
+  text-align: center;
+}
+
+table.quick-combat .avatar {
+  width: 100px;
+  height: 100px;
+}
+
+.player-avatar {
+  background-color: #383838;
+  border: 1px solid #2e722e;
+}
+
+.enemy-avatar {
+  background-color: #6C6C6C;
+  border: 1px solid #ff1111;
+}
