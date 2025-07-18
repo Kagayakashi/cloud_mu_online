@@ -4,7 +4,7 @@ class AdventuresController < ApplicationController
   def show
     @map = Current.character.map
     @location = Current.character.location || @map
-    @locations = @map.locations.peace
+    @locations = @map.locations
   end
 
   def travel

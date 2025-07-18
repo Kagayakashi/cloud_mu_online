@@ -13,6 +13,11 @@ class AdventuresControllerTest < ActionDispatch::IntegrationTest
     @spiders = locations(:spiders)
   end
 
+  test "should open adventure" do
+    get adventure_path
+    assert_response :success
+  end
+
   test "should travel in Lorencia to tavern" do
     assert_equal @character.map, @lorencia
 

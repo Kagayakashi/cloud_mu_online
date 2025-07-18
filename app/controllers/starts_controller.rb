@@ -17,7 +17,7 @@ class StartsController < ApplicationController
           type: character_params[:type]
         ).call
 
-        if @character.persisted?
+        if @character.valid? && @character.persisted?
           start_new_session_for user
           redirect_to adventure_path and return
         else

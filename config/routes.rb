@@ -7,6 +7,9 @@ Rails.application.routes.draw do
 
   mount MissionControl::Jobs::Engine, at: "/jobs"
 
+  get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
+  get "service-worker.js" => "rails/pwa#service_worker", as: :pwa_service_worker
+
   # Defines the root path route ("/")
   root "starts#show"
 
@@ -20,9 +23,6 @@ Rails.application.routes.draw do
   resources :characters do
     post "activate", on: :member
   end
-
-  # Teleporting
-  resource :teleport, only: [ :new, :create ]
 
   # Add stats
   post "add_strength", to: "add_stats#strength"
