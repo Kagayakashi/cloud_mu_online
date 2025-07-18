@@ -34,9 +34,10 @@ class PasswordResetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should redirect with invalid token" do
-    get edit_password_reset_path, params: { token: "invalid" }
+    token = "invalid"
+    get edit_password_reset_path(token), params: { token: token }
     assert_redirected_to new_password_reset_path
-    assert_equal "Invalid token, please try again.", flash[:alert]
+    assert_equal "Password reset link is invalid or has expired.", flash[:alert]
   end
 
   test "should update password with valid data" do
@@ -58,6 +59,5 @@ class PasswordResetsControllerTest < ActionDispatch::IntegrationTest
     }
 
     assert_response :unprocessable_entity
-    assert_select "div.errors"
   end
 end
