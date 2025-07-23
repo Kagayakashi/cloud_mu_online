@@ -1,5 +1,5 @@
 <article>
-  <h1><%= I18n.t @location&.name, default: @location&.name %></h1>
+  <h1><%= I18n.t @map&.name %></h1>
   <%= render "adventures/#{@map.code}/#{@location.code}" if @map.code.present? && @location.code.present? %>
 
   <% if @location != @map %>

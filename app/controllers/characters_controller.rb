@@ -18,10 +18,11 @@ class CharactersController < ApplicationController
   end
 
   def create
+    ctype = Characters::PlayerRegistry.class_name_for(character_params[:type])
     character_creator_service = CharacterCreatorService.new(
       user: Current.user,
       name: character_params[:name],
-      type: character_params[:type]
+      type: ctype
     )
 
     @character = character_creator_service.call

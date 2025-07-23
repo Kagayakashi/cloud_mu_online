@@ -30,3 +30,7 @@
 en:
   maps:
     lorencia: "Lorencia City"
+  characters:
+    darkknight: "Dark Knight"
+    darkwizard: "Dark Wizard"
+    fairyelf: "Fairy Elf"

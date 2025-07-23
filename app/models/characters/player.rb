@@ -6,24 +6,19 @@ module Characters
     has_many :game_logs, class_name: "GameLogs::GameLog", foreign_key: "character_id", dependent: :destroy
 
     validates :user, presence: true
-
-    def self.order
-      raise NotImplementedError, "You must implement the method in Player subclass"
-    end
-
-    def self.character_types
-      subclasses.map do |subclass|
-        class_name = subclass.name.demodulize
-        formatted_name = class_name.gsub(/([a-z])([A-Z])/, '\1 \2').titleize
-        formatted_name = class_name.titleize if formatted_name.blank?
-        [ formatted_name, subclass.name ]
-      end.sort_by do |_, subclass_name|
-        subclass_name.constantize.order
-      end
-    end
+    validates :type, inclusion: {
+      in: Characters::PlayerRegistry.all.values,
+      message: "is not a valid character type"
+    }
 
     def attacks
       2
+    end
+
+    def profession
+      type.split("::").last # Get last part (e.g., "DarkKnight")
+          .underscore       # Convert "DarkKnight" -> "dark_knight"
+          .humanize         # Convert "dark_knight" -> "Dark Knight"
     end
 
     def restore
@@ -59,6 +54,10 @@ module Characters
 
     def add_gold(gold)
       self.update!(gold: self.gold + gold)
+    end
+
+    def self.order
+      raise NotImplementedError, "You must implement the method in Player subclass"
     end
 
     def has_wizardy?

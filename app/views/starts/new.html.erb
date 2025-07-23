@@ -15,7 +15,7 @@
 
     <div>
       <%= form.label :type %>
-      <%= form.select :type, Characters::Player.character_types %>
+      <%= form.select :type, Characters::PlayerRegistry.options_for_select %>
     </div>
 
     <div>

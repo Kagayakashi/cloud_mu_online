@@ -14,11 +14,5 @@ module Characters
     def dead?
       health <= 0
     end
-
-    def profession
-      type.split("::").last # Get last part (e.g., "DarkKnight")
-          .underscore       # Convert "DarkKnight" -> "dark_knight"
-          .humanize         # Convert "dark_knight" -> "Dark Knight"
-    end
   end
 end
