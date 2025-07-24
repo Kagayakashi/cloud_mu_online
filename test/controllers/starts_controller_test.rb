@@ -6,7 +6,7 @@ class StartsControllerTest < ActionDispatch::IntegrationTest
       post start_path, params: {
         characters_character: {
           name: "CreatedDarkKnight3",
-          type: "Characters::DarkKnight"
+          type: "darkknight"
         }
       }
     end
@@ -18,7 +18,7 @@ class StartsControllerTest < ActionDispatch::IntegrationTest
       post start_path, params: {
         characters_character: {
           name: "InvalidTypeCharacter",
-          type: "Characters::InvalidType"
+          type: "invalidtype"
         }
       }
     end
@@ -31,7 +31,7 @@ class StartsControllerTest < ActionDispatch::IntegrationTest
       post start_path, params: {
         characters_character: {
           name: "",
-          type: "Characters::DarkKnight"
+          type: "darkknight"
         }
       }
     end

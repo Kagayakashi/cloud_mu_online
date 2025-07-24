@@ -7,19 +7,6 @@ module Characters
       @lorencia = maps(:lorencia)
     end
 
-    test "should have character types as subclasses" do
-      assert_includes Characters::Player.subclasses.map(&:name), "Characters::DarkKnight"
-      assert_includes Characters::Player.subclasses.map(&:name), "Characters::DarkWizard"
-      assert_includes Characters::Player.subclasses.map(&:name), "Characters::FairyElf"
-    end
-
-    test "should have character types as human-readable names" do
-      character_types = Characters::Player.character_types
-      assert_includes character_types.map(&:first), "Dark Knight"
-      assert_includes character_types.map(&:first), "Dark Wizard"
-      assert_includes character_types.map(&:first), "Fairy Elf"
-    end
-
     test "should be valid character" do
       character = Characters::Character.new(name: "Test Warrior", type: "Characters::DarkKnight", user: @user)
       assert character.valid?

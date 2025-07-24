@@ -1,15 +1,12 @@
 module Characters
   class Player < Character
+    before_validation :abort_if_invalid_type
     before_validation :calculate_params!, if: :new_record?
 
     belongs_to :user
     has_many :game_logs, class_name: "GameLogs::GameLog", foreign_key: "character_id", dependent: :destroy
 
     validates :user, presence: true
-    validates :type, inclusion: {
-      in: Characters::PlayerRegistry.all.values,
-      message: "is not a valid character type"
-    }
 
     def attacks
       2
@@ -64,10 +61,6 @@ module Characters
       raise NotImplementedError, "You must implement the method in Player subclass"
     end
 
-    def set_default_stats!
-      raise NotImplementedError, "You must implement the method in Player subclass"
-    end
-
     def calculate_attack_rate
       raise NotImplementedError, "You must implement the method in Player subclass"
     end
@@ -118,6 +111,17 @@ module Characters
     end
 
     private
+
+    def abort_if_invalid_type
+      unless Characters::PlayerRegistry.all.values.include?(self[:type])
+        errors.add(:type, I18n.t("errors.invalid_character_type", default: "is not a valid character type"))
+        throw(:abort)
+      end
+    end
+
+    def set_default_stats!
+      raise NotImplementedError, "You must implement the method in Player subclass"
+    end
 
     def calculate_params!
       set_default_stats!
