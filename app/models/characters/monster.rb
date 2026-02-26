@@ -1,7 +1,5 @@
 module Characters
   class Monster < Character
-    validates :location, presence: true
-
     before_create :calculate_params
 
     def attacks

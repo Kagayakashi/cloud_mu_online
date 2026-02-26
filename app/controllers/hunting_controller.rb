@@ -1,12 +1,13 @@
 class HuntingController < ApplicationController
   def index
-    @spots = Current.character.map.locations.spots
+    @monsters = Current.character.city.monsters
   end
 
   def show
-    @spot = Current.character.map.locations.spots.find(params[:id])
-    return redirect_to hunting_path, alert: "Invalid spot" unless @spot
-
-    @monster = @spot.monsters.order("RANDOM()").first
+    begin
+      @monster = Characters::Monster.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to hunting_index_path, alert: "Monster not found."
+    end
   end
 end

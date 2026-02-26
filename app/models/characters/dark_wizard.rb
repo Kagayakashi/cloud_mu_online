@@ -47,7 +47,7 @@ module Characters
     private
 
     def set_default_stats!
-      self.map = Map.first
+      self.city = City.first
       self.strength = 18
       self.agility = 18
       self.vitality = 15

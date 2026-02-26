@@ -1,9 +1,10 @@
 <article>
-  <h1>Spots with monsters</h1>
+  <h1>Monsters around</h1>
+
   <ul class="menu">
-    <% @spots.each do |spot| %>
+    <% @monsters.each do |m| %>
       <li class="menu-item">
-        <%= link_to spot.name, hunting_path(spot) %>
+        <%= link_to m.name, hunting_path(m) %>
       </li>
     <% end %>
   </ul>

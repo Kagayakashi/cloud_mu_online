@@ -1,14 +1,15 @@
 <article>
-  <h1><%= I18n.t @map&.name %></h1>
-  <%= render "adventures/#{@map.code}/#{@location.code}" if @map.code.present? && @location.code.present? %>
+  <h1><%= @city&.name %></h1>
 
-  <% if @location != @map %>
-    <ul class="menu">
+  <ul class="menu">
+    <% @locations.each do |loc| %>
       <li class="menu-item">
-        <%= button_to I18n.t(@map.name, default: @map.name),
-          url_for(controller: :adventures, action: :travel),
-          :method => :post %>
+        <%= link_to loc.name, location_path(loc) %>
       </li>
-    </ul>
-  <% end %>
+    <% end %>
+
+    <li class="menu-item">
+      <%= link_to "Hunting", hunting_index_path %>
+    </li>
+  </ul>
 </article>

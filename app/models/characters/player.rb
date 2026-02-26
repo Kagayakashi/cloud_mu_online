@@ -1,7 +1,7 @@
 module Characters
   class Player < Character
     before_validation :abort_if_invalid_type
-    before_validation :calculate_params!, if: :new_record?
+    before_validation :calculate_params_init!, if: :new_record?
 
     belongs_to :user
     has_many :game_logs, class_name: "GameLogs::GameLog", foreign_key: "character_id", dependent: :destroy
@@ -31,6 +31,7 @@ module Characters
     def add_experience(xp)
       remaining_xp = xp
       new_level = self.level
+      new_points = self.points
       new_experience = self.experience
 
       while remaining_xp > 0
@@ -38,6 +39,7 @@ module Characters
 
         if remaining_xp >= xp_needed
           new_level += 1
+          new_points += 5
           remaining_xp -= xp_needed
           new_experience = 0
         else
@@ -46,7 +48,7 @@ module Characters
         end
       end
 
-      self.update!(level: new_level, experience: new_experience)
+      self.update!(level: new_level, points: new_points, experience: new_experience)
     end
 
     def add_gold(gold)
@@ -110,6 +112,20 @@ module Characters
       10
     end
 
+    def calculate_params!
+      self.max_experience = calculate_max_experience
+      self.attack_rate = calculate_attack_rate
+      self.min_attack = calculate_min_attack
+      self.max_attack = calculate_max_attack
+      self.defense_rate = calculate_defense_rate
+      self.defense = calculate_defense
+      self.max_health = calculate_health
+      self.max_mana = calculate_mana
+      self.health = max_health
+      self.mana = max_mana
+      save!
+    end
+
     private
 
     def abort_if_invalid_type
@@ -123,18 +139,9 @@ module Characters
       raise NotImplementedError, "You must implement the method in Player subclass"
     end
 
-    def calculate_params!
+    def calculate_params_init!
       set_default_stats!
-      self.max_experience = calculate_max_experience
-      self.attack_rate = calculate_attack_rate
-      self.min_attack = calculate_min_attack
-      self.max_attack = calculate_max_attack
-      self.defense_rate = calculate_defense_rate
-      self.defense = calculate_defense
-      self.max_health = calculate_health
-      self.max_mana = calculate_mana
-      self.health = max_health
-      self.mana = max_mana
+      calculate_params!
     end
 
     def can_restore?

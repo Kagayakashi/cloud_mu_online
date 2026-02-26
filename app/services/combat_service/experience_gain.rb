@@ -55,6 +55,8 @@ module CombatService
       @player_character.experience -= @player_character.max_experience
       @player_character.max_experience = @player_character.calculate_max_experience
 
+      puts @player_character.inspect
+
       @level = @player_character.level
     end
 

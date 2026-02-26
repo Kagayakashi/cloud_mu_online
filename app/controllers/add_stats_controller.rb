@@ -29,6 +29,8 @@ class AddStatsController < ApplicationController
       stat => Current.character.send(stat) + 1
     )
 
+    Current.character.calculate_params!
+
     redirect_to character_path(Current.character),
       notice: "#{stat.capitalize} increased."
   end

@@ -2,9 +2,8 @@ class AdventuresController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def show
-    @map = Current.character.map
-    @location = Current.character.location || @map
-    @locations = @map.locations
+    @city = Current.character.city
+    @locations = @city.locations
   end
 
   def travel

@@ -12,4 +12,10 @@
       <% end %>
     </article>
   <% end %>
+
+  <ul class="menu">
+    <li class="menu-item">
+      <%= link_to @monster.name, hunting_path(@monster) %>
+    </li>
+  </ul>
 </article>

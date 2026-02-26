@@ -8,8 +8,9 @@ class CharacterCreatorService
   def call
     @character = Characters::Player.new(user: @user, type: @type, name: @name)
 
-    if @user.characters.empty? && @character.save
-      @user.update(character: @character)
+    is_first_character = @user.characters.count.zero?
+    if @character.save && is_first_character
+      @user.update_attribute(:character, @character)
     end
 
     @character
